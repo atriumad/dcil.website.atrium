@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head><link rel="stylesheet" href="../tokens/tokens.css"><link rel="stylesheet" href="../components/bundle.css"><script src="lib/react.production.min.js"></script><script src="lib/react-dom.production.min.js"></script><script src="../components/bundle.js"></script><style>.dc-theme-toggle{position:fixed;right:16px;bottom:16px;z-index:99;padding:10px 16px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:800 12px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}</style>
+<meta charset="utf-8">
+<title>Don Chuy's</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--surface); color:var(--ink); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; height:320px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:320px; overflow:hidden; }
+  .art svg { display:block; width:480px; height:320px; }
+  .sage { fill:var(--teal-700); } .rose { fill:var(--chuy-rose); } .mari { fill:var(--marigold); } .agave { fill:var(--navy); } .ink { fill:var(--chuy-red); }
+  .p-agave { fill:var(--navy); } .p-mari { fill:var(--marigold); } .p-cream { fill:var(--surface); }
+  .words { position:absolute; left:var(--space-6); bottom:var(--space-6); max-width:440px; }
+  .name { margin:0; font-family:var(--font-display); font-size:120px; line-height:.88; text-transform:lowercase; font-weight:400; color:var(--deep-red); }
+  .tag { margin:var(--space-2) 0 0 4px; font-size:14px; line-height:20px; color:var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 320" width="480" height="320">
+<!--
+  blocks      teal-700 arch 208×296 (the site's teal, largest, arch = the PhotoFrame doorway) · chuy-rose 256×176 bled top+right · marigold disc 112 (the Stamp) · navy 144×96 bled right — each with a 3px chuy-red offset echoing the site's CTA red
+  arrangement one tall sage arch with a rose slab and two satellites, bottoms flush space-6 above the edge, space-4 gutters
+  pattern     pills, from "Pills everywhere" and the Daily Specials board: four navy day pills stacked at a space-7 pitch in the arch, three marigold pills on rose, two white pills on navy
+  scales      gutters space-4 (16); pitch space-7 (48); pill height space-6 (32), rx half; slab corners radius-lg; sticker offset 3px
+-->
+<path class="ink" d="M3 291V107a104 104 0 0 1 208 0v184z"/>
+<path class="sage" d="M0 288V104a104 104 0 0 1 208 0v184z"/>
+<rect class="p-agave" x="24" y="96" width="160" height="32" rx="16"/>
+<rect class="p-agave" x="24" y="144" width="128" height="32" rx="16"/>
+<rect class="p-agave" x="24" y="192" width="160" height="32" rx="16"/>
+<rect class="p-agave" x="24" y="240" width="104" height="32" rx="16"/>
+<rect class="ink" x="227" y="-21" width="256" height="176" rx="24"/>
+<rect class="rose" x="224" y="-24" width="256" height="176" rx="24"/>
+<rect class="p-mari" x="248" y="40" width="96" height="32" rx="16"/>
+<rect class="p-mari" x="248" y="88" width="152" height="32" rx="16"/>
+<rect class="p-mari" x="360" y="40" width="72" height="32" rx="16"/>
+<circle class="ink" cx="283" cy="235" r="56"/>
+<circle class="mari" cx="280" cy="232" r="56"/>
+<rect class="ink" x="355" y="195" width="144" height="96" rx="24"/>
+<rect class="agave" x="352" y="192" width="144" height="96" rx="24"/>
+<rect class="p-cream" x="368" y="208" width="88" height="32" rx="16"/>
+<rect class="p-cream" x="368" y="248" width="56" height="24" rx="12"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Don<br>Chuy's</h1>
+<p class="tag">Real-deal Mexican flavor, from León to your table.</p>
+</div>
+</div>
+<button class="dc-theme-toggle" onclick="var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark'">Light / Dark</button></body>
+</html>

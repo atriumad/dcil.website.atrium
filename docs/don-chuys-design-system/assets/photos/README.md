@@ -1,0 +1,1 @@
+Crops from Don Chuy's own shoots (taken from the Lunch Time and Daily Specials pieces): four top-down plates for `PhotoFrame` circles and `DishCard`s (fajita skillet, enchilada plate, shrimp & chorizo rice, veggie plate) and a wide table spread for heroes and `FeatureSplit`. Low resolution (≈600px plates): replace with originals from the shoot before launch.

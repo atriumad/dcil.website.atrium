@@ -1,69 +1,219 @@
-import Image from "next/image";
+import { locations } from "@/data/locations";
+import { menu } from "@/data/menu";
+import { siteContent } from "@/data/site";
+import {
+  CategoryGrid,
+  ColorSplit,
+  DishCard,
+  Footer,
+  Hero,
+  LocationCard,
+  Marquee,
+  NavBar,
+  Newsletter,
+  PosterCard,
+  PromoBanner,
+  SectionHeader,
+  SocialGrid,
+  SpecialsBoard,
+  ValueProps,
+} from "@/components/dc";
+
+const navLinks = [
+  { label: "Menu", href: "/menu" },
+  { label: "Specials", href: "/happy-hour" },
+  { label: "Locations", href: "/locations" },
+  { label: "Catering", href: "/catering" },
+  { label: "About", href: "/about" },
+];
+
+const mapsUrl = (address: string) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+
+const container = "mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter-mobile)] md:px-[var(--gutter-desktop)]";
+
+// Real reviewed menu items (needsCopyReview: false) with confirmed descriptions —
+// no stock/mismatched photos are used since these dishes have no confirmed photo yet.
+const signatureDishes = menu
+  .flatMap((category) => category.items.map((item) => ({ ...item, category: category.name })))
+  .filter((item) => !item.needsCopyReview)
+  .filter((item) => ["Steak & Lobster", "Pulpo Zarandeado", "Tostada de Ceviche"].includes(item.name));
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <header className="sticky top-0 z-40">
+        <NavBar links={navLinks} cta="Order Online" ctaHref="/locations" />
+      </header>
+
+      <main className="flex-1">
+        <Hero
+          variant="photo"
+          eyebrow="Fresh Mex & Cantina"
+          title="Real-deal *Mexican* flavor from our family to yours"
+          lede={siteContent.hero.subheadline}
+          primary="View Menu"
+          primaryHref="/menu"
+          secondary="Find a Location"
+          secondaryHref="/locations"
+          image={{ src: "/images/photos/table-spread.webp", alt: "A table set with ceviche, mole enchiladas, a seafood boil, grilled meats and a margarita" }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+
+        <div className={`${container} py-[var(--space-8)]`}>
+          <ValueProps
+            items={[
+              { icon: "sparkle", title: "Freshest ingredients", text: "We are proud to use the freshest ingredients in every dish we serve." },
+              { icon: "agave", title: "Recipes from León", text: "Family recipes passed down through generations, from León, Mexico." },
+              { icon: "flame", title: "Josper-grilled", text: "Smoky char from our Josper grill in every dish, every time." },
+              { icon: "utensils", title: "Come for the fun", text: "Come for the food, stay for the fun — every visit feels like family." },
+            ]}
+          />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+
+        <div className={container}>
+          <ColorSplit
+            tone="marigold"
+            eyebrow="Nuestra historia"
+            title="Family *roots*, big flavor"
+            body={siteContent.about.body}
+            cta="Our Story"
+            ctaHref="/about"
+            image={{ src: "/images/photos/dish-steak-rice-plate.webp", alt: "Grilled steak with rice, beans and grilled vegetables on a plate" }}
+          />
+        </div>
+
+        <div className="my-[var(--space-8)]">
+          <Marquee tone="rose" />
+        </div>
+
+        <div className={`${container} pb-[var(--space-8)]`}>
+          <SectionHeader align="center" eyebrow="La comida" title="What are *you* craving?" size="m" className="mx-auto mb-[var(--space-6)] text-center" />
+          <CategoryGrid
+            items={[
+              { name: "Tacos", tone: "rose", icon: "taco", href: "/menu#tacos" },
+              { name: "La Cevichería", tone: "teal", icon: "lime", href: "/menu#cevicheria" },
+              { name: "Steak House", tone: "marigold", icon: "flame", href: "/menu#steak-house" },
+              { name: "Drinks", tone: "navy", icon: "margarita", href: "/menu#drinks" },
+            ]}
+          />
+        </div>
+
+        <div className={container}>
+          <ColorSplit
+            tone="rose"
+            reverse
+            eyebrow="Fast fresh & delicious"
+            title="Fresh *off* the grill"
+            body="Smoky char, bold flavor, made to order — every dish comes straight from our Josper grill to your table."
+            cta="View Menu"
+            ctaHref="/menu"
+            image={{ src: "/images/photos/dish-fajita-skillet.webp", alt: "Fajitas sizzling in a cast-iron skillet on a wooden board" }}
+          />
+        </div>
+
+        <div className={`${container} py-[var(--space-8)]`}>
+          <SectionHeader align="center" eyebrow="Explora" title="This *week*" size="m" className="mx-auto mb-[var(--space-6)] text-center" />
+          <div className="grid gap-[var(--space-6)] sm:grid-cols-2 lg:grid-cols-3">
+            <PosterCard
+              word="TACOS"
+              tone="teal"
+              title="Tacos al Carbón"
+              meta="Charcoal-grilled, every day"
+              sticker={"LET'S TACO\n'BOUT IT"}
+              href="/menu#tacos"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <PosterCard word="MARISCOS" tone="rose" title="La Cevichería" meta="Ceviche, aguachiles & more" href="/menu#cevicheria" />
+            <PosterCard word="CANTINA" tone="marigold" title="Happy Hour" meta={siteContent.dailySpecials.subtitle} href="/happy-hour" />
+          </div>
+        </div>
+
+        <div className={`${container} pb-[var(--space-8)]`}>
+          <SpecialsBoard
+            title={siteContent.dailySpecials.title}
+            subtitle={siteContent.dailySpecials.subtitle}
+            specials={[...siteContent.dailySpecials.specials]}
+            drinks={[...siteContent.dailySpecials.drinks]}
+            plate={{ src: "/images/photos/dish-taco-in-hand.webp", alt: "A street taco held up, part of the 3 tacos daily special" }}
+          />
+        </div>
+
+        <div className={`${container} pb-[var(--space-8)]`}>
+          <SectionHeader align="center" eyebrow="Nuestros favoritos" title="Signature *dishes*" size="m" className="mx-auto mb-[var(--space-6)] text-center" />
+          <div className="grid gap-[var(--space-6)] sm:grid-cols-3">
+            {signatureDishes.map((dish) => (
+              <DishCard
+                key={dish.name}
+                name={dish.name}
+                description={dish.description}
+                tags={dish.tags.map((t) => t.charAt(0).toUpperCase() + t.slice(1))}
+                variant="plate"
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className={`${container} pb-[var(--space-8)]`}>
+          <PromoBanner
+            tone="marigold"
+            kicker="Everyday drinks"
+            title="HAPPY *hour*, every hour"
+            lede="No clock-watching — these drink prices run every day, all day."
+            deals={siteContent.dailySpecials.drinks.map((drink) => ({ name: drink.name, price: drink.price, icon: drink.icon }))}
+            cta="Find a Location"
+            ctaHref="/locations"
+          />
+        </div>
+
+        <section id="locations" className={`${container} py-[var(--space-7)] md:py-[var(--space-8)]`}>
+          <SectionHeader
+            align="center"
+            eyebrow="Visit us"
+            title="Find your *table*"
+            lede="Three restaurants open, a fourth on the way. Come for the food, stay for the fun!"
+          />
+          <div className="mt-[var(--space-7)] grid gap-[var(--space-5)] sm:grid-cols-2 lg:grid-cols-4">
+            {locations.map((location) => (
+              <LocationCard
+                key={location.slug}
+                city={location.name}
+                address={location.address || undefined}
+                phone={location.phone || undefined}
+                hours={location.hours.map((row) => `${row.days}|${row.time}`)}
+                comingSoon={location.comingSoon}
+                href={location.address ? mapsUrl(location.address) : `/locations/${location.slug}`}
+              />
+            ))}
+          </div>
+        </section>
+
+        <div className={`${container} pb-[var(--space-8)]`}>
+          <SocialGrid
+            images={[
+              { src: "/images/photos/interior-eagle-mural.webp", alt: "Colorful eagle mural on a brick wall inside the restaurant" },
+              { src: "/images/photos/drink-pink-margarita-talavera.webp", alt: "A pink margarita served in a blue-rimmed talavera glass" },
+              { src: "/images/photos/dish-carne-asada-cutting.webp", alt: "Carne asada being sliced on a sizzling plate" },
+              { src: "/images/photos/interior-stone-lion.webp", alt: "A carved stone lion statue at the restaurant entrance" },
+              { src: "/images/photos/drink-flight-margaritas.webp", alt: "A flight of colorful margaritas on a serving stand" },
+              { src: "/images/photos/dish-churros-dipping.webp", alt: "Churros with an assortment of dipping sauces" },
+            ]}
+          />
+        </div>
+
+        <div className={`${container} pb-[var(--space-8)]`}>
+          <Newsletter />
         </div>
       </main>
-    </div>
+
+      <Footer
+        locations={locations.map((location) => ({ city: location.name, address: location.address }))}
+        links={[
+          { label: "Menu", href: "/menu" },
+          { label: "Specials", href: "/happy-hour" },
+          { label: "Catering", href: "/catering" },
+          { label: "Locations", href: "/locations" },
+          { label: "Contact", href: "/contact" },
+        ]}
+      />
+    </>
   );
 }

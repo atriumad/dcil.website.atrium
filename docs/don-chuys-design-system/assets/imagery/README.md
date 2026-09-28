@@ -1,0 +1,1 @@
+Real Don Chuy's social pieces kept as campaign references: `lunch-time-poster.webp` (4:5 feed post) and `daily-specials-story.webp` (9:16 story). Both use the `sage` ground, `ornament` borders, `poster-xl` headlines in white with the `!` swap, and top-down cut-out plates with `shadow-lift`.

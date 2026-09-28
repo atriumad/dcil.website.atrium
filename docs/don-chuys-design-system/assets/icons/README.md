@@ -1,0 +1,1 @@
+Original Don Chuy's line icons: 24px grid, 2px round stroke, drawn in `ink` (#222222) for `<img>` use. In code use the `Icon` component, which inherits `currentColor`. Food & drink: chile, lime, avocado, taco, corn, agave, margarita, beer, flame, utensils, sparkle. UI: pin, clock, phone, calendar, bag, mail, arrow-right, arrow-up-right, menu, close, plus.

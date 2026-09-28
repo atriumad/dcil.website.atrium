@@ -1,0 +1,32 @@
+<!-- @dsCard group="Foundations" height=300 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Icon — preview</title>
+<style>body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--font-sans);} #root{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;padding:24px;} .cell{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 4px;border-radius:16px;background:var(--surface);font:700 11px/1.2 var(--font-sans);color:var(--ink-muted);} .cell svg{color:var(--ink)}</style></head>
+<body>
+<div id="root"></div>
+<script>
+var D = window.DonChuys, h = React.createElement, F = React.Fragment;
+var IMG = {"enchilada": "/_blob/1c414ae640f1651d015b6d69a22214e4", "fajita": "/_blob/3b15d06c26d6b34c69f5bdca1491dd95", "shrimp": "/_blob/ce4b807037164aedfee6661eeb89d4ff", "veggie": "/_blob/2aaddd5cc84ab90a0f8b054c9c78ca1d", "table": "/_blob/5980f61eef8699ebe5ffc851efbc2bca"};
+var LOCS = [
+  {city:'Overland Park, KS', address:'8725 Metcalf Ave, Overland Park, KS 66212', phone:'+1 816-603-2124', hours:['Mon–Thu|11am–10pm','Fri–Sun|11am–10:30pm']},
+  {city:"Lee's Summit, MO", address:"701 SE Melody Ln, Lee's Summit, MO 64063", phone:'+1 816-434-5222', hours:['Every day|11am–10pm']},
+  {city:'Johnson City, TN', address:'3101 W Market St #101, Johnson City, TN 37604', phone:'+1 423-328-3475', hours:['Mon–Thu|11am–10pm','Fri–Sat|11am–10:30pm','Sun|11am–9:30pm']},
+  {city:"O'Fallon, IL", comingSoon:true}
+];
+var SPECIALS = [
+  {day:'Monday', item:'Carnitas', price:'$10'},
+  {day:'Tuesday', item:'3 tacos for', price:'$5.75', note:'(ground beef & shredded chicken)'},
+  {day:'Wednesday', item:'Regular ACP', price:'$13.50'},
+  {day:'Thursday', item:'Combos 1 to 4 for', price:'$13'}
+];
+var PLATES = [{src:IMG.fajita,alt:'Chicken fajitas in a cast-iron skillet'},{src:IMG.shrimp,alt:'Shrimp and chorizo over rice'},{src:IMG.enchilada,alt:'Enchiladas on a talavera plate'},{src:IMG.veggie,alt:'Grilled veggie plate with rice and beans'}];
+var CATS = [{name:'Tacos',note:'three per order',image:PLATES[1]},{name:'Fajitas',note:'sizzling!',image:PLATES[0]},{name:'Mariscos',note:'from the coast',image:PLATES[2]},{name:'Drinks',note:'salud!',icon:'margarita'}];
+var VALUES = [{icon:'lime',title:'Freshest ingredients',script:'every day',text:'We are proud to use the freshest ingredients in every plate.'},{icon:'agave',title:'Recipes from León',script:'family roots',text:'Our family roots go deep, bringing recipes from León, Mexico right to your table.'},{icon:'flame',title:'Smoky-grilled',script:'sizzling',text:'From sizzling specials to family favorites, straight off the grill.'},{icon:'margarita',title:'Come for the fun',script:'salud!',text:'Come for the food, stay for the fun: a mini vacation in your own neighborhood.'}];
+var SOCIAL = PLATES.concat([{src:IMG.table,alt:'A table full of dishes and drinks'},{src:IMG.shrimp,alt:'Shrimp plate close-up'}]);
+var DRINKS = [{name:'House margarita 16oz', price:'$5.75', icon:'margarita'}, {name:'Draft beer 16oz', price:'$4', icon:'beer'}];
+
+ReactDOM.createRoot(document.getElementById('root')).render(h(F,null,D.Icon.names.map(function(n){return h('div',{key:n,className:'cell'},h(D.Icon,{name:n,size:28}),n);})));
+</script>
+</body>
+</html>

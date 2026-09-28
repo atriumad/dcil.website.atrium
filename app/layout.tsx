@@ -1,26 +1,35 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Libre_Baskerville, Work_Sans } from "next/font/google";
+import localFont from "next/font/local";
+import { Bebas_Neue, Figtree, Yellowtail } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// Display: Eudora (brand face, lowercase set draws "i" as "!"; fallback Bebas Neue for punctuation/$/&/accents).
+// Script: Yellowtail (headline accent, kickers). Sans: Figtree (body, UI).
+// Stacks are wired to these variables in globals.css (@theme static).
+const eudora = localFont({
+  src: "./fonts/eudora-regular.woff2",
+  weight: "400",
+  style: "normal",
+  variable: "--font-eudora",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bebas",
 });
 
-const headingFont = Libre_Baskerville({
+const yellowtail = Yellowtail({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-libre-baskerville",
+  weight: "400",
+  variable: "--font-yellowtail",
 });
 
-const bodyFont = Work_Sans({
+const figtree = Figtree({
   subsets: ["latin"],
-  variable: "--font-work-sans",
+  weight: ["400", "500", "700", "800", "900"],
+  variable: "--font-figtree",
 });
 
 export const metadata: Metadata = {
@@ -32,9 +41,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${headingFont.variable} ${bodyFont.variable} h-full antialiased`}
+      className={`${eudora.variable} ${bebasNeue.variable} ${yellowtail.variable} ${figtree.variable} h-full antialiased`}
     >
-      <body className="font-body min-h-full flex flex-col">{children}</body>
+      <body className="font-sans min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

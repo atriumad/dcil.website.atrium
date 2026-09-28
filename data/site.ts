@@ -15,6 +15,20 @@ export const siteContent = {
     "Grilled to Perfection, Served with Cariño.",
     "Three (soon four) locations. One unforgettable experience.",
   ],
+  dailySpecials: {
+    title: "DA!LY SPEC!ALS",
+    subtitle: "Every day a special — all day",
+    specials: [
+      { day: "Monday", item: "Carnitas", price: "$10" },
+      { day: "Tuesday", item: "3 Tacos for", price: "$5.75", note: "Ground beef & shredded chicken" },
+      { day: "Wednesday", item: "Regular ACP", price: "$13.50" },
+      { day: "Thursday", item: "Combos 1 to 4 for", price: "$13" },
+    ],
+    drinks: [
+      { name: "House Margarita 16oz", price: "$5.75", icon: "margarita" as const },
+      { name: "Draft Beer 16oz", price: "$4", icon: "beer" as const },
+    ],
+  },
   seoDefaults: {
     titleTemplate: "%s | Don Chuy's Fresh Mex & Cantina",
     homeTitle: "Don Chuy's Fresh Mex & Cantina | Authentic Mexican Restaurant in Kansas City & Beyond",

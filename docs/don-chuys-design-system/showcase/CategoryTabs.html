@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head><link rel="stylesheet" href="../tokens/tokens.css"><link rel="stylesheet" href="../components/bundle.css"><script src="lib/react.production.min.js"></script><script src="lib/react-dom.production.min.js"></script><script src="../components/bundle.js"></script><style>.dc-theme-toggle{position:fixed;right:16px;bottom:16px;z-index:99;padding:10px 16px;border-radius:4px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:800 12px var(--font-sans);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}</style><meta charset="utf-8"><title>CategoryTabs — preview</title>
+<style>body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--font-sans);} #root{padding:32px;}</style></head>
+<body>
+<div id="root"></div>
+<script>
+var D = window.DonChuys, h = React.createElement, F = React.Fragment;
+var IMG = {"enchilada": "../assets/photos/dish-enchilada-plate.webp", "fajita": "../assets/photos/dish-fajita-skillet.webp", "shrimp": "../assets/photos/dish-shrimp-rice.webp", "veggie": "../assets/photos/dish-veggie-plate.webp", "table": "../assets/photos/table-spread.webp"};
+var LOCS = [
+  {city:'Overland Park, KS', address:'8725 Metcalf Ave, Overland Park, KS 66212', phone:'+1 816-603-2124', hours:['Mon–Thu|11am–10pm','Fri–Sun|11am–10:30pm']},
+  {city:"Lee's Summit, MO", address:"701 SE Melody Ln, Lee's Summit, MO 64063", phone:'+1 816-434-5222', hours:['Every day|11am–10pm']},
+  {city:'Johnson City, TN', address:'3101 W Market St #101, Johnson City, TN 37604', phone:'+1 423-328-3475', hours:['Mon–Thu|11am–10pm','Fri–Sat|11am–10:30pm','Sun|11am–9:30pm']},
+  {city:"O'Fallon, IL", comingSoon:true}
+];
+var SPECIALS = [
+  {day:'Monday', item:'Carnitas', price:'$10'},
+  {day:'Tuesday', item:'3 tacos for', price:'$5.75', note:'(ground beef & shredded chicken)'},
+  {day:'Wednesday', item:'Regular ACP', price:'$13.50'},
+  {day:'Thursday', item:'Combos 1 to 4 for', price:'$13'}
+];
+var PLATES = [{src:IMG.fajita,alt:'Chicken fajitas in a cast-iron skillet'},{src:IMG.shrimp,alt:'Shrimp and chorizo over rice'},{src:IMG.enchilada,alt:'Enchiladas on a talavera plate'},{src:IMG.veggie,alt:'Grilled veggie plate with rice and beans'}];
+var CATS = [{name:'Tacos',note:'three per order',image:PLATES[1]},{name:'Fajitas',note:'sizzling!',image:PLATES[0]},{name:'Mariscos',note:'from the coast',image:PLATES[2]},{name:'Drinks',note:'salud!',icon:'margarita'}];
+var VALUES = [{icon:'lime',title:'Freshest ingredients',script:'every day',text:'We are proud to use the freshest ingredients in every plate.'},{icon:'agave',title:'Recipes from León',script:'family roots',text:'Our family roots go deep, bringing recipes from León, Mexico right to your table.'},{icon:'flame',title:'Smoky-grilled',script:'sizzling',text:'From sizzling specials to family favorites, straight off the grill.'},{icon:'margarita',title:'Come for the fun',script:'salud!',text:'Come for the food, stay for the fun: a mini vacation in your own neighborhood.'}];
+var SOCIAL = PLATES.concat([{src:IMG.table,alt:'A table full of dishes and drinks'},{src:IMG.shrimp,alt:'Shrimp plate close-up'}]);
+var DRINKS = [{name:'House margarita 16oz', price:'$5.75', icon:'margarita'}, {name:'Draft beer 16oz', price:'$4', icon:'beer'}];
+
+ReactDOM.createRoot(document.getElementById('root')).render(h(D.CategoryTabs,null));
+</script>
+<button class="dc-theme-toggle" onclick="var h=document.documentElement;h.dataset.theme=h.dataset.theme==='dark'?'light':'dark'">Light / Dark</button></body>
+</html>

@@ -1,0 +1,1 @@
+Showcase page: how every component composes into the Don Chuy's home page (header, split hero, marquee, signature dishes, specials board, story, promo, locations, newsletter, footer). A layout reference, not a bundle export.
