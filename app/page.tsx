@@ -56,7 +56,8 @@ export default function Home() {
           primaryHref="/menu"
           secondary="Find a Location"
           secondaryHref="/locations"
-          image={{ src: "/images/photos/table-spread.webp", alt: "A table set with ceviche, mole enchiladas, a seafood boil, grilled meats and a margarita" }}
+          image={{ src: "/images/photos/spread-seafood-boil-wide.webp", alt: "A table spread with a seafood boil, ceviche and grilled steak" }}
+          mobileImage={{ src: "/images/photos/spread-seafood-boil-close.webp", alt: "A seafood boil, ceviche and grilled steak spread across the table" }}
         />
 
         <div className={`${container} py-[var(--space-8)]`}>
@@ -78,7 +79,7 @@ export default function Home() {
             body={siteContent.about.body}
             cta="Our Story"
             ctaHref="/about"
-            image={{ src: "/images/photos/dish-steak-rice-plate.webp", alt: "Grilled steak with rice, beans and grilled vegetables on a plate" }}
+            image={{ src: "/images/photos/dish-enchilada-hands.webp", alt: "Sharing enchiladas and eggs at the table" }}
           />
         </div>
 
@@ -107,7 +108,7 @@ export default function Home() {
             body="Smoky char, bold flavor, made to order — every dish comes straight from our Josper grill to your table."
             cta="View Menu"
             ctaHref="/menu"
-            image={{ src: "/images/photos/dish-fajita-skillet.webp", alt: "Fajitas sizzling in a cast-iron skillet on a wooden board" }}
+            image={{ src: "/images/photos/dish-carne-asada-cutting.webp", alt: "Carving carne asada on a sizzling platter" }}
           />
         </div>
 
@@ -191,7 +192,7 @@ export default function Home() {
             images={[
               { src: "/images/photos/interior-eagle-mural.webp", alt: "Colorful eagle mural on a brick wall inside the restaurant" },
               { src: "/images/photos/drink-pink-margarita-talavera.webp", alt: "A pink margarita served in a blue-rimmed talavera glass" },
-              { src: "/images/photos/dish-carne-asada-cutting.webp", alt: "Carne asada being sliced on a sizzling plate" },
+              { src: "/images/photos/dish-grilled-skewer-molcajete.webp", alt: "A molcajete of grilled seafood beside carne asada" },
               { src: "/images/photos/interior-stone-lion.webp", alt: "A carved stone lion statue at the restaurant entrance" },
               { src: "/images/photos/drink-flight-margaritas.webp", alt: "A flight of colorful margaritas on a serving stand" },
               { src: "/images/photos/dish-churros-dipping.webp", alt: "Churros with an assortment of dipping sauces" },

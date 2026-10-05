@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { menu } from "@/data/menu";
 import { locations } from "@/data/locations";
-import { Footer, NavBar, Newsletter, Pattern, PromoBanner, SectionHeader } from "@/components/dc";
+import { Footer, NavBar, Newsletter, PromoBanner, SectionHeader } from "@/components/dc";
 import { MenuBrowser } from "./menu-filter";
 
 export const metadata: Metadata = {
@@ -27,14 +27,12 @@ export default function MenuPage() {
       </header>
 
       <main className="flex-1">
-        <div className={`${container} relative overflow-hidden pt-10 pb-[var(--space-6)]`}>
-          <Pattern name="doodles" tone="paper-deep" className="pointer-events-none absolute inset-0 opacity-70" size={220} />
+        <div className={`${container} pt-10 pb-[var(--space-6)]`}>
           <SectionHeader
-            size="l"
+            size="m"
             eyebrow="La comida"
             title="What are *you* craving?"
-            lede="Every dish is Josper-grilled and made fresh. Filter by tag or search for a favorite."
-            className="relative"
+            lede="Every dish is Josper-grilled and made fresh. Jump to a section or search for a favorite."
           />
         </div>
 

@@ -34,7 +34,7 @@ export default function AboutPage() {
             primaryHref="/menu"
             secondary="Find a Location"
             secondaryHref="/locations"
-            image={{ src: "/images/photos/table-spread.webp", alt: "A table set with ceviche, mole enchiladas, a seafood boil, grilled meats and a margarita" }}
+            image={{ src: "/images/photos/dish-shrimp-paella-modelo.webp", alt: "Shrimp ceviche served on a paella pan with Modelo bottles" }}
           />
         </div>
 
@@ -43,7 +43,7 @@ export default function AboutPage() {
             eyebrow={siteContent.taglines[0]}
             title="Come as *guests*. Leave as family."
             body={siteContent.about.body}
-            image={{ src: "/images/photos/dish-shrimp-rice.webp", alt: "Shrimp, chorizo and rice served on a speckled stone plate" }}
+            image={{ src: "/images/photos/interior-eagle-mural.webp", alt: "Colorful eagle mural on a brick wall inside the restaurant", focus: "50% 35%" }}
           />
         </div>
 

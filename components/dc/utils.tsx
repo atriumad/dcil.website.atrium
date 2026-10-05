@@ -30,4 +30,6 @@ export function toLink(item: string | LinkItem): LinkItem {
 export interface Img {
   src: string;
   alt: string;
+  /** CSS object-position for the crop, e.g. "50% 35%". */
+  focus?: string;
 }

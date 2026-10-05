@@ -15,6 +15,8 @@ export interface HeroProps {
   secondary?: string | null;
   secondaryHref?: string;
   image?: Img;
+  /** Photo variant only: replaces `image` on narrow screens (pass a portrait shot). */
+  mobileImage?: Img;
   plates?: Img[];
   stamp?: boolean;
   className?: string;
@@ -30,6 +32,7 @@ export function Hero({
   secondary = "Find a Location",
   secondaryHref = "#",
   image,
+  mobileImage,
   plates = [],
   stamp = true,
   className,
@@ -58,7 +61,23 @@ export function Hero({
         </div>
         <div className="dc-hero-photo-media">
           <span className="dc-hero-photo-band" aria-hidden="true" />
-          <div className="dc-hero-photo-img">{image ? <PhotoFrame src={image.src} alt={image.alt} shape="rounded" ratio="21 / 9" priority /> : null}</div>
+          <div className="dc-hero-photo-img">
+            {image ? (
+              <PhotoFrame
+                src={image.src}
+                alt={image.alt}
+                focus={image.focus}
+                shape="rounded"
+                ratio="21 / 9"
+                sizes="(min-width: 1240px) 1240px, 100vw"
+                priority
+                className={mobileImage ? "dc-hero-photo-wide" : undefined}
+              />
+            ) : null}
+            {mobileImage ? (
+              <PhotoFrame src={mobileImage.src} alt={mobileImage.alt} focus={mobileImage.focus} shape="rounded" ratio="4 / 5" sizes="100vw" className="dc-hero-photo-tall" />
+            ) : null}
+          </div>
           {stamp ? <Stamp tone="postmark" className="dc-hero-photo-stamp" size={120} text="DESDE LEÓN · FRESH MEX · " /> : null}
         </div>
         <TileBand height={44} edge="none" />
@@ -128,7 +147,7 @@ export function Hero({
         </div>
       </div>
       <div className="dc-hero-media">
-        <PhotoFrame src={image?.src} alt={image?.alt} shape="arch" sizes="(min-width: 900px) 420px, 90vw" priority className="dc-hero-arch" />
+        <PhotoFrame src={image?.src} alt={image?.alt} focus={image?.focus} shape="arch" sizes="(min-width: 900px) 420px, 90vw" priority className="dc-hero-arch" />
         {plates[0] ? (
           <PhotoFrame src={plates[0].src} alt={plates[0].alt} shape="circle" sizes="200px" className="dc-hero-float" />
         ) : null}

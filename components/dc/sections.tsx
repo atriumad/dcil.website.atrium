@@ -33,7 +33,7 @@ export function FeatureSplit({
   return (
     <section className={cx("dc-feat", reverse && "dc-feat-reverse", className)} style={groundVar}>
       <div className="dc-feat-media">
-        <PhotoFrame src={image?.src} alt={image?.alt} shape="rounded" ratio="5 / 4" sizes="(min-width: 860px) 45vw, 90vw" />
+        <PhotoFrame src={image?.src} alt={image?.alt} focus={image?.focus} shape="rounded" ratio="5 / 4" sizes="(min-width: 1240px) 620px, (min-width: 860px) 45vw, 90vw" />
       </div>
       <div className="dc-feat-copy">
         <SectionHeader eyebrow={eyebrow} title={title} size="m" />

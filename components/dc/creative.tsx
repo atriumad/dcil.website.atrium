@@ -301,7 +301,7 @@ export function SocialGrid({
       <div className="dc-social-grid">
         {images.slice(0, 6).map((image, i) => (
           <a key={image.src} href={href} className={cx("dc-social-tile", `dc-social-tile-${i}`)}>
-            <Image src={image.src} alt={image.alt} fill sizes="(min-width: 900px) 20vw, 33vw" />
+            <Image src={image.src} alt={image.alt} fill sizes="(min-width: 900px) 20vw, 33vw" quality={90} style={image.focus ? { objectPosition: image.focus } : undefined} />
             <span className="dc-social-hover">
               <Icon name="arrow-up-right" size={28} />
             </span>
@@ -356,7 +356,7 @@ export function ColorSplit({
       </div>
       <div className="dc-split-art">
         <div className="dc-split-tiles" aria-hidden="true" />
-        {image ? <PhotoFrame src={image.src} alt={image.alt} shape="polaroid" className="dc-split-photo" /> : null}
+        {image ? <PhotoFrame src={image.src} alt={image.alt} focus={image.focus} shape="polaroid" sizes="(min-width: 860px) 320px, 60vw" className="dc-split-photo" /> : null}
         {caption ? (
           <Sticker kind="label" tone="rose" className="dc-split-caption">
             {caption}

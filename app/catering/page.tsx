@@ -31,7 +31,7 @@ export default function CateringPage() {
             eyebrow="Catering & events"
             title="Let us bring *Don Chuy's* to your table"
             body="From sizzling specials to family favorites, we can cater your next get-together. Tell us about your event and a location near you will follow up with details."
-            image={{ src: "/images/photos/spread-seafood-boil-wide.webp", alt: "A wide seafood boil spread with shrimp, corn and drinks" }}
+            image={{ src: "/images/photos/spread-seafood-boil-close.webp", alt: "A seafood boil, ceviche and grilled steak spread across the table", focus: "50% 60%" }}
           />
         </div>
 

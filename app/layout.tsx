@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Bebas_Neue, Figtree, Yellowtail } from "next/font/google";
 import "./globals.css";
+import { InViewObserver } from "@/components/dc/in-view-observer";
 
 // Display: Eudora (brand face, lowercase set draws "i" as "!"; fallback Bebas Neue for punctuation/$/&/accents).
 // Script: Yellowtail (headline accent, kickers). Sans: Figtree (body, UI).
@@ -43,7 +44,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${eudora.variable} ${bebasNeue.variable} ${yellowtail.variable} ${figtree.variable} h-full antialiased`}
     >
-      <body className="font-sans min-h-full flex flex-col">{children}</body>
+      <body className="font-sans min-h-full flex flex-col">
+        {children}
+        <InViewObserver />
+      </body>
     </html>
   );
 }

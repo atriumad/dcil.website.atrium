@@ -16,6 +16,9 @@ export interface PhotoFrameProps {
   /** next/image `sizes` hint; set it to the rendered width for good srcset selection. */
   sizes?: string;
   priority?: boolean;
+  /** CSS object-position for the crop, e.g. "50% 35%". */
+  focus?: string;
+  quality?: number;
   className?: string;
   style?: CSSProperties;
 }
@@ -32,6 +35,8 @@ export function PhotoFrame({
   ground,
   sizes = "(min-width: 1024px) 40vw, 90vw",
   priority,
+  focus,
+  quality = 90,
   className,
   style,
 }: PhotoFrameProps) {
@@ -43,7 +48,7 @@ export function PhotoFrame({
     >
       {shape === "polaroid" ? <span className="dc-photo-tape" aria-hidden="true" /> : null}
       {src ? (
-        <Image src={src} alt={alt} fill sizes={sizes} priority={priority} />
+        <Image src={src} alt={alt} fill sizes={sizes} quality={quality} priority={priority} style={focus ? { objectPosition: focus } : undefined} />
       ) : (
         <span className="dc-photo-empty">
           <Icon name="utensils" size={32} />
