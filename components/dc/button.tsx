@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { Icon, type IconName } from "./icon";
-import { cx } from "./utils";
+import { cx, isInternal } from "./utils";
 
-export type ButtonVariant = "primary" | "rose" | "agave" | "navy" | "teal" | "marigold" | "ink" | "cream" | "outline";
+export type ButtonVariant = "primary" | "ivory" | "outline" | "link";
 export type ButtonSize = "sm" | "md" | "lg";
 
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
@@ -17,8 +17,6 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
   children: ReactNode;
 }
 
-const isInternal = (href: string) => href.startsWith("/") && !href.startsWith("//");
-
 export function Button({
   variant = "primary",
   size = "md",
@@ -30,12 +28,11 @@ export function Button({
   ...rest
 }: ButtonProps) {
   const cls = cx("dc-btn", `dc-btn-${variant}`, `dc-btn-${size}`, className);
-  const iconSize = size === "lg" ? 20 : 18;
   const content = (
     <>
-      {iconLeft ? <Icon name={iconLeft} size={iconSize} /> : null}
+      {iconLeft ? <Icon name={iconLeft} size={16} /> : null}
       <span>{children}</span>
-      {icon ? <Icon name={icon} size={iconSize} className="dc-btn-icon" /> : null}
+      {icon ? <Icon name={icon} size={16} className="dc-btn-icon" /> : null}
     </>
   );
 

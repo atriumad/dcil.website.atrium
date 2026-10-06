@@ -1,36 +1,24 @@
-import { Icon } from "./icon";
-import { cx, renderAccent } from "./utils";
+import { Eyebrow } from "./eyebrow";
+import { cx, renderAccent, scriptWord } from "./utils";
 
 export interface SectionHeaderProps {
   eyebrow?: string;
-  /** Wrap one word in *stars* for the italic serif accent. */
+  /** Wrap ONE word in *stars* for the script accent. */
   title: string;
+  /** One word in Yellowtail above the title. A phrase is ignored. */
+  script?: string;
   lede?: string;
   align?: "left" | "center";
   size?: "l" | "m";
-  tone?: "default" | "inverse";
   className?: string;
 }
 
-export function SectionHeader({
-  eyebrow,
-  title,
-  lede,
-  align = "left",
-  size = "l",
-  tone = "default",
-  className,
-}: SectionHeaderProps) {
+export function SectionHeader({ eyebrow, title, script, lede, align = "left", size = "l", className }: SectionHeaderProps) {
+  const word = scriptWord(script);
   return (
-    <header
-      className={cx("dc-sh", `dc-sh-${align}`, `dc-sh-${size}`, tone === "inverse" && "dc-sh-inverse", className)}
-    >
-      {eyebrow ? (
-        <p className="dc-sh-eyebrow">
-          <Icon name="sparkle" size={14} />
-          {eyebrow}
-        </p>
-      ) : null}
+    <header className={cx("dc-sh", `dc-sh-${align}`, `dc-sh-${size}`, className)}>
+      {eyebrow ? <Eyebrow align={align}>{eyebrow}</Eyebrow> : null}
+      {word ? <span className="dc-sh-script">{word}</span> : null}
       <h2 className="dc-sh-title">{renderAccent(title)}</h2>
       {lede ? <p className="dc-sh-lede">{lede}</p> : null}
     </header>
