@@ -16,7 +16,7 @@ export const siteContent = {
     "Three (soon four) locations. One unforgettable experience.",
   ],
   dailySpecials: {
-    title: "DA!LY SPEC!ALS",
+    title: "Daily Specials",
     subtitle: "Every day a special — all day",
     specials: [
       { day: "Monday", item: "Carnitas", price: "$10" },

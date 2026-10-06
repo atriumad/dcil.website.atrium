@@ -11,4 +11,8 @@ describe("site content", () => {
     expect(siteContent.about.body.length).toBeGreaterThan(0);
     expect(siteContent.taglines.length).toBeGreaterThan(0);
   });
+
+  it("names the specials board without v5 glyph tricks (Eudora draws the i as ! itself)", () => {
+    expect(siteContent.dailySpecials.title).toBe("Daily Specials");
+  });
 });
