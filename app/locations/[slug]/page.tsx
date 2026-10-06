@@ -1,23 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { locations } from "@/data/locations";
-import { Button, Footer, Icon, NavBar, Newsletter, Pill, SectionHeader } from "@/components/dc";
+import { SiteFooter, SiteHeader, pageContainer } from "@/components/site/site-chrome";
+import { Button, Icon, Newsletter, Pill, SectionHeader } from "@/components/dc";
 import { buildLocationJsonLd, locationMetaDescription, locationMetaTitle } from "@/lib/seo";
 
 const SIGNATURE_DISH = "Steak & Lobster";
 
-const navLinks = [
-  { label: "Menu", href: "/menu" },
-  { label: "Specials", href: "/happy-hour" },
-  { label: "Locations", href: "/locations" },
-  { label: "Catering", href: "/catering" },
-  { label: "About", href: "/about" },
-];
-
 const mapsUrl = (address: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-
-const container = "mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter-mobile)] md:px-[var(--gutter-desktop)]";
 
 export function generateStaticParams() {
   return locations.map((location) => ({ slug: location.slug }));
@@ -48,29 +39,30 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       ) : null}
 
-      <header className="sticky top-0 z-40">
-        <NavBar links={navLinks} cta="Order Online" ctaHref="/locations" />
-      </header>
+      <SiteHeader active="Locations" />
 
-      <main className="flex-1">
-        <section className={`${container} py-[var(--space-7)] md:py-[var(--space-8)]`}>
+      <main className="flex flex-1 flex-col gap-[var(--space-8)]">
+        <section className={`${pageContainer} pt-[var(--space-7)] md:pt-[var(--space-8)]`}>
           {location.comingSoon ? (
-            <SectionHeader
-              eyebrow="Coming soon"
-              title={location.name}
-              lede="We're not open here yet — check back soon, or visit one of our open locations in the meantime."
-            />
+            <div className="flex flex-col items-start gap-[var(--space-5)]">
+              <SectionHeader
+                eyebrow="Coming soon"
+                title={location.name}
+                lede="We're not open here yet — check back soon, or visit one of our open locations in the meantime."
+              />
+              <Pill tone="marigold">Coming soon</Pill>
+            </div>
           ) : (
             <>
               <SectionHeader eyebrow="Don Chuy's" title={location.name} lede={location.intro} />
 
               <div className="mt-[var(--space-6)] grid gap-[var(--space-6)] md:grid-cols-[1.1fr_.9fr]">
                 <div className="flex flex-col gap-[var(--space-4)]">
-                  <p className="dc-loc-line body">
+                  <p className="dc-loc-line">
                     <Icon name="pin" size={18} />
                     {location.address}
                   </p>
-                  <p className="dc-loc-line body">
+                  <p className="dc-loc-line">
                     <Icon name="phone" size={18} />
                     <a href={`tel:${location.phone.replace(/[^+\d]/g, "")}`}>{location.phone}</a>
                   </p>
@@ -79,19 +71,19 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                   </Button>
 
                   {location.reviews.length ? (
-                    <div className="mt-[var(--space-5)] flex flex-col gap-[var(--space-4)]">
+                    <div className="mt-[var(--space-5)] flex flex-col gap-[var(--space-5)]">
                       {location.reviews.map((review) => (
-                        <blockquote key={review.author} className="dc-mi-featured rounded-[var(--radius-md)] p-[var(--space-4)]">
-                          <p className="body italic">&ldquo;{review.quote}&rdquo;</p>
-                          <cite className="label not-italic">— {review.author}</cite>
+                        <blockquote key={review.author} className="dc-quote">
+                          <p>&ldquo;{review.quote}&rdquo;</p>
+                          <cite>— {review.author}</cite>
                         </blockquote>
                       ))}
                     </div>
                   ) : null}
                 </div>
 
-                <div className="flex flex-col gap-[var(--space-3)] rounded-[var(--radius-lg)] border-2 border-[var(--ink)] p-[var(--space-5)]">
-                  <p className="label">Hours</p>
+                <div className="dc-panel">
+                  <p className="dc-panel-title">Hours</p>
                   <ul className="dc-loc-hours">
                     {location.hours.map((row) => (
                       <li key={row.days}>
@@ -103,32 +95,15 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                 </div>
               </div>
 
-              {location.closing ? <p className="body-lg mt-[var(--space-6)] italic text-[var(--ink-muted)]">{location.closing}</p> : null}
+              {location.closing ? <p className="lede mt-[var(--space-6)]">{location.closing}</p> : null}
             </>
           )}
         </section>
 
-        {location.comingSoon ? (
-          <section className={`${container} pb-[var(--space-7)]`}>
-            <Pill tone="marigold">Coming soon</Pill>
-          </section>
-        ) : null}
-
-        <div className={`${container} pb-[var(--space-8)]`}>
-          <Newsletter title={location.comingSoon ? "Be the first to know" : undefined} />
-        </div>
+        <Newsletter title={location.comingSoon ? "Be the first to know" : undefined} />
       </main>
 
-      <Footer
-        locations={locations.map((l) => ({ city: l.name, address: l.address }))}
-        links={[
-          { label: "Menu", href: "/menu" },
-          { label: "Specials", href: "/happy-hour" },
-          { label: "Catering", href: "/catering" },
-          { label: "Locations", href: "/locations" },
-          { label: "Contact", href: "/contact" },
-        ]}
-      />
+      <SiteFooter />
     </>
   );
 }

@@ -35,9 +35,9 @@ export function ContactInquiryForm() {
 
   if (sent) {
     return (
-      <div className="dc-mi-featured rounded-[var(--radius-md)] p-[var(--space-5)]">
-        <p className="h-sans">Message sent!</p>
-        <p className="body mt-2">Thanks for reaching out — someone from Don Chuy&rsquo;s will get back to you soon.</p>
+      <div className="dc-note" role="status">
+        <p className="dc-note-title">Message sent</p>
+        <p>Thanks for reaching out — someone from Don Chuy&rsquo;s will get back to you soon.</p>
       </div>
     );
   }

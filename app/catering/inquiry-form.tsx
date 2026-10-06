@@ -45,9 +45,9 @@ export function CateringInquiryForm() {
 
   if (sent) {
     return (
-      <div className="dc-mi-featured rounded-[var(--radius-md)] p-[var(--space-5)]">
-        <p className="h-sans">Thanks — we&rsquo;ve got it!</p>
-        <p className="body mt-2">Someone from Don Chuy&rsquo;s will follow up about your event soon.</p>
+      <div className="dc-note" role="status">
+        <p className="dc-note-title">Thanks — we&rsquo;ve got it</p>
+        <p>Someone from Don Chuy&rsquo;s will follow up about your event soon.</p>
       </div>
     );
   }
