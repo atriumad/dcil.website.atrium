@@ -2,42 +2,21 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "./tokens.css";
+@import "./type.css";
 @import "./dc.css";
-
-@custom-variant dark (&:is([data-theme="dark"] *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* Don Chuy's palette as utilities (bg-cream, text-deep-red, ...). Values live in tokens.css. */
-  --color-cream: var(--cream);
-  --color-surface: var(--surface);
-  --color-paper: var(--paper);
-  --color-paper-deep: var(--paper-deep);
-  --color-sage-100: var(--sage-100);
-  --color-sage-200: var(--sage-200);
-  --color-sage: var(--sage);
-  --color-ornament: var(--ornament);
-  --color-agave: var(--agave);
-  --color-agave-900: var(--agave-900);
-  --color-chuy-rose: var(--chuy-rose);
-  --color-rose-100: var(--rose-100);
-  --color-chuy-red: var(--chuy-red);
-  --color-deep-red: var(--deep-red);
-  --color-marigold: var(--marigold);
-  --color-marigold-100: var(--marigold-100);
-  --color-marigold-700: var(--marigold-700);
-  --color-ink: var(--ink);
-  --color-ink-muted: var(--ink-muted);
-  --color-on-dark: var(--on-dark);
-  --color-wine: var(--chuy-rose);
-  --color-orange: var(--marigold);
-  --color-teal: var(--teal-surface);
-  --color-teal-100: var(--teal-100);
-  --color-teal-700: var(--teal-700);
-  --color-teal-ink: var(--teal-ink);
-  --color-script-ink: var(--script-ink);
+  /* Don Chuy's v6 palette as utilities (bg-navy-900, text-ivory-muted, ...). Values live in tokens.css. */
   --color-navy: var(--navy);
+  --color-navy-900: var(--navy-900);
+  --color-navy-700: var(--navy-700);
+  --color-ivory: var(--ivory);
+  --color-ivory-muted: var(--ivory-muted);
+  --color-marigold: var(--marigold);
+  --color-rose: var(--rose);
+  --color-teal: var(--teal);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -76,7 +55,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Font stacks. `static` so the variables are always emitted: dc.css and tokens.css read them with var(). */
+/* Font stacks. `static` so the variables are always emitted: dc-*.css and type.css read them with var(). */
 @theme static {
   --font-display: var(--font-eudora), var(--font-bebas), Impact, sans-serif;
   --font-script: var(--font-yellowtail), "Brush Script MT", cursive;
@@ -84,37 +63,37 @@
 }
 
 :root {
-  /* shadcn semantic variables, mapped onto the Don Chuy's tokens (tokens.css) so they follow data-theme. */
-  --background: var(--cream);
-  --foreground: var(--ink);
-  --card: var(--surface);
-  --card-foreground: var(--ink);
-  --popover: var(--surface);
-  --popover-foreground: var(--ink);
-  --primary: var(--chuy-red);
-  --primary-foreground: var(--on-brand);
-  --secondary: var(--sage-100);
-  --secondary-foreground: var(--ink);
-  --muted: var(--paper);
-  --muted-foreground: var(--ink-muted);
-  --accent: var(--marigold-100);
-  --accent-foreground: var(--ink);
-  --destructive: var(--chuy-red);
+  /* shadcn semantic variables mapped onto the v6 tokens (tokens.css). */
+  --background: var(--navy);
+  --foreground: var(--ivory);
+  --card: var(--navy-900);
+  --card-foreground: var(--ivory);
+  --popover: var(--navy-900);
+  --popover-foreground: var(--ivory);
+  --primary: var(--marigold);
+  --primary-foreground: var(--on-marigold);
+  --secondary: var(--navy-700);
+  --secondary-foreground: var(--ivory);
+  --muted: var(--navy-900);
+  --muted-foreground: var(--ivory-muted);
+  --accent: var(--navy-700);
+  --accent-foreground: var(--white);
+  --destructive: var(--rose);
   --border: var(--line);
-  --input: var(--ink);
+  --input: var(--line);
   --ring: var(--focus);
-  --chart-1: var(--agave);
-  --chart-2: var(--chuy-rose);
-  --chart-3: var(--marigold);
-  --chart-4: var(--teal-surface);
-  --chart-5: var(--navy);
-  --radius: 0.75rem;
-  --sidebar: var(--surface);
-  --sidebar-foreground: var(--ink);
-  --sidebar-primary: var(--agave);
-  --sidebar-primary-foreground: var(--on-brand);
-  --sidebar-accent: var(--sage-100);
-  --sidebar-accent-foreground: var(--ink);
+  --chart-1: var(--marigold);
+  --chart-2: var(--rose);
+  --chart-3: var(--teal);
+  --chart-4: var(--navy-700);
+  --chart-5: var(--ivory);
+  --radius: 0.125rem;
+  --sidebar: var(--navy-900);
+  --sidebar-foreground: var(--ivory);
+  --sidebar-primary: var(--marigold);
+  --sidebar-primary-foreground: var(--on-marigold);
+  --sidebar-accent: var(--navy-700);
+  --sidebar-accent-foreground: var(--white);
   --sidebar-border: var(--line);
   --sidebar-ring: var(--focus);
 }
@@ -123,10 +102,26 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--marigold);
+    color: var(--on-marigold);
   }
 }
