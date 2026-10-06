@@ -1,18 +1,17 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import type { ColorToken } from "./decor";
 import { Icon } from "./icon";
-import { Pill } from "./pill";
 import { cx } from "./utils";
 
 export interface PhotoFrameProps {
   src?: string;
   alt?: string;
-  shape?: "arch" | "circle" | "rounded" | "ticket" | "polaroid";
+  /** arch: stories (use `outline`); circle: dishes; frame: everything else. */
+  shape?: "arch" | "circle" | "frame";
   ratio?: string;
-  sticker?: string;
-  stickerTone?: "white" | "marigold" | "rose";
-  ground?: ColorToken;
+  /** Marigold hairline offset 16px down-right. Give the parent `padding: 0 16px 16px 0` so it is not clipped. */
+  outline?: boolean;
+  caption?: string;
   /** next/image `sizes` hint; set it to the rendered width for good srcset selection. */
   sizes?: string;
   priority?: boolean;
@@ -23,16 +22,15 @@ export interface PhotoFrameProps {
   style?: CSSProperties;
 }
 
-const defaultRatio = { circle: "1", arch: "4 / 5", rounded: "4 / 3", ticket: "4 / 3", polaroid: "4 / 5" } as const;
+const defaultRatio = { circle: "1", arch: "4 / 5", frame: "4 / 3" } as const;
 
 export function PhotoFrame({
   src,
   alt = "",
-  shape = "arch",
+  shape = "frame",
   ratio,
-  sticker,
-  stickerTone = "white",
-  ground,
+  outline,
+  caption,
   sizes = "(min-width: 1024px) 40vw, 90vw",
   priority,
   focus,
@@ -40,25 +38,18 @@ export function PhotoFrame({
   className,
   style,
 }: PhotoFrameProps) {
-  const groundVar = ground ? ({ "--dc-ground": `var(--${ground})` } as CSSProperties) : undefined;
   return (
-    <figure
-      className={cx("dc-photo", `dc-photo-${shape}`, ground && "dc-photo-ground", className)}
-      style={{ aspectRatio: ratio ?? defaultRatio[shape], ...groundVar, ...style }}
-    >
-      {shape === "polaroid" ? <span className="dc-photo-tape" aria-hidden="true" /> : null}
-      {src ? (
-        <Image src={src} alt={alt} fill sizes={sizes} quality={quality} priority={priority} style={focus ? { objectPosition: focus } : undefined} />
-      ) : (
-        <span className="dc-photo-empty">
-          <Icon name="utensils" size={32} />
-        </span>
-      )}
-      {sticker ? (
-        <Pill tone={stickerTone} className="dc-photo-sticker">
-          {sticker}
-        </Pill>
-      ) : null}
+    <figure className={cx("dc-photo", `dc-photo-${shape}`, outline && "dc-photo-outline", className)} style={style}>
+      <span className="dc-photo-clip" style={{ aspectRatio: ratio ?? defaultRatio[shape] }}>
+        {src ? (
+          <Image src={src} alt={alt} fill sizes={sizes} quality={quality} priority={priority} style={focus ? { objectPosition: focus } : undefined} />
+        ) : (
+          <span className="dc-photo-empty">
+            <Icon name="utensils" size={32} />
+          </span>
+        )}
+      </span>
+      {caption ? <figcaption className="dc-photo-caption">{caption}</figcaption> : null}
     </figure>
   );
 }
