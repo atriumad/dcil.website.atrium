@@ -1,20 +1,9 @@
 export { Button, type ButtonProps } from "./button";
+export { CategoryGrid, type CategoryGridItem } from "./category-grid";
 export { CategoryTabs, type CategoryTabsProps } from "./category-tabs";
-export { Crumbs, Flower, Marquee, Pattern, Stamp, Sunburst, TileBand } from "./decor";
-export {
-  BrandPaper,
-  CategoryGrid,
-  ColorSplit,
-  PosterCard,
-  Sticker,
-  SocialGrid,
-  ValueProps,
-  WordStack,
-  type CategoryGridItem,
-  type StickerKind,
-  type StickerSpec,
-  type ValuePropItem,
-} from "./creative";
+export { Flower, Logo, Marquee, Pattern, TileBand, type ColorToken } from "./decor";
+export { Eyebrow } from "./eyebrow";
+export { FeatureSplit } from "./feature-split";
 export { Footer, type FooterProps } from "./footer";
 export { Input, Newsletter, type InputProps, type NewsletterProps } from "./forms";
 export { Hero, type HeroProps } from "./hero";
@@ -32,6 +21,9 @@ export {
 export { NavBar, type NavBarProps } from "./nav-bar";
 export { PhotoFrame, type PhotoFrameProps } from "./photo-frame";
 export { Pill, type PillProps } from "./pill";
-export { FeatureSplit, LocationCard, PromoBanner, type LocationCardProps } from "./sections";
+export { LocationCard, PromoBanner, type LocationCardProps } from "./sections";
 export { SectionHeader, type SectionHeaderProps } from "./section-header";
+export { SocialGrid } from "./social-grid";
+export { Statement } from "./statement";
+export { ValueProps, type ValuePropItem } from "./value-props";
 export type { Img, LinkItem } from "./utils";
