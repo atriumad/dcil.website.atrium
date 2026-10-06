@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 const read = (file: string) => readFileSync(path.join(import.meta.dirname, "..", "app", file), "utf8");
 
 /** CSS files that must be v6-clean. Task 2 appends the dc-*.css files. */
-export const CSS_FILES = ["tokens.css", "type.css", "globals.css"];
+export const CSS_FILES = ["tokens.css", "type.css", "globals.css", "dc-assets.css", "dc-components.css", "dc-site.css"];
 
 /** v5 tokens removed in v6. A surviving `var(--x)` renders as an unset (invisible) color. */
 const REMOVED = [

@@ -3,7 +3,9 @@
 @import "shadcn/tailwind.css";
 @import "./tokens.css";
 @import "./type.css";
-@import "./dc.css";
+@import "./dc-assets.css";
+@import "./dc-components.css";
+@import "./dc-site.css";
 
 @theme inline {
   --color-background: var(--background);

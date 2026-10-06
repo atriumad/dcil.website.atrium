@@ -3,18 +3,8 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-/** Elements whose hover motion has a touch equivalent in app/dc.css (`.is-inview`). */
-const TARGETS = [
-  ".dc-cat",
-  ".dc-loc",
-  ".dc-dish",
-  ".dc-ws",
-  ".dc-poster",
-  ".dc-social-tile",
-  ".dc-split-photo",
-  ".mn-break",
-  ".mn-cat",
-].join(",");
+/** Elements whose hover motion has a touch equivalent in app/dc-site.css (`.is-inview`). */
+const TARGETS = [".dc-cat", ".dc-loc", ".dc-dish", ".dc-social-tile", ".mn-break", ".mn-cat"].join(",");
 
 /**
  * Touch devices have no hover, so the motion that hover triggers on desktop is driven by
