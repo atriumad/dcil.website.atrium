@@ -1,74 +1,51 @@
 import type { Metadata } from "next";
 import { menu } from "@/data/menu";
-import { locations } from "@/data/locations";
-import { Footer, NavBar, Newsletter, PromoBanner, SectionHeader } from "@/components/dc";
+import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
+import { NewsletterSection } from "@/components/site/sage";
+import { PromoBanner } from "@/components/dc";
 import { MenuBrowser } from "./menu-filter";
+import { MenuHeader } from "./menu-header";
 
 export const metadata: Metadata = {
   title: "Menu | Don Chuy's Fresh Mex & Cantina",
   description: "Browse the full Don Chuy's menu — tacos, fajitas, mariscos, steaks and more, Josper-grilled and made fresh.",
 };
 
-const navLinks = [
-  { label: "Menu", href: "/menu" },
-  { label: "Specials", href: "/happy-hour" },
-  { label: "Locations", href: "/locations" },
-  { label: "Catering", href: "/catering" },
-  { label: "About", href: "/about" },
-];
-
-const container = "mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter-mobile)] md:px-[var(--gutter-desktop)]";
-
 export default function MenuPage() {
   return (
     <>
-      <header className="sticky top-0 z-40">
-        <NavBar links={navLinks} cta="Order Online" ctaHref="/locations" />
-      </header>
+      <SiteHeader active="Menu" />
 
-      <main className="flex-1">
-        <div className={`${container} pt-10 pb-[var(--space-6)]`}>
-          <SectionHeader
-            size="m"
-            eyebrow="La comida"
-            title="What are *you* craving?"
-            lede="Every dish is Josper-grilled and made fresh. Jump to a section or search for a favorite."
-          />
-        </div>
+      <main className="sg">
+        <MenuHeader
+          current="food"
+          eyebrow="La comida"
+          title="What are you craving?"
+          lede="Every dish is Josper-grilled and made fresh. Jump to a section to find a favorite."
+        />
 
-        <div className={`${container} pb-[var(--space-8)]`}>
+        <div className="sg-menu-book">
           <MenuBrowser categories={menu} />
-          <p className="small mt-[var(--space-6)] text-[var(--ink-muted)]">
-            Prices and availability may vary by location.
+          <p className="sg-menu-note">
+            Prices and availability may vary by location. Consuming raw or undercooked meat, poultry, eggs or shellfish may increase your risk of foodborne illness.
           </p>
         </div>
 
-        <div className={`${container} pb-[var(--space-8)]`}>
+        <section className="sg-promo">
           <PromoBanner
             tone="rose"
-            kicker="Planning something bigger?"
-            title="CATERING *for* your crowd"
+            eyebrow="Planning something bigger?"
+            title="Catering for your crowd"
             lede="From office lunches to family celebrations, let us bring the Don Chuy's spread to you."
             cta="Get a Quote"
-            ctaHref="/catering"
+            ctaHref="/contact?type=catering"
           />
-        </div>
+        </section>
 
-        <div className={`${container} pb-[var(--space-8)]`}>
-          <Newsletter />
-        </div>
+        <NewsletterSection />
       </main>
 
-      <Footer
-        locations={locations.map((location) => ({ city: location.name, address: location.address }))}
-        links={[
-          { label: "Menu", href: "/menu" },
-          { label: "Specials", href: "/happy-hour" },
-          { label: "Catering", href: "/catering" },
-          { label: "Locations", href: "/locations" },
-          { label: "Contact", href: "/contact" },
-        ]}
-      />
+      <SiteFooter />
     </>
   );
 }

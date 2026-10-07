@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { locations } from "@/data/locations";
-import { Footer, Icon, NavBar, Newsletter, SectionHeader } from "@/components/dc";
+import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
+import { NewsletterSection, PageHero } from "@/components/site/sage";
+import { Eyebrow, Icon } from "@/components/dc";
 import { ContactInquiryForm } from "./inquiry-form";
 
 export const metadata: Metadata = {
@@ -8,65 +10,50 @@ export const metadata: Metadata = {
   description: "Get in touch with Don Chuy's Fresh Mex & Cantina — reach out to your nearest location or send us a message.",
 };
 
-const navLinks = [
-  { label: "Menu", href: "/menu" },
-  { label: "Specials", href: "/happy-hour" },
-  { label: "Locations", href: "/locations" },
-  { label: "Catering", href: "/catering" },
-  { label: "About", href: "/about" },
-];
-
-const container = "mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter-mobile)] md:px-[var(--gutter-desktop)]";
-
 export default function ContactPage() {
   const openLocations = locations.filter((l) => !l.comingSoon);
 
   return (
     <>
-      <header className="sticky top-0 z-40">
-        <NavBar links={navLinks} cta="Order Online" ctaHref="/locations" />
-      </header>
+      <SiteHeader />
 
-      <main className="flex-1">
-        <div className={`${container} pt-10 pb-[var(--space-6)]`}>
-          <SectionHeader eyebrow="Get in touch" title="We'd love to *hear* from you" lede="Reach your nearest Don Chuy's directly, or send us a message below." />
-        </div>
+      <main className="sg">
+        <PageHero
+          eyebrow="Let's talk"
+          title="We'd love to hear from you"
+          lede="Please contact us with any questions on special events you are planning, catering for large groups, or anything else that comes to mind."
+        />
 
-        <div className={`${container} pb-[var(--space-7)] grid gap-[var(--space-4)] sm:grid-cols-2 lg:grid-cols-3`}>
-          {openLocations.map((location) => (
-            <div key={location.slug} className="flex flex-col gap-2 rounded-[var(--radius-lg)] border-2 border-[var(--ink)] p-[var(--space-4)]">
-              <p className="label">{location.name}</p>
-              <p className="dc-loc-line body">
-                <Icon name="pin" size={16} />
-                {location.address}
-              </p>
-              <p className="dc-loc-line body">
-                <Icon name="phone" size={16} />
-                <a href={`tel:${location.phone.replace(/[^+\d]/g, "")}`}>{location.phone}</a>
-              </p>
+        <section className="sg-sage sg-formsec">
+          <ul className="sg-contact-list">
+            {openLocations.map((location) => (
+              <li key={location.slug} className="sg-reveal">
+                <h2 className="sg-h4">{location.name}</h2>
+                <p className="sg-facts-line">
+                  <Icon name="pin" size={16} />
+                  {location.address}
+                </p>
+                <p className="sg-facts-line">
+                  <Icon name="phone" size={16} />
+                  <a href={`tel:${location.phone.replace(/[^+\d]/g, "")}`}>{location.phone}</a>
+                </p>
+              </li>
+            ))}
+          </ul>
+
+          <div className="sg-formsec-card sg-frame sg-reveal sg-formsec-after">
+            <div className="sg-formsec-head">
+              <Eyebrow>Contact · catering · events</Eyebrow>
+              <h2 className="sg-h3 sg-on-dark">Get in touch</h2>
             </div>
-          ))}
-        </div>
+            <ContactInquiryForm />
+          </div>
+        </section>
 
-        <div className={`${container} pb-[var(--space-8)]`}>
-          <ContactInquiryForm />
-        </div>
-
-        <div className={`${container} pb-[var(--space-8)]`}>
-          <Newsletter />
-        </div>
+        <NewsletterSection />
       </main>
 
-      <Footer
-        locations={locations.map((location) => ({ city: location.name, address: location.address }))}
-        links={[
-          { label: "Menu", href: "/menu" },
-          { label: "Specials", href: "/happy-hour" },
-          { label: "Catering", href: "/catering" },
-          { label: "Locations", href: "/locations" },
-          { label: "Contact", href: "/contact" },
-        ]}
-      />
+      <SiteFooter />
     </>
   );
 }

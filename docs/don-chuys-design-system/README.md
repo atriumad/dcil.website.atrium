@@ -1,3 +1,5 @@
+> **Superseded by v6** — see `docs/don-chuys-brand-guide-v6/` (the Brand Guide used by the site now).
+
 # Don Chuy's — Design System v5 ("cantina editorial")
 
 Everything needed to design and build the Don Chuy's Fresh Mex & Cantina website.

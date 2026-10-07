@@ -2,7 +2,8 @@
 
 import { useId, type FormEvent, type InputHTMLAttributes } from "react";
 import { Button } from "./button";
-import { Pattern } from "./decor";
+import { Flower } from "./decor";
+import { Eyebrow } from "./eyebrow";
 import { cx, renderAccent } from "./utils";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -33,6 +34,7 @@ export function Input({ label, hint, error, id, className, ...rest }: InputProps
 }
 
 export interface NewsletterProps {
+  eyebrow?: string;
   title?: string;
   lede?: string;
   cta?: string;
@@ -42,8 +44,9 @@ export interface NewsletterProps {
 }
 
 export function Newsletter({
-  title = "Stay in the *loop*",
-  lede = "New specials, events and Happy Hour news, straight to your inbox. No spam, just flavor.",
+  eyebrow = "Newsletter",
+  title = "Stay in the loop",
+  lede = "New specials, events and Happy Hour news, straight to your inbox.",
   cta = "Sign Up",
   onSubmitEmail,
   className,
@@ -55,14 +58,15 @@ export function Newsletter({
   };
   return (
     <section className={cx("dc-news", className)}>
-      <Pattern name="diamond" tone="agave" className="dc-news-dots" size={24} />
+      <Flower variant="mono" tone="navy" className="dc-news-flower" size={null} />
       <div className="dc-news-copy">
+        {eyebrow ? <Eyebrow align="center">{eyebrow}</Eyebrow> : null}
         <h2 className="dc-news-title">{renderAccent(title)}</h2>
         <p className="dc-news-lede">{lede}</p>
       </div>
       <form className="dc-news-form" onSubmit={handleSubmit}>
         <Input label="Email" name="email" type="email" required placeholder="you@email.com" className="dc-news-input" />
-        <Button type="submit" variant="marigold" icon="arrow-right">
+        <Button type="submit" icon="arrow-right">
           {cta}
         </Button>
       </form>

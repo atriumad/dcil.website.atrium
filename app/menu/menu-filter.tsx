@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import { Icon, Input, PhotoFrame } from "@/components/dc";
+import { Icon, PhotoFrame } from "@/components/dc";
 import type { IconName } from "@/components/dc";
 import { filterMenu } from "@/lib/menu-filters";
 import type { MenuCategory, MenuItem } from "@/lib/schemas";
@@ -11,13 +11,13 @@ type Tag = MenuItem["tags"][number];
 const tagIcon: Record<Tag, IconName> = { spicy: "chile", vegetarian: "avocado", seafood: "sparkle", kids: "sparkle" };
 const tagLabel: Record<Tag, string> = { spicy: "Spicy", vegetarian: "Veggie", seafood: "Seafood", kids: "Kids" };
 
-/** Split photo breaks, each shown after the category it belongs to. Portrait shots, so the frame never crops hard. */
+/** Photo breaks, each shown after the category it belongs to. Portrait shots in a straight frame; one navy-900 style. */
 const breaksAfter = {
-  "steak-house": { src: "/images/photos/dish-carne-asada-cutting.webp", alt: "Carving carne asada on a sizzling platter", script: "Josper-grilled", line: "Over real fire, made fresh every day.", tone: "marigold", flip: false },
-  tacos: { src: "/images/photos/dish-taco-in-hand.webp", alt: "A taco held in hand", script: "Taco night", line: "Street-style, handmade, every night.", tone: "sage", flip: true },
-  "pescados-ostras": { src: "/images/photos/dish-shrimp-ceviche-app.webp", alt: "Shrimp ceviche with an avocado rose", script: "Fresh from the sea", line: "Ceviche, oysters and mariscos to share.", tone: "rose", flip: false },
-  drinks: { src: "/images/photos/drink-red-cocktail-bar.webp", alt: "Red margarita on the bar", script: "Raise a glass", line: "Margaritas, flights and cocktails.", tone: "marigold", flip: true },
-  especiales: { src: "/images/photos/spread-seafood-boil-close.webp", alt: "Seafood boil and plates spread across the table", script: "Made for sharing", line: "Bring the whole table. We'll fill it.", tone: "sage", flip: false },
+  "steak-house": { src: "/images/photos/dish-carne-asada-cutting.webp", alt: "Carving carne asada on a sizzling platter", title: "Josper-grilled", line: "Over real fire, made fresh every day.", flip: false },
+  tacos: { src: "/images/photos/dish-taco-in-hand.webp", alt: "A taco held in hand", title: "Taco night", line: "Street-style, handmade, every night.", flip: true },
+  "pescados-ostras": { src: "/images/photos/dish-shrimp-ceviche-app.webp", alt: "Shrimp ceviche with an avocado rose", title: "Fresh from the sea", line: "Ceviche, oysters and mariscos to share.", flip: false },
+  drinks: { src: "/images/photos/drink-red-cocktail-bar.webp", alt: "Red margarita on the bar", title: "Raise a glass", line: "Margaritas, flights and cocktails.", flip: true },
+  especiales: { src: "/images/photos/spread-seafood-boil-close.webp", alt: "Seafood boil and plates spread across the table", title: "Made for sharing", line: "Bring the whole table. We'll fill it.", flip: false },
 } as const;
 
 type Break = (typeof breaksAfter)[keyof typeof breaksAfter];
@@ -49,12 +49,12 @@ function MenuEntry({ item }: { item: MenuItem }) {
   );
 }
 
-function MenuBreak({ src, alt, script, line, tone, flip }: Break) {
+function MenuBreak({ src, alt, title, line, flip }: Break) {
   return (
-    <aside className={`mn-break mn-break-${tone}${flip ? " is-flip" : ""}`}>
-      <PhotoFrame src={src} alt={alt} shape="rounded" ratio="4 / 5" sizes="(min-width: 1100px) 440px, 92vw" className="mn-break-photo" />
+    <aside className={`mn-break${flip ? " is-flip" : ""}`}>
+      <PhotoFrame src={src} alt={alt} shape="frame" ratio="4 / 5" sizes="(min-width: 1100px) 420px, 92vw" className="mn-break-photo" />
       <div className="mn-break-copy">
-        <p className="mn-break-script">{script}</p>
+        <p className="mn-break-title">{title}</p>
         <p className="mn-break-line">{line}</p>
       </div>
     </aside>
@@ -83,12 +83,11 @@ function MenuCategoryBlock({ category, index }: { category: MenuCategory; index:
 
 export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
   const [tag, setTag] = useState<Tag | null>(null);
-  const [query, setQuery] = useState("");
   const [active, setActive] = useState<string | null>(null);
 
   const availableTags = (Object.keys(tagLabel) as Tag[]).filter((t) => categories.some((c) => c.items.some((i) => i.tags.includes(t))));
-  const filtered = filterMenu(categories, { tag, query });
-  const isFiltering = tag !== null || query.trim() !== "";
+  const filtered = filterMenu(categories, { tag, query: "" });
+  const isFiltering = tag !== null;
   const filteredKey = filtered.map((c) => c.slug).join("|");
 
   useEffect(() => {
@@ -128,14 +127,6 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
             {tagLabel[t]}
           </button>
         ))}
-        <Input
-          type="search"
-          placeholder="Search the menu…"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="mn-search"
-          aria-label="Search the menu"
-        />
       </div>
       <div className="mn-bar">
         <nav className="mn-chips" aria-label="Menu categories">
@@ -166,7 +157,7 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
           })}
         </div>
       ) : (
-        <p className="body mn-empty">No dishes match that search. Try another filter or clear the search.</p>
+        <p className="body mn-empty">No dishes match that filter. Try another one.</p>
       )}
     </div>
   );

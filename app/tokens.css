@@ -1,134 +1,55 @@
-/* Don Chuy's design tokens v5 — copied from the design system's tokens/tokens.css.
-   Font @font-face rules are omitted here: next/font (app/layout.tsx) injects them and
-   exposes --font-eudora/--font-bebas/--font-yellowtail/--font-figtree, wired to
-   --font-display/--font-script/--font-sans in globals.css (@theme static). */
-:root, [data-theme="light"] {
-  --cream: #f8f3e6;
-  --surface: #ffffff;
-  --paper: #ede7d1;
-  --paper-deep: #e3d9bd;
-  --sage-100: #e3e9e6;
-  --sage-200: #c5d2ce;
-  --sage: #8a9b9a;
-  --sage-alt: #85a09b;
-  --ornament: #465454;
-  --agave: #35544e;
-  --agave-900: #1f332e;
-  --teal: #61988e;
-  --teal-surface: #6b9791;
-  --teal-100: #e2eeeb;
-  --teal-700: #3d6b63;
-  --teal-ink: #3d6b63;
-  --chuy-rose: #a73447;
-  --rose-100: #f7e1e3;
-  --chuy-red: #e60000;
-  --deep-red: #8b0000;
-  --marigold: #f49947;
-  --marigold-100: #fde9d2;
-  --marigold-700: #9a4c0c;
-  --navy: #104767;
-  --ink: #222222;
-  --ink-muted: #4a4a4a;
-  --on-brand: #ffffff;
-  --on-marigold: #222222;
-  --on-dark: #f8f3e6;
-  --script-ink: #a73447;
-  --line: #cccccc;
-  --focus: #104767;
-  --overlay: rgba(31, 51, 46, 0.55);
-}
-[data-theme="dark"] {
-  --cream: #1a2522;
-  --surface: #1f2b29;
-  --paper: #26332f;
-  --paper-deep: #2e3d38;
-  --sage-100: #26332f;
-  --sage-200: #2f3e3a;
-  --sage: #3a4a47;
-  --sage-alt: #3d504b;
-  --ornament: #5d6e6b;
-  --agave: #35544e;
-  --agave-900: #0f1a18;
-  --teal: #8fc0b6;
-  --teal-surface: #35544e;
-  --teal-100: #1e2e2b;
-  --teal-700: #3d6b63;
-  --teal-ink: #8fc0b6;
-  --chuy-rose: #a73447;
-  --rose-100: #3a1f25;
-  --chuy-red: #e60000;
-  --deep-red: #e9807a;
-  --marigold: #f49947;
-  --marigold-100: #3a2a17;
-  --marigold-700: #f49947;
-  --navy: #104767;
-  --ink: #f4f1e6;
-  --ink-muted: #c9ccc5;
-  --on-brand: #ffffff;
-  --on-marigold: #222222;
-  --on-dark: #f4f1e6;
-  --script-ink: #f49947;
-  --line: #3d4c48;
-  --focus: #f49947;
-  --overlay: rgba(10, 16, 15, 0.65);
-}
+/* Don Chuy's design tokens v6 — Brand Guide structure, site palette "salvia y noche" (sage ground, deep teal-ink nights).
+   @font-face and font stacks are omitted: next/font (app/layout.tsx) injects the fonts and
+   globals.css (@theme static) wires --font-display / --font-script / --font-sans. */
 :root {
+  --navy: #17323a;
+  --navy-900: #17323a;
+  --navy-700: #233f44;
+  --white: #ffffff;
+  --ivory: #f6f1e7;
+  --ivory-muted: #c5d0d8;
+  --marigold: #ed9d55;
+  --rose: #9f3e49;
+  --teal: #69968f;
+  --on-marigold: #17323a;
+  --line: rgba(246, 241, 231, 0.22);
+  --overlay: rgba(23, 50, 58, 0.62);
+  --focus: #ed9d55;
+
+  /* Sage ground: ink text only. Never marigold, ivory or white on sage; teal is decoration only. */
+  --sg-sage: #9fadae;
+  --sg-ink: #17323a;
+  --sg-ink-2: #233f44;
+  --sg-line: rgba(23, 50, 58, 0.28);
+  --sg-tile: rgba(23, 50, 58, 0.1);
+
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
   --space-5: 24px;
-  --space-6: 32px;
-  --space-7: 48px;
-  --space-8: 80px;
-  --space-9: 120px;
-  --space-10: 160px;
-  --radius-sm: 4px;
-  --radius-md: 12px;
-  --radius-lg: 24px;
-  --radius-xl: 40px;
-  --radius-pill: 999px;
-  --shadow-lift: 0 6px 18px rgba(34, 34, 34, 0.18);
-  --shadow-card: 0 2px 8px rgba(34, 34, 34, 0.10);
-  --shadow-plate: 0 24px 48px rgba(31, 51, 46, 0.28);
-  --shadow-sticker: 3px 3px 0 rgba(34, 34, 34, 1);
+  --space-6: 40px;
+  --space-7: 64px;
+  --space-8: 112px;
+  --space-9: 160px;
+
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-round: 999px;
+
+  --shadow-plate: 0 28px 56px rgba(10, 26, 31, 0.42);
+  --shadow-card: 0 18px 40px rgba(10, 26, 31, 0.32);
+
   --bp-sm: 640px;
   --bp-md: 768px;
   --bp-lg: 1024px;
   --bp-xl: 1280px;
-  --container-max: 1240px;
-  --container-narrow: 760px;
-  --gutter-mobile: 20px;
-  --gutter-desktop: 40px;
+  --container-max: 1200px;
+  --container-narrow: 720px;
+  --gutter-mobile: 24px;
+  --gutter-desktop: 56px;
   --z-sticky: 40;
   --z-drawer: 60;
-  --z-toast: 80;
-}
-.display-2xl { font-family: var(--font-display); font-size: 150px; line-height: 0.9; font-weight: 400; text-transform: lowercase; }
-.display-xl { font-family: var(--font-display); font-size: 116px; line-height: 0.9; font-weight: 400; text-transform: lowercase; }
-.display-l { font-family: var(--font-display); font-size: 76px; line-height: 0.92; font-weight: 400; text-transform: lowercase; }
-.display-m { font-family: var(--font-display); font-size: 52px; line-height: 0.95; font-weight: 400; text-transform: lowercase; }
-.display-s { font-family: var(--font-display); font-size: 30px; line-height: 1; font-weight: 400; text-transform: lowercase; }
-.script-xl { font-family: var(--font-script); font-size: 108px; line-height: 1; font-weight: 400; }
-.script-l { font-family: var(--font-script); font-size: 56px; line-height: 1.05; font-weight: 400; }
-.script-m { font-family: var(--font-script); font-size: 36px; line-height: 1.1; font-weight: 400; }
-.body-lg { font-family: var(--font-sans); font-size: 19px; line-height: 1.55; font-weight: 400; }
-.body { font-family: var(--font-sans); font-size: 16px; line-height: 1.6; font-weight: 400; }
-.small { font-family: var(--font-sans); font-size: 13px; line-height: 1.5; font-weight: 500; }
-.h-sans { font-family: var(--font-sans); font-size: 22px; line-height: 1.25; font-weight: 800; }
-.eyebrow { font-family: var(--font-sans); font-size: 14px; line-height: 1.2; font-weight: 800; letter-spacing: 0.12em; }
-.label { font-family: var(--font-sans); font-size: 13px; line-height: 1.2; font-weight: 800; letter-spacing: 0.1em; }
-.nav { font-family: var(--font-sans); font-size: 15px; line-height: 1.2; font-weight: 800; }
-.button { font-family: var(--font-sans); font-size: 15px; line-height: 1; font-weight: 800; letter-spacing: 0.01em; }
-.sticker { font-family: var(--font-sans); font-size: 18px; line-height: 0.95; font-weight: 900; letter-spacing: -0.01em; font-style: italic; }
-.price { font-family: var(--font-sans); font-size: 30px; line-height: 1; font-weight: 900; }
-.item { font-family: var(--font-sans); font-size: 26px; line-height: 1.1; font-weight: 400; }
-.caption { font-family: var(--font-sans); font-size: 12px; line-height: 1.4; font-weight: 500; }
-@media (max-width: 639px) {
-  .display-2xl { font-size: 64px; }
-  .display-xl { font-size: 56px; }
-  .display-l { font-size: 44px; }
-  .display-m { font-size: 36px; }
-  .script-xl { font-size: 44px; }
-  .body-lg { font-size: 17px; }
+
+  color-scheme: dark;
 }

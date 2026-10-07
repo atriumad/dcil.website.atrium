@@ -1,81 +1,64 @@
 import type { Metadata } from "next";
-import { locations } from "@/data/locations";
-import { siteContent } from "@/data/site";
-import { Footer, Hero, NavBar, Newsletter, PromoBanner, SpecialsBoard } from "@/components/dc";
+import { promoDeals } from "@/data/happy-hour";
+import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
+import { DuoSection, InkButton, NewsletterSection, PageHero, SpecialsSection } from "@/components/site/sage";
+import { Button, PromoBanner } from "@/components/dc";
 
 export const metadata: Metadata = {
   title: "Daily Specials & Happy Hour | Don Chuy's Fresh Mex & Cantina",
   description: "Don Chuy's daily specials and everyday happy hour drink deals — a different special every day, all day.",
 };
 
-const navLinks = [
-  { label: "Menu", href: "/menu" },
-  { label: "Specials", href: "/happy-hour" },
-  { label: "Locations", href: "/locations" },
-  { label: "Catering", href: "/catering" },
-  { label: "About", href: "/about" },
-];
-
-const container = "mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter-mobile)] md:px-[var(--gutter-desktop)]";
-
 export default function HappyHourPage() {
   return (
     <>
-      <header className="sticky top-0 z-40">
-        <NavBar links={navLinks} cta="Order Online" ctaHref="/locations" />
-      </header>
+      <SiteHeader active="Specials" />
 
-      <main className="flex-1">
-        <div className={`${container} pt-6 md:pt-10`}>
-          <Hero
-            variant="poster"
-            eyebrow="Fresh Mex & Cantina"
-            title="HA!PPY HOUR"
-            lede="A different special every day, plus everyday drink deals — no clock-watching required."
-            primary="View Menu"
-            primaryHref="/menu"
-            secondary="Find a Location"
-            secondaryHref="/locations"
-          />
-        </div>
+      <main className="sg">
+        <PageHero
+          eyebrow="Fresh Mex & Cantina"
+          title="Happy hour"
+          lede="Monday through Thursday, all day: a different theme and food special each day, plus appetizer and drink deals."
+          image={{ src: "/images/photos/drink-flight-margaritas.webp", alt: "A flight of colorful margaritas on a serving stand" }}
+          ctas={
+            <>
+              <Button size="lg" icon="arrow-right" href="/menu">
+                View Menu
+              </Button>
+              <Button size="lg" variant="outline" href="/locations">
+                Find a Location
+              </Button>
+            </>
+          }
+        />
 
-        <div className={`${container} py-[var(--space-7)] md:py-[var(--space-8)]`}>
-          <SpecialsBoard
-            title={siteContent.dailySpecials.title}
-            subtitle={siteContent.dailySpecials.subtitle}
-            specials={[...siteContent.dailySpecials.specials]}
-            drinks={[...siteContent.dailySpecials.drinks]}
-            plate={{ src: "/images/photos/dish-taco-in-hand.webp", alt: "A street taco held up, part of the 3 tacos daily special" }}
-          />
-        </div>
+        <DuoSection
+          flip
+          eyebrow="Salud"
+          title="Every weekday has its own special"
+          body="Margaritas and martinis, tacos, whiskey and mezcal, and Ladies Night — each day from Monday to Thursday has its own theme, plus appetizer and drink deals that stay the same all week."
+          image={{ src: "/images/photos/drink-cocktail-toast.webp", alt: "Two cocktails raised in a toast" }}
+          action={<InkButton href="/locations">Find a Location</InkButton>}
+        />
 
-        <div className={`${container} pb-[var(--space-8)]`}>
+        <SpecialsSection />
+
+        <section className="sg-promo">
           <PromoBanner
-            tone="marigold"
-            kicker="Everyday drinks"
-            title="HAPPY *hour*, every hour"
-            lede="No clock-watching — these drink prices run every day, all day."
-            deals={siteContent.dailySpecials.drinks.map((drink) => ({ name: drink.name, price: drink.price, icon: drink.icon }))}
+            tone="rose"
+            eyebrow="Monday – Thursday"
+            title="Happy hour, all day"
+            lede="Drink and appetizer deals from open to close — no clock-watching."
+            deals={promoDeals}
             cta="Find a Location"
             ctaHref="/locations"
           />
-        </div>
+        </section>
 
-        <div className={`${container} pb-[var(--space-8)]`}>
-          <Newsletter />
-        </div>
+        <NewsletterSection />
       </main>
 
-      <Footer
-        locations={locations.map((location) => ({ city: location.name, address: location.address }))}
-        links={[
-          { label: "Menu", href: "/menu" },
-          { label: "Specials", href: "/happy-hour" },
-          { label: "Catering", href: "/catering" },
-          { label: "Locations", href: "/locations" },
-          { label: "Contact", href: "/contact" },
-        ]}
-      />
+      <SiteFooter />
     </>
   );
 }

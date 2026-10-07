@@ -4,18 +4,28 @@ export function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
 }
 
-/** "Real-deal *Mexican* flavor" → the starred word becomes the Yellowtail script accent. */
+/** Brand rule: Yellowtail is for ONE word. Returns the trimmed word, or null for phrases/empties/non-strings. */
+export function scriptWord(value: unknown): string | null {
+  return typeof value === "string" && value.trim() !== "" && !/\s/.test(value.trim()) ? value.trim() : null;
+}
+
+/** "Real deal *Mexican* flavor" → the starred single word becomes the Yellowtail accent; a starred phrase stays plain. */
 export function renderAccent(text: string): ReactNode {
-  return text.split(/(\*[^*]+\*)/g).map((part, i) =>
-    part.startsWith("*") && part.endsWith("*") ? (
+  return text.split(/(\*[^*]+\*)/g).map((part, i) => {
+    if (!(part.startsWith("*") && part.endsWith("*"))) return part;
+    const inner = part.slice(1, -1);
+    return scriptWord(inner) ? (
       <em key={i} className="dc-accent">
-        {part.slice(1, -1)}
+        {inner}
       </em>
     ) : (
-      part
-    ),
-  );
+      inner
+    );
+  });
 }
+
+/** True for same-site paths ("/menu"); false for "#", "https://..." and "//host". */
+export const isInternal = (href: string) => href.startsWith("/") && !href.startsWith("//");
 
 export interface LinkItem {
   label: string;

@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import { Button } from "./button";
+import { Logo } from "./decor";
 import { Icon } from "./icon";
 import { cx, toLink, type LinkItem } from "./utils";
 
 export interface NavBarProps {
   links?: Array<string | LinkItem>;
-  /** Label of the current page's link. */
+  /** Label of the current page's link (gets the marigold underline). */
   active?: string;
+  /** Defaults to the official logo (64px). */
   brand?: ReactNode;
   cta?: string | null;
   ctaHref?: string;
-  variant?: "cream" | "rose";
+  variant?: "solid" | "transparent";
   className?: string;
 }
 
@@ -23,7 +25,7 @@ export function NavBar({
   brand,
   cta = "Order Online",
   ctaHref = "#",
-  variant = "cream",
+  variant = "solid",
   className,
 }: NavBarProps) {
   const [open, setOpen] = useState(false);
@@ -31,7 +33,7 @@ export function NavBar({
     <div className={cx("dc-navwrap", className)}>
       <nav className={cx("dc-nav", `dc-nav-${variant}`, open && "is-open")} aria-label="Main">
         <Link href="/" className="dc-nav-brand">
-          {brand ?? <span className="dc-nav-wordmark">Don Chuy&apos;s</span>}
+          {brand ?? <Logo size={64} />}
         </Link>
         <ul className="dc-nav-links">
           {links.map((item) => {
@@ -52,7 +54,7 @@ export function NavBar({
         </ul>
         <div className="dc-nav-end">
           {cta ? (
-            <Button href={ctaHref} variant={variant === "rose" ? "marigold" : "primary"} size="sm" icon="arrow-up-right">
+            <Button href={ctaHref} variant="outline" size="sm">
               {cta}
             </Button>
           ) : null}

@@ -1,13 +1,18 @@
+import Image from "next/image";
 import { Button } from "./button";
-import { Flower, Pattern, Stamp, TileBand } from "./decor";
+import { Flower } from "./decor";
+import { Eyebrow } from "./eyebrow";
 import { PhotoFrame } from "./photo-frame";
-import { Pill } from "./pill";
-import { cx, renderAccent, type Img } from "./utils";
+import { cx, renderAccent, scriptWord, type Img } from "./utils";
 
 export interface HeroProps {
-  variant?: "split" | "poster" | "photo";
+  /** photo: full-bleed photo under a navy scrim (default). split: copy beside an outlined arch photo. */
+  variant?: "photo" | "split";
   eyebrow?: string;
+  /** Wrap ONE word in *stars* for the script accent. */
   title: string;
+  /** One word in Yellowtail above the title. A phrase is ignored. */
+  script?: string;
   lede?: string;
   /** Button labels. Pass null to hide a button. */
   primary?: string | null;
@@ -17,15 +22,16 @@ export interface HeroProps {
   image?: Img;
   /** Photo variant only: replaces `image` on narrow screens (pass a portrait shot). */
   mobileImage?: Img;
-  plates?: Img[];
-  stamp?: boolean;
+  /** Split variant only. */
+  flower?: boolean;
   className?: string;
 }
 
 export function Hero({
-  variant = "split",
+  variant = "photo",
   eyebrow,
   title,
+  script,
   lede,
   primary = "View Menu",
   primaryHref = "#",
@@ -33,126 +39,80 @@ export function Hero({
   secondaryHref = "#",
   image,
   mobileImage,
-  plates = [],
-  stamp = true,
+  flower = true,
   className,
 }: HeroProps) {
-  if (variant === "photo") {
+  const word = scriptWord(script);
+  const copy = (
+    <div className="dc-hero-copy">
+      {eyebrow ? <Eyebrow align={variant === "photo" ? "center" : "left"}>{eyebrow}</Eyebrow> : null}
+      {word ? <span className="dc-hero-script">{word}</span> : null}
+      <h1 className="dc-hero-title">{renderAccent(title)}</h1>
+      {lede ? <p className="dc-hero-lede">{lede}</p> : null}
+      <div className="dc-hero-ctas">
+        {primary ? (
+          <Button size="lg" icon="arrow-right" href={primaryHref}>
+            {primary}
+          </Button>
+        ) : null}
+        {secondary ? (
+          <Button size="lg" variant="outline" href={secondaryHref}>
+            {secondary}
+          </Button>
+        ) : null}
+      </div>
+    </div>
+  );
+
+  if (variant === "split") {
     return (
-      <section className={cx("dc-hero", "dc-hero-photo", className)}>
-        <Flower className="dc-hero-flower dc-hero-flower-l" size={110} />
-        <Flower className="dc-hero-flower dc-hero-flower-r" size={84} />
-        <div className="dc-hero-photo-copy">
-          {eyebrow ? <p className="dc-hero-photo-eyebrow">{eyebrow}</p> : null}
-          <h1 className="dc-hero-photo-title">{renderAccent(title)}</h1>
-          {lede ? <p className="dc-hero-lede">{lede}</p> : null}
-          <div className="dc-hero-ctas">
-            {primary ? (
-              <Button size="lg" icon="arrow-right" href={primaryHref}>
-                {primary}
-              </Button>
-            ) : null}
-            {secondary ? (
-              <Button size="lg" variant="outline" href={secondaryHref}>
-                {secondary}
-              </Button>
-            ) : null}
-          </div>
-        </div>
-        <div className="dc-hero-photo-media">
-          <span className="dc-hero-photo-band" aria-hidden="true" />
-          <div className="dc-hero-photo-img">
-            {image ? (
-              <PhotoFrame
-                src={image.src}
-                alt={image.alt}
-                focus={image.focus}
-                shape="rounded"
-                ratio="21 / 9"
-                sizes="(min-width: 1240px) 1240px, 100vw"
-                priority
-                className={mobileImage ? "dc-hero-photo-wide" : undefined}
-              />
-            ) : null}
-            {mobileImage ? (
-              <PhotoFrame src={mobileImage.src} alt={mobileImage.alt} focus={mobileImage.focus} shape="rounded" ratio="4 / 5" sizes="100vw" className="dc-hero-photo-tall" />
-            ) : null}
-          </div>
-          {stamp ? <Stamp tone="postmark" className="dc-hero-photo-stamp" size={120} text="DESDE LEÓN · FRESH MEX · " /> : null}
-        </div>
-        <TileBand height={44} edge="none" />
-      </section>
-    );
-  }
-  if (variant === "poster") {
-    return (
-      <section className={cx("dc-hero", "dc-hero-poster", className)}>
-        <Pattern name="talavera-tile" tone="ornament" className="dc-hero-edge dc-hero-edge-l" size={64} />
-        <Pattern name="talavera-tile" tone="ornament" className="dc-hero-edge dc-hero-edge-r" size={64} />
-        <div className="dc-hero-poster-inner">
-          {eyebrow ? <Pill tone="outline">{eyebrow}</Pill> : null}
-          <h1 className="dc-hero-hand">{title}</h1>
-          {lede ? <p className="dc-hero-lede">{lede}</p> : null}
-          <div className="dc-hero-plates">
-            {plates.slice(0, 3).map((plate, i) => (
-              <PhotoFrame
-                key={i}
-                src={plate.src}
-                alt={plate.alt}
-                shape="circle"
-                sizes="(min-width: 640px) 260px, 40vw"
-                className={`dc-hero-plate dc-hero-plate-${i}`}
-              />
-            ))}
-          </div>
-          <div className="dc-hero-ctas">
-            {primary ? (
-              <Button size="lg" icon="arrow-right" href={primaryHref}>
-                {primary}
-              </Button>
-            ) : null}
-            {secondary ? (
-              <Button size="lg" variant="cream" href={secondaryHref}>
-                {secondary}
-              </Button>
-            ) : null}
-          </div>
+      <section className={cx("dc-hero", "dc-hero-split", className)}>
+        {copy}
+        <div className="dc-hero-media">
+          <PhotoFrame
+            src={image?.src}
+            alt={image?.alt}
+            focus={image?.focus}
+            shape="arch"
+            outline
+            sizes="(min-width: 900px) 440px, 90vw"
+            priority
+          />
+          {flower ? <Flower className="dc-hero-flower" size={132} /> : null}
         </div>
       </section>
     );
   }
 
   return (
-    <section className={cx("dc-hero", "dc-hero-split", className)}>
-      <Pattern name="doodles" tone="paper-deep" className="dc-hero-doodles" size={260} />
-      <div className="dc-hero-copy">
-        {eyebrow ? (
-          <Pill tone="rose" icon="flame">
-            {eyebrow}
-          </Pill>
-        ) : null}
-        <h1 className="dc-hero-title">{renderAccent(title)}</h1>
-        {lede ? <p className="dc-hero-lede">{lede}</p> : null}
-        <div className="dc-hero-ctas">
-          {primary ? (
-            <Button size="lg" icon="arrow-right" href={primaryHref}>
-              {primary}
-            </Button>
-          ) : null}
-          {secondary ? (
-            <Button size="lg" variant="outline" iconLeft="pin" href={secondaryHref}>
-              {secondary}
-            </Button>
-          ) : null}
-        </div>
-      </div>
-      <div className="dc-hero-media">
-        <PhotoFrame src={image?.src} alt={image?.alt} focus={image?.focus} shape="arch" sizes="(min-width: 900px) 420px, 90vw" priority className="dc-hero-arch" />
-        {plates[0] ? (
-          <PhotoFrame src={plates[0].src} alt={plates[0].alt} shape="circle" sizes="200px" className="dc-hero-float" />
-        ) : null}
-        {stamp ? <Stamp className="dc-hero-stamp" /> : null}
-      </div>
+    <section className={cx("dc-hero", "dc-hero-photo", className)}>
+      {image ? (
+        <Image
+          className={cx("dc-hero-bg", mobileImage && "dc-hero-bg-wide")}
+          src={image.src}
+          alt={image.alt}
+          fill
+          priority
+          sizes="100vw"
+          quality={90}
+          style={image.focus ? { objectPosition: image.focus } : undefined}
+        />
+      ) : null}
+      {mobileImage ? (
+        <Image
+          className="dc-hero-bg dc-hero-bg-tall"
+          src={mobileImage.src}
+          alt={mobileImage.alt}
+          fill
+          priority
+          sizes="100vw"
+          quality={90}
+          style={mobileImage.focus ? { objectPosition: mobileImage.focus } : undefined}
+        />
+      ) : null}
+      <span className="dc-hero-scrim" aria-hidden="true" />
+      {copy}
+      <span className="dc-hero-scroll" aria-hidden="true" />
     </section>
   );
 }

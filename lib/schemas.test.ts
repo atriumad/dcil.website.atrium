@@ -4,7 +4,7 @@ import { locationSchema, menuItemSchema, inquirySchema } from "./schemas";
 describe("locationSchema", () => {
   it("accepts a valid open location", () => {
     const result = locationSchema.safeParse({
-      slug: "overland-park",
+      slug: "overland-park-ks",
       name: "Overland Park, KS",
       address: "8725 Metcalf Ave, Overland Park, KS 66212",
       phone: "+1 816-603-2124",
@@ -47,7 +47,7 @@ describe("menuItemSchema", () => {
 describe("inquirySchema", () => {
   it("rejects an invalid email", () => {
     const result = inquirySchema.safeParse({
-      type: "contact",
+      type: "general",
       firstName: "Ana",
       lastName: "Lopez",
       email: "not-an-email",
@@ -58,7 +58,7 @@ describe("inquirySchema", () => {
 
   it("accepts a valid contact inquiry", () => {
     const result = inquirySchema.safeParse({
-      type: "contact",
+      type: "general",
       firstName: "Ana",
       lastName: "Lopez",
       email: "ana@example.com",

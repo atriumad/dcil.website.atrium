@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { locations } from "@/data/locations";
-import { Button, Footer, Icon, NavBar, Newsletter, Pill, SectionHeader } from "@/components/dc";
+import { locations, orderHref, telHref } from "@/data/locations";
+import { locationDishes } from "@/data/featured-dishes";
+import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
+import { InkButton, LightEyebrow, NewsletterSection, PageHero } from "@/components/site/sage";
+import { Button, Eyebrow, Icon, PhotoFrame } from "@/components/dc";
 import { buildLocationJsonLd, locationMetaDescription, locationMetaTitle } from "@/lib/seo";
 
 const SIGNATURE_DISH = "Steak & Lobster";
 
-const navLinks = [
-  { label: "Menu", href: "/menu" },
-  { label: "Specials", href: "/happy-hour" },
-  { label: "Locations", href: "/locations" },
-  { label: "Catering", href: "/catering" },
-  { label: "About", href: "/about" },
+// Shared photo set until per-location photography arrives (the guide pulls originals from Atrium).
+const gallery = [
+  { src: "/images/photos/interior-eagle-mural.webp", alt: "Colorful eagle mural on a brick wall inside the restaurant" },
+  { src: "/images/photos/interior-hanging-flowers.webp", alt: "Red flowers and greenery hanging from the dining room ceiling" },
+  { src: "/images/photos/drink-flight-margaritas.webp", alt: "A flight of colorful margaritas on a serving stand" },
+  { src: "/images/photos/dish-steak-plate-wide.webp", alt: "A grilled steak plate" },
+  { src: "/images/photos/dish-taco-in-hand.webp", alt: "A taco held in hand" },
+  { src: "/images/photos/interior-bar-bottles.webp", alt: "A sunlit corner of the dining room with a palm, a blue booth and talavera tile" },
 ];
 
 const mapsUrl = (address: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-
-const container = "mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter-mobile)] md:px-[var(--gutter-desktop)]";
 
 export function generateStaticParams() {
   return locations.map((location) => ({ slug: location.slug }));
@@ -48,87 +51,140 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       ) : null}
 
-      <header className="sticky top-0 z-40">
-        <NavBar links={navLinks} cta="Order Online" ctaHref="/locations" />
-      </header>
+      <SiteHeader active="Locations" />
 
-      <main className="flex-1">
-        <section className={`${container} py-[var(--space-7)] md:py-[var(--space-8)]`}>
-          {location.comingSoon ? (
-            <SectionHeader
+      <main className="sg">
+        {location.comingSoon ? (
+          <>
+            <PageHero
               eyebrow="Coming soon"
               title={location.name}
               lede="We're not open here yet — check back soon, or visit one of our open locations in the meantime."
             />
-          ) : (
-            <>
-              <SectionHeader eyebrow="Don Chuy's" title={location.name} lede={location.intro} />
+            <section className="sg-sage sg-detail">
+              <div className="sg-detail-main">
+                <InkButton href="/locations">See open locations</InkButton>
+              </div>
+            </section>
+            <NewsletterSection title="Be the first to know" />
+          </>
+        ) : (
+          <>
+            <PageHero
+              eyebrow="Don Chuy's"
+              title={location.name}
+              lede={location.intro}
+              ctas={
+                <>
+                  <Button size="lg" href={orderHref(location)} icon="arrow-right">
+                    Order Now
+                  </Button>
+                  <Button size="lg" variant="outline" href="/menu">
+                    View Menu
+                  </Button>
+                </>
+              }
+            />
 
-              <div className="mt-[var(--space-6)] grid gap-[var(--space-6)] md:grid-cols-[1.1fr_.9fr]">
-                <div className="flex flex-col gap-[var(--space-4)]">
-                  <p className="dc-loc-line body">
+            <section className="sg-sage sg-detail">
+              <div className="sg-detail-main sg-reveal">
+                <ul className="sg-facts">
+                  <li>
                     <Icon name="pin" size={18} />
                     {location.address}
-                  </p>
-                  <p className="dc-loc-line body">
+                  </li>
+                  <li>
                     <Icon name="phone" size={18} />
-                    <a href={`tel:${location.phone.replace(/[^+\d]/g, "")}`}>{location.phone}</a>
-                  </p>
-                  <Button href={mapsUrl(location.address)} variant="outline" icon="arrow-up-right" className="self-start">
-                    Get Directions
-                  </Button>
+                    <a href={telHref(location.phone)}>{location.phone}</a>
+                  </li>
+                </ul>
+                <InkButton href={mapsUrl(location.address)} outline>
+                  Get Directions
+                </InkButton>
 
-                  {location.reviews.length ? (
-                    <div className="mt-[var(--space-5)] flex flex-col gap-[var(--space-4)]">
-                      {location.reviews.map((review) => (
-                        <blockquote key={review.author} className="dc-mi-featured rounded-[var(--radius-md)] p-[var(--space-4)]">
-                          <p className="body italic">&ldquo;{review.quote}&rdquo;</p>
-                          <cite className="label not-italic">— {review.author}</cite>
-                        </blockquote>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div className="flex flex-col gap-[var(--space-3)] rounded-[var(--radius-lg)] border-2 border-[var(--ink)] p-[var(--space-5)]">
-                  <p className="label">Hours</p>
-                  <ul className="dc-loc-hours">
-                    {location.hours.map((row) => (
-                      <li key={row.days}>
-                        <span>{row.days}</span>
-                        <span>{row.time}</span>
-                      </li>
+                {location.reviews.length ? (
+                  <div className="sg-quotes">
+                    {location.reviews.map((review) => (
+                      <blockquote key={review.author} className="sg-quote">
+                        <p>&ldquo;{review.quote}&rdquo;</p>
+                        <cite>— {review.author}</cite>
+                      </blockquote>
                     ))}
-                  </ul>
-                </div>
+                  </div>
+                ) : null}
+
               </div>
 
-              {location.closing ? <p className="body-lg mt-[var(--space-6)] italic text-[var(--ink-muted)]">{location.closing}</p> : null}
-            </>
-          )}
-        </section>
+              <div className="sg-detail-card sg-frame sg-reveal">
+                <p className="dc-panel-title">Hours</p>
+                <ul className="sg-hours">
+                  {location.hours.map((row) => (
+                    <li key={row.days}>
+                      <span>{row.days}</span>
+                      <span>{row.time}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
 
-        {location.comingSoon ? (
-          <section className={`${container} pb-[var(--space-7)]`}>
-            <Pill tone="marigold">Coming soon</Pill>
-          </section>
-        ) : null}
+            <section className="sg-deep sg-gallery" aria-label={`Photos of Don Chuy's ${location.name}`}>
+              {gallery.map((photo, i) => (
+                <PhotoFrame key={photo.src} className={i === 0 ? "sg-gallery-banner" : "sg-gallery-tile"} shape="frame" ratio={i === 0 ? "21 / 9" : "1"} src={photo.src} alt={photo.alt} sizes={i === 0 ? "100vw" : "(min-width: 900px) 20vw, 50vw"} />
+              ))}
+            </section>
 
-        <div className={`${container} pb-[var(--space-8)]`}>
-          <Newsletter title={location.comingSoon ? "Be the first to know" : undefined} />
-        </div>
+            <section className="sg-sage sg-sig">
+              <header className="sg-sig-head sg-reveal">
+                <div>
+                  <LightEyebrow>Featured dishes</LightEyebrow>
+                  <h2 className="sg-h2">Order the favorites</h2>
+                </div>
+                <p className="sg-body">A family-owned Mexican spot where authentic flavor meets warm hospitality, a delicious lunch or dinner made with heart.</p>
+                <InkButton href="/menu">View Menu</InkButton>
+              </header>
+              <ol className="sg-feat">
+                {locationDishes.map((dish, i) => (
+                  <li key={dish.name} className="sg-feat-item sg-reveal">
+                    <span className="sg-feat-no" aria-hidden="true">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <h3 className="sg-h4">{dish.name}</h3>
+                      <p className="sg-small">{dish.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+
+            <section className="sg-deep sg-mapsec">
+              <div className="sg-mapsec-copy sg-reveal">
+                <Eyebrow>Find us</Eyebrow>
+                <h2 className="sg-h2 sg-on-dark">
+                  Don Chuy&rsquo;s <span className="sg-block">{location.name}</span>
+                </h2>
+                {location.closing ? <p className="sg-body sg-on-dark">{location.closing}</p> : null}
+                <p className="sg-body sg-on-dark">{location.address}</p>
+                <Button href={mapsUrl(location.address)} variant="outline" icon="arrow-up-right">
+                  Get Directions
+                </Button>
+              </div>
+              <iframe
+                className="sg-map sg-reveal"
+                title={`Map of Don Chuy's ${location.name}`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                src={`https://www.google.com/maps?q=${encodeURIComponent(location.address)}&output=embed`}
+              />
+            </section>
+
+            <NewsletterSection />
+          </>
+        )}
       </main>
 
-      <Footer
-        locations={locations.map((l) => ({ city: l.name, address: l.address }))}
-        links={[
-          { label: "Menu", href: "/menu" },
-          { label: "Specials", href: "/happy-hour" },
-          { label: "Catering", href: "/catering" },
-          { label: "Locations", href: "/locations" },
-          { label: "Contact", href: "/contact" },
-        ]}
-      />
+      <SiteFooter />
     </>
   );
 }
