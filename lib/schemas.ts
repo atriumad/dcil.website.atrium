@@ -38,7 +38,7 @@ export const menuCategorySchema = z.object({
   items: z.array(menuItemSchema).min(1),
 });
 
-export const inquiryTypeSchema = z.enum(["contact", "catering", "notify-ofallon"]);
+export const inquiryTypeSchema = z.enum(["general", "catering", "event", "notify-ofallon"]);
 
 export const inquirySchema = z.object({
   type: inquiryTypeSchema,
@@ -46,6 +46,7 @@ export const inquirySchema = z.object({
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Enter a valid email"),
   phone: z.string().optional(),
+  location: z.string().optional(),
   message: z.string().min(1, "Message is required"),
   eventDate: z.string().optional(),
   guestCount: z.coerce.number().int().positive().optional(),

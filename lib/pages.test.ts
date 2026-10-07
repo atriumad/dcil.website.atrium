@@ -12,7 +12,7 @@ const PAGES = [
   "app/locations/page.tsx",
   "app/locations/[slug]/page.tsx",
   "app/about/page.tsx",
-  "app/catering/page.tsx",
+  "app/menu/drinks/page.tsx",
   "app/contact/page.tsx",
   "app/happy-hour/page.tsx",
 ];

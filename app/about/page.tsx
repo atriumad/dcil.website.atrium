@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { siteContent } from "@/data/site";
 import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
-import { FeatureSplit, Hero, Marquee, Newsletter } from "@/components/dc";
+import { DuoSection, InkButton, NewsletterSection, PageHero } from "@/components/site/sage";
+import { Button, Eyebrow } from "@/components/dc";
 
 export const metadata: Metadata = {
   title: "About Us | Don Chuy's Fresh Mex & Cantina",
@@ -13,29 +14,43 @@ export default function AboutPage() {
     <>
       <SiteHeader active="About" />
 
-      <main className="flex flex-1 flex-col gap-[var(--space-8)]">
-        <Hero
-          variant="split"
+      <main className="sg">
+        <PageHero
           eyebrow="Nuestra historia"
-          title="Family *roots*, big flavor"
-          primary="View Menu"
-          primaryHref="/menu"
-          secondary="Find a Location"
-          secondaryHref="/locations"
+          title="Family roots, big flavor"
           image={{ src: "/images/photos/dish-shrimp-paella-modelo.webp", alt: "Shrimp ceviche served on a paella pan with Modelo bottles" }}
+          ctas={
+            <>
+              <Button size="lg" icon="arrow-right" href="/menu">
+                View Menu
+              </Button>
+              <Button size="lg" variant="outline" href="/locations">
+                Find a Location
+              </Button>
+            </>
+          }
         />
 
-        <FeatureSplit
-          tone="navy-900"
+        <DuoSection
           eyebrow={siteContent.taglines[0]}
           title="Come as guests. Leave as family."
           body={siteContent.about.body}
           image={{ src: "/images/photos/interior-eagle-mural.webp", alt: "Colorful eagle mural on a brick wall inside the restaurant", focus: "50% 35%" }}
+          action={<InkButton href="/locations">Find a Location</InkButton>}
         />
 
-        <Marquee items={[...siteContent.taglines]} />
+        <section className="sg-tags">
+          <Eyebrow>Nuestra promesa</Eyebrow>
+          <ul className="sg-tags-list">
+            {siteContent.taglines.map((line) => (
+              <li key={line} className="sg-reveal">
+                <p className="sg-h3">{line}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-        <Newsletter />
+        <NewsletterSection />
       </main>
 
       <SiteFooter />

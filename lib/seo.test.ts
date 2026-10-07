@@ -4,7 +4,7 @@ import { locations } from "@/data/locations";
 
 describe("buildLocationJsonLd", () => {
   it("builds a Restaurant schema with address and phone for an open location", () => {
-    const overlandPark = locations.find((l) => l.slug === "overland-park")!;
+    const overlandPark = locations.find((l) => l.slug === "overland-park-ks")!;
     const jsonLd = buildLocationJsonLd(overlandPark);
 
     expect(jsonLd["@type"]).toBe("Restaurant");

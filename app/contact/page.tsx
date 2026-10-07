@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { locations } from "@/data/locations";
-import { SiteFooter, SiteHeader, pageContainer } from "@/components/site/site-chrome";
-import { Icon, Newsletter, SectionHeader } from "@/components/dc";
+import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
+import { NewsletterSection, PageHero } from "@/components/site/sage";
+import { Eyebrow, Icon } from "@/components/dc";
 import { ContactInquiryForm } from "./inquiry-form";
 
 export const metadata: Metadata = {
@@ -16,32 +17,40 @@ export default function ContactPage() {
     <>
       <SiteHeader />
 
-      <main className="flex flex-1 flex-col gap-[var(--space-7)]">
-        <div className={`${pageContainer} pt-[var(--space-7)]`}>
-          <SectionHeader eyebrow="Get in touch" title="We'd love to hear from you" lede="Reach your nearest Don Chuy's directly, or send us a message below." />
-        </div>
+      <main className="sg">
+        <PageHero
+          eyebrow="Let's talk"
+          title="We'd love to hear from you"
+          lede="Please contact us with any questions on special events you are planning, catering for large groups, or anything else that comes to mind."
+        />
 
-        <div className={`${pageContainer} grid gap-[var(--space-4)] sm:grid-cols-2 lg:grid-cols-3`}>
-          {openLocations.map((location) => (
-            <div key={location.slug} className="dc-panel">
-              <p className="dc-panel-title">{location.name}</p>
-              <p className="dc-loc-line">
-                <Icon name="pin" size={16} />
-                {location.address}
-              </p>
-              <p className="dc-loc-line">
-                <Icon name="phone" size={16} />
-                <a href={`tel:${location.phone.replace(/[^+\d]/g, "")}`}>{location.phone}</a>
-              </p>
+        <section className="sg-sage sg-formsec">
+          <ul className="sg-contact-list">
+            {openLocations.map((location) => (
+              <li key={location.slug} className="sg-reveal">
+                <h2 className="sg-h4">{location.name}</h2>
+                <p className="sg-facts-line">
+                  <Icon name="pin" size={16} />
+                  {location.address}
+                </p>
+                <p className="sg-facts-line">
+                  <Icon name="phone" size={16} />
+                  <a href={`tel:${location.phone.replace(/[^+\d]/g, "")}`}>{location.phone}</a>
+                </p>
+              </li>
+            ))}
+          </ul>
+
+          <div className="sg-formsec-card sg-frame sg-reveal sg-formsec-after">
+            <div className="sg-formsec-head">
+              <Eyebrow>Contact · catering · events</Eyebrow>
+              <h2 className="sg-h3 sg-on-dark">Get in touch</h2>
             </div>
-          ))}
-        </div>
+            <ContactInquiryForm />
+          </div>
+        </section>
 
-        <div className={pageContainer}>
-          <ContactInquiryForm />
-        </div>
-
-        <Newsletter />
+        <NewsletterSection />
       </main>
 
       <SiteFooter />

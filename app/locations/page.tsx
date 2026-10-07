@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { locations } from "@/data/locations";
-import { SiteFooter, SiteHeader, pageContainer } from "@/components/site/site-chrome";
-import { LocationCard, Newsletter, SectionHeader } from "@/components/dc";
+import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
+import { LocationsSection, NewsletterSection, PageHero } from "@/components/site/sage";
 
 export const metadata: Metadata = {
   title: "Locations | Don Chuy's Fresh Mex & Cantina",
@@ -13,31 +12,15 @@ export default function LocationsPage() {
     <>
       <SiteHeader active="Locations" />
 
-      <main className="flex flex-1 flex-col gap-[var(--space-8)]">
-        <section className={`${pageContainer} flex flex-col gap-[var(--space-7)] pt-[var(--space-7)] md:pt-[var(--space-8)]`}>
-          <SectionHeader
-            align="center"
-            eyebrow="Visit us"
-            title="Find your table"
-            lede="Three restaurants open, a fourth on the way. Come for the food, stay for the fun!"
-          />
-          <div className="grid gap-[var(--space-5)] sm:grid-cols-2 lg:grid-cols-4">
-            {locations.map((location) => (
-              <LocationCard
-                key={location.slug}
-                city={location.name}
-                address={location.address || undefined}
-                phone={location.phone || undefined}
-                hours={location.hours.map((row) => `${row.days}|${row.time}`)}
-                comingSoon={location.comingSoon}
-                href={`/locations/${location.slug}`}
-                cta={location.comingSoon ? null : "View Location"}
-              />
-            ))}
-          </div>
-        </section>
-
-        <Newsletter />
+      <main className="sg">
+        <PageHero
+          eyebrow="Visit us"
+          title="Find your table"
+          lede="Three restaurants open, a fourth on the way. Come for the food, stay for the fun!"
+          image={{ src: "/images/photos/interior-bar-bottles.webp", alt: "A sunlit corner of the dining room with a palm, a blue booth and talavera tile" }}
+        />
+        <LocationsSection bare detailLinks />
+        <NewsletterSection />
       </main>
 
       <SiteFooter />

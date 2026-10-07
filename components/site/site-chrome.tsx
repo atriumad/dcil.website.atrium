@@ -1,29 +1,56 @@
-import { Footer, NavBar } from "@/components/dc";
-import { locations } from "@/data/locations";
+import { Footer } from "@/components/dc";
+import { locations, orderHref } from "@/data/locations";
+import { SiteNav, type SiteNavLink } from "./site-nav";
 
 /** Page content width + gutters, shared by every page. */
 export const pageContainer = "mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter-mobile)] md:px-[var(--gutter-desktop)]";
 
-const navLinks = [
+const navLinks: SiteNavLink[] = [
   { label: "Menu", href: "/menu" },
-  { label: "Specials", href: "/happy-hour" },
-  { label: "Locations", href: "/locations" },
-  { label: "Catering", href: "/catering" },
+  { label: "Happy Hour", href: "/happy-hour" },
+  {
+    label: "Locations",
+    href: "/locations",
+    children: locations.map((location) => ({
+      label: location.name,
+      href: `/locations/${location.slug}`,
+      note: location.comingSoon ? "Coming soon" : undefined,
+    })),
+  },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
+
+/** ChowNow where a location has it (Overland Park), tap-to-call everywhere else. */
+const orderOptions = locations
+  .filter((location) => !location.comingSoon)
+  .map((location) => {
+    const chowNow = location.orderUrl.startsWith("http");
+    return {
+      label: location.name,
+      href: orderHref(location),
+      note: chowNow ? "Order online" : `Call ${location.phone}`,
+      external: true,
+    };
+  });
 
 const footerLinks = [
   { label: "Menu", href: "/menu" },
-  { label: "Specials", href: "/happy-hour" },
-  { label: "Catering", href: "/catering" },
+  { label: "Happy Hour", href: "/happy-hour" },
   { label: "Locations", href: "/locations" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
+];
+
+const footerSocial = [
+  { label: "Facebook", href: "https://www.facebook.com/DonchuysLS" },
+  { label: "Instagram", href: "https://www.instagram.com/donchuysmo/" },
 ];
 
 export function SiteHeader({ active }: { active?: string }) {
   return (
     <header className="sticky top-0 z-40">
-      <NavBar links={navLinks} active={active} cta="Order Online" ctaHref="/locations" />
+      <SiteNav links={navLinks} active={active} order={orderOptions} />
     </header>
   );
 }
@@ -35,8 +62,11 @@ export function SiteFooter() {
         city: location.name,
         address: location.address || undefined,
         phone: location.phone || undefined,
+        hours: location.hours.map((row) => `${row.days} ${row.time}`),
       }))}
       links={footerLinks}
+      social={footerSocial}
+      legal={`© ${new Date().getFullYear()} Don Chuy's Fresh Mex & Cantina. All rights reserved.`}
     />
   );
 }

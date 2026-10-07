@@ -1,20 +1,27 @@
-/* Don Chuy's design tokens v6 "cantina de noche" — from the Brand Guide's tokens.css.
+/* Don Chuy's design tokens v6 — Brand Guide structure, site palette "salvia y noche" (sage ground, deep teal-ink nights).
    @font-face and font stacks are omitted: next/font (app/layout.tsx) injects the fonts and
    globals.css (@theme static) wires --font-display / --font-script / --font-sans. */
 :root {
-  --navy: #194765;
-  --navy-900: #0e2f44;
-  --navy-700: #255b7e;
+  --navy: #17323a;
+  --navy-900: #17323a;
+  --navy-700: #233f44;
   --white: #ffffff;
   --ivory: #f6f1e7;
   --ivory-muted: #c5d0d8;
   --marigold: #ed9d55;
   --rose: #9f3e49;
   --teal: #69968f;
-  --on-marigold: #0e2f44;
+  --on-marigold: #17323a;
   --line: rgba(246, 241, 231, 0.22);
-  --overlay: rgba(14, 47, 68, 0.62);
+  --overlay: rgba(23, 50, 58, 0.62);
   --focus: #ed9d55;
+
+  /* Sage ground: ink text only. Never marigold, ivory or white on sage; teal is decoration only. */
+  --sg-sage: #9fadae;
+  --sg-ink: #17323a;
+  --sg-ink-2: #233f44;
+  --sg-line: rgba(23, 50, 58, 0.28);
+  --sg-tile: rgba(23, 50, 58, 0.1);
 
   --space-1: 4px;
   --space-2: 8px;
@@ -30,8 +37,8 @@
   --radius-sm: 2px;
   --radius-round: 999px;
 
-  --shadow-plate: 0 28px 56px rgba(4, 22, 34, 0.5);
-  --shadow-card: 0 18px 40px rgba(4, 22, 34, 0.35);
+  --shadow-plate: 0 28px 56px rgba(10, 26, 31, 0.42);
+  --shadow-card: 0 18px 40px rgba(10, 26, 31, 0.32);
 
   --bp-sm: 640px;
   --bp-md: 768px;

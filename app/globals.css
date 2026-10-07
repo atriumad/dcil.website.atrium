@@ -6,6 +6,7 @@
 @import "./dc-assets.css";
 @import "./dc-components.css";
 @import "./dc-site.css";
+@import "./sage.css";
 
 @theme inline {
   --color-background: var(--background);

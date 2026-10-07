@@ -8,7 +8,7 @@ export interface FooterProps {
   /** Defaults to the official logo (168px). */
   brand?: ReactNode;
   tagline?: string;
-  locations?: { city: string; address?: string; phone?: string }[];
+  locations?: { city: string; address?: string; phone?: string; hours?: string[] }[];
   links?: Array<string | LinkItem>;
   social?: Array<string | LinkItem>;
   legal?: string;
@@ -37,6 +37,11 @@ export function Footer({
             <h4>{location.city}</h4>
             <p>{location.address || "Coming soon"}</p>
             {location.phone ? <p>{location.phone}</p> : null}
+            {location.hours?.map((line) => (
+              <p key={line} className="dc-foot-hours">
+                {line}
+              </p>
+            ))}
           </div>
         ))}
       </div>

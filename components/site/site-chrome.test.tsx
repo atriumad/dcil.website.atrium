@@ -7,7 +7,12 @@ describe("site chrome", () => {
     const { container } = render(<SiteHeader active="Menu" />);
     expect(container.querySelector("header")).toHaveClass("sticky", "top-0");
     expect(screen.getByRole("link", { name: "Menu" })).toHaveAttribute("aria-current", "page");
-    expect(screen.getByRole("link", { name: "Specials" })).toHaveAttribute("href", "/happy-hour");
+    expect(screen.getByRole("link", { name: "Happy Hour" })).toHaveAttribute("href", "/happy-hour");
+  });
+  it("header has a Locations dropdown and an Order Now menu", () => {
+    render(<SiteHeader />);
+    expect(screen.getByRole("button", { name: /Locations/ })).toHaveAttribute("aria-haspopup", "true");
+    expect(screen.getByRole("button", { name: /Order Now/ })).toHaveAttribute("aria-expanded", "false");
   });
   it("footer lists every location, with Coming soon for the unopened one", () => {
     render(<SiteFooter />);

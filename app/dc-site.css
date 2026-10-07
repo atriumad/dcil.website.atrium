@@ -46,7 +46,7 @@
 .mn-item-dots { flex: 1; min-width: 24px; }
 .mn-item-price { font: 800 20px/1 var(--font-sans); color: var(--marigold); font-variant-numeric: tabular-nums; }
 .mn-item-desc { margin: 6px 0 0; font: 400 15px/1.6 var(--font-sans); color: var(--ivory-muted); max-width: 520px; }
-.mn-break { display: grid; grid-template-columns: minmax(0, 0.8fr) 1fr; align-items: center; gap: var(--space-7); padding: var(--space-6) clamp(20px, 4vw, 56px); background: var(--navy-900); border: 1px solid var(--line); }
+.mn-break { display: grid; grid-template-columns: minmax(0, 0.8fr) 1fr; align-items: center; gap: var(--space-7); padding: var(--space-6) clamp(20px, 4vw, 56px); background: var(--navy-700); border: 1px solid var(--line); }
 .mn-break.is-flip { grid-template-columns: 1fr minmax(0, 0.8fr); }
 .mn-break.is-flip .mn-break-photo { order: 2; }
 .mn-break-photo { width: min(100%, 420px); justify-self: center; }

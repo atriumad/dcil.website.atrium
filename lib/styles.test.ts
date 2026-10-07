@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 const read = (file: string) => readFileSync(path.join(import.meta.dirname, "..", "app", file), "utf8");
 
 /** CSS files that must be v6-clean. Task 2 appends the dc-*.css files. */
-export const CSS_FILES = ["tokens.css", "type.css", "globals.css", "dc-assets.css", "dc-components.css", "dc-site.css"];
+export const CSS_FILES = ["tokens.css", "type.css", "globals.css", "dc-assets.css", "dc-components.css", "dc-site.css", "sage.css"];
 
 /** v5 tokens removed in v6. A surviving `var(--x)` renders as an unset (invisible) color. */
 const REMOVED = [
@@ -33,8 +33,9 @@ describe("design tokens v6", () => {
   it("defines the palette exactly as the brand guide", () => {
     const css = read("tokens.css");
     for (const [name, value] of Object.entries({
-      navy: "#194765", "navy-900": "#0e2f44", "navy-700": "#255b7e", white: "#ffffff", ivory: "#f6f1e7",
-      "ivory-muted": "#c5d0d8", marigold: "#ed9d55", rose: "#9f3e49", teal: "#69968f", "on-marigold": "#0e2f44", focus: "#ed9d55",
+      navy: "#17323a", "navy-900": "#17323a", "navy-700": "#233f44", white: "#ffffff", ivory: "#f6f1e7",
+      "ivory-muted": "#c5d0d8", marigold: "#ed9d55", rose: "#9f3e49", teal: "#69968f", "on-marigold": "#17323a", focus: "#ed9d55",
+      "sg-sage": "#9fadae", "sg-ink": "#17323a", "sg-ink-2": "#233f44",
     })) {
       expect(css, name).toContain(`--${name}: ${value}`);
     }
@@ -59,5 +60,13 @@ describe("design tokens v6", () => {
     // marigold text on navy: large text only (guide: 19px bold+), so the 3:1 large-text bar applies
     expect(contrast(token("marigold"), token("navy"))).toBeGreaterThanOrEqual(3);
     expect(contrast(token("marigold"), token("navy-900"))).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it("keeps ink readable on the sage ground", () => {
+    expect(contrast(token("sg-ink"), token("sg-sage"))).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(token("sg-ink-2"), token("sg-sage"))).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(token("ivory"), token("sg-ink"))).toBeGreaterThanOrEqual(4.5);
+    // marigold never sits on sage: it would fail even the large-text bar
+    expect(contrast(token("marigold"), token("sg-sage"))).toBeLessThan(3);
   });
 });

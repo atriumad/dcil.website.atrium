@@ -2,7 +2,7 @@ import type { Location } from "@/lib/schemas";
 
 export const locations: Location[] = [
   {
-    slug: "overland-park",
+    slug: "overland-park-ks",
     name: "Overland Park, KS",
     address: "8725 Metcalf Ave, Overland Park, KS 66212",
     phone: "+1 816-603-2124",
@@ -13,13 +13,14 @@ export const locations: Location[] = [
       { days: "Wed", time: "10:00 AM - 10:30 PM" },
       { days: "Fri-Sun", time: "11:00 AM - 10:30 PM" },
     ],
-    orderUrl: "https://order.chownow.com/order/TODO-OVERLAND-PARK/locations",
+    // ChowNow is live for Overland Park only; the other locations order by phone (tel: link).
+    orderUrl: "https://order.chownow.com/order/42367/locations/64005",
     comingSoon: false,
     reviews: [
       {
         author: "Alex Iglesias",
         quote:
-          "Don Chuy's in Overland Park is an absolute gem! ... And the food? So tasty and on point..!",
+          "Don Chuy's in Overland Park is an absolute gem! From the moment you walk in, the ambiance is excellent, with a vibrant and welcoming atmosphere. The service is truly top-notch; our server's advice was invaluable in navigating the menu, making our experience even better. And the food? So tasty and on point..!",
       },
     ],
     intro:
@@ -27,18 +28,18 @@ export const locations: Location[] = [
     closing: "Come hungry. Leave happy. We'll save you a seat at our Overland Park location.",
   },
   {
-    slug: "lees-summit",
+    slug: "lees-summit-mo",
     name: "Lee's Summit, MO",
     address: "701 SE Melody Ln, Lee's Summit, MO 64063",
     phone: "+1 816-434-5222",
     hours: [{ days: "Every day", time: "11:00 AM - 10:00 PM" }],
-    orderUrl: "https://order.chownow.com/order/TODO-LEES-SUMMIT/locations",
+    orderUrl: "",
     comingSoon: false,
     reviews: [
       {
         author: "Joseph Herbaug",
         quote:
-          "This place blew me away. ... I've reviewed molcajete at other restaurants and this one has been my favorite so far.",
+          "This place blew me away. We stopped in expecting another basic Mexican restaurant, the staff, the atmosphere, the art, and especially the food proved me wrong. I ordered the molcajete, steak, shrimp, chicken, chorizo, beans, cactus leaf, served in a hot bowl with red sauce was absolutely perfect. I've reviewed molcajete at other restaurants and this one has been my favorite so far.",
       },
     ],
     intro:
@@ -46,7 +47,7 @@ export const locations: Location[] = [
     closing: "Come hungry. Leave happy. We'll save you a seat at our Lee's Summit location.",
   },
   {
-    slug: "johnson-city",
+    slug: "johnson-city-tn",
     name: "Johnson City, TN",
     address: "3101 W Market St #101, Johnson City, TN 37604",
     phone: "+1 423-328-3475",
@@ -55,13 +56,13 @@ export const locations: Location[] = [
       { days: "Fri-Sat", time: "11:00 AM - 10:30 PM" },
       { days: "Sun", time: "11:00 AM - 9:30 PM" },
     ],
-    orderUrl: "https://order.chownow.com/order/TODO-JOHNSON-CITY/locations",
+    orderUrl: "",
     comingSoon: false,
     reviews: [
       {
         author: "Makayla Parker",
         quote:
-          "This place has quickly become mine and my husbands favorite place. ... Always amazed to see this place not have many customers, they deserve more!",
+          "This place has quickly become mine and my husbands favorite place. The cheese and bean dip are awesome and the margaritas are so good and decently cheap! I always get the classic ACP with flour tortillas and am never disappointed. Portions are large and the staff is very kind.",
       },
     ],
     intro:
@@ -69,7 +70,7 @@ export const locations: Location[] = [
     closing: "Come hungry. Leave happy. We'll be ready when you are.",
   },
   {
-    slug: "ofallon",
+    slug: "ofallon-il",
     name: "O'Fallon, IL",
     address: "",
     phone: "",
@@ -79,3 +80,9 @@ export const locations: Location[] = [
     reviews: [],
   },
 ];
+
+/** Phone as a tel: link ("+1 816-603-2124" -> "tel:+18166032124"). */
+export const telHref = (phone: string) => `tel:${phone.replace(/[^+\d]/g, "")}`;
+
+/** Where "Order Now" goes: ChowNow when the location has it, otherwise a tap-to-call link. Empty for coming-soon locations. */
+export const orderHref = (location: Location) => location.orderUrl || (location.phone ? telHref(location.phone) : "");
