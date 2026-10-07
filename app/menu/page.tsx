@@ -21,7 +21,7 @@ export default function MenuPage() {
           current="food"
           eyebrow="La comida"
           title="What are you craving?"
-          lede="Every dish is Josper-grilled and made fresh. Jump to a section or search for a favorite."
+          lede="Every dish is Josper-grilled and made fresh. Jump to a section to find a favorite."
         />
 
         <div className="sg-menu-book">

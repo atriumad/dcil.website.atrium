@@ -241,7 +241,7 @@ export default function Home() {
         </section>
 
         {/* 10. DEEP-2 — happy hour card */}
-        <SpecialsSection image={{ src: "/images/photos/drink-smoked-cocktail.webp", alt: "A smoked cocktail on the bar" }} />
+        <SpecialsSection />
 
         {/* 11. ROSE — the one feature block */}
         <section className="sg-promo">

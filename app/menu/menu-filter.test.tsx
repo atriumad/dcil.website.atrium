@@ -34,22 +34,15 @@ describe("MenuBrowser", () => {
     expect(breaks[0].querySelector(".mn-break-title")).toBeInTheDocument();
   });
 
-  it("hides photo breaks while searching and shows the empty message when nothing matches", async () => {
+  it("filtering by tag drops the photo breaks", async () => {
     const user = userEvent.setup();
     const { container } = render(<MenuBrowser categories={menu} />);
-    const search = screen.getByRole("searchbox", { name: "Search the menu" });
-    await user.type(search, "zzzzzz-no-such-dish");
+    await user.click(screen.getAllByRole("button", { pressed: false })[0]);
     expect(container.querySelector("aside.mn-break")).toBeNull();
-    expect(screen.getByText(/No dishes match that search/)).toBeInTheDocument();
-    expect(container.querySelector("section.mn-cat")).toBeNull();
   });
 
-  it("narrows to matching dishes and drops the breaks", async () => {
-    const user = userEvent.setup();
-    const { container } = render(<MenuBrowser categories={menu} />);
-    const firstItem = menu[0].items[0].name;
-    await user.type(screen.getByRole("searchbox", { name: "Search the menu" }), firstItem);
-    expect(container.querySelector("aside.mn-break")).toBeNull();
-    expect(screen.getAllByText(firstItem).length).toBeGreaterThan(0);
+  it("has no search box", () => {
+    render(<MenuBrowser categories={menu} />);
+    expect(screen.queryByRole("searchbox")).toBeNull();
   });
 });

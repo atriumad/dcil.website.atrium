@@ -133,14 +133,11 @@ export function DuoSection({
   );
 }
 
-/** Happy hour as a menu card on a deep-2 tile wall, overlapping a tall arch photo. */
-export function SpecialsSection({ image }: { image: Img }) {
+/** Happy hour as a menu card on a deep-2 tile wall. */
+export function SpecialsSection() {
   return (
     <section className="sg-deep2 sg-specials">
       <Pattern name="talavera-tile" tone="navy-900" size={80} className="sg-fill sg-specials-tile" />
-      <div className="sg-specials-photo sg-reveal">
-        <PhotoFrame shape="arch" outline ratio="3 / 4" src={image.src} alt={image.alt} sizes="(min-width: 900px) 30vw, 70vw" />
-      </div>
       <div className="sg-card sg-reveal">
         <div className="sg-card-in">
           <TileBand height={28} rules={false} />

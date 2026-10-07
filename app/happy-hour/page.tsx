@@ -41,7 +41,7 @@ export default function HappyHourPage() {
           action={<InkButton href="/locations">Find a Location</InkButton>}
         />
 
-        <SpecialsSection image={{ src: "/images/photos/drink-smoked-cocktail.webp", alt: "A smoked cocktail on the bar" }} />
+        <SpecialsSection />
 
         <section className="sg-promo">
           <PromoBanner

@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import { Icon, Input, PhotoFrame } from "@/components/dc";
+import { Icon, PhotoFrame } from "@/components/dc";
 import type { IconName } from "@/components/dc";
 import { filterMenu } from "@/lib/menu-filters";
 import type { MenuCategory, MenuItem } from "@/lib/schemas";
@@ -83,12 +83,11 @@ function MenuCategoryBlock({ category, index }: { category: MenuCategory; index:
 
 export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
   const [tag, setTag] = useState<Tag | null>(null);
-  const [query, setQuery] = useState("");
   const [active, setActive] = useState<string | null>(null);
 
   const availableTags = (Object.keys(tagLabel) as Tag[]).filter((t) => categories.some((c) => c.items.some((i) => i.tags.includes(t))));
-  const filtered = filterMenu(categories, { tag, query });
-  const isFiltering = tag !== null || query.trim() !== "";
+  const filtered = filterMenu(categories, { tag, query: "" });
+  const isFiltering = tag !== null;
   const filteredKey = filtered.map((c) => c.slug).join("|");
 
   useEffect(() => {
@@ -128,14 +127,6 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
             {tagLabel[t]}
           </button>
         ))}
-        <Input
-          type="search"
-          placeholder="Search the menu…"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="mn-search"
-          aria-label="Search the menu"
-        />
       </div>
       <div className="mn-bar">
         <nav className="mn-chips" aria-label="Menu categories">
@@ -166,7 +157,7 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
           })}
         </div>
       ) : (
-        <p className="body mn-empty">No dishes match that search. Try another filter or clear the search.</p>
+        <p className="body mn-empty">No dishes match that filter. Try another one.</p>
       )}
     </div>
   );

@@ -37,7 +37,6 @@ export function HappyHourBoard() {
   const day = happyHour.days[selected];
   return (
     <div className="sg-hh">
-      <p className="sg-hh-avail">{happyHour.availability}</p>
       <div className="sg-hh-days" role="tablist" aria-label="Happy hour by day">
         {happyHour.days.map((d, i) => (
           <button
