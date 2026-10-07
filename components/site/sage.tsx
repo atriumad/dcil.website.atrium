@@ -104,7 +104,7 @@ export function DuoSection({
   action,
   flip,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   body: string;
   image: Img;
@@ -114,7 +114,7 @@ export function DuoSection({
   return (
     <section className={flip ? "sg-sage sg-duo is-flip" : "sg-sage sg-duo"}>
       <div className="sg-duo-copy sg-reveal">
-        <LightEyebrow>{eyebrow}</LightEyebrow>
+        {eyebrow ? <LightEyebrow>{eyebrow}</LightEyebrow> : null}
         <h2 className="sg-h2">{title}</h2>
         <p className="sg-body">{body}</p>
         {action}
@@ -137,7 +137,12 @@ export function DuoSection({
 export function SpecialsSection() {
   return (
     <section className="sg-deep2 sg-specials">
-      <Pattern name="talavera-tile" tone="navy-900" size={80} className="sg-fill sg-specials-tile" />
+      <Pattern
+        name="talavera-tile"
+        tone="navy-900"
+        size={80}
+        className="sg-fill sg-specials-tile"
+      />
       <div className="sg-card sg-reveal">
         <div className="sg-card-in">
           <TileBand height={28} rules={false} />
@@ -155,7 +160,7 @@ export function SpecialsSection() {
 
 /** Locations as a hairline two-column list on sage. `detailLinks` sends each open location to its own page instead of Google Maps. */
 export function LocationsSection({
-  eyebrow = "Visit us",
+  eyebrow,
   title = "Find your table",
   lede = "Three restaurants open, a fourth on the way. Come for the food, stay for the fun!",
   photo,
@@ -172,6 +177,8 @@ export function LocationsSection({
   bare?: boolean;
   id?: string;
 }) {
+  // Bare lists sit right under the page h1, so cities are h2 there.
+  const CityHeading = bare ? "h2" : "h3";
   return (
     <section
       id={id}
@@ -179,7 +186,7 @@ export function LocationsSection({
     >
       {bare ? null : (
         <header className="sg-locs-head sg-reveal">
-          <LightEyebrow>{eyebrow}</LightEyebrow>
+          {eyebrow ? <LightEyebrow>{eyebrow}</LightEyebrow> : null}
           <h2 className="sg-h2">{title}</h2>
           <p className="sg-body">{lede}</p>
           {photo ? (
@@ -205,7 +212,7 @@ export function LocationsSection({
                   : mapsUrl(location.address)
               }
             >
-              <h3 className="sg-loc-city">{location.name}</h3>
+              <CityHeading className="sg-loc-city">{location.name}</CityHeading>
               {location.comingSoon ? (
                 <span className="sg-loc-soon">Coming soon</span>
               ) : null}
