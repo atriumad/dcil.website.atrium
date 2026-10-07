@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
 import { siteContent } from "@/data/site";
 import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
-import { DuoSection, InkButton, NewsletterSection, PageHero } from "@/components/site/sage";
-import { Button, Eyebrow } from "@/components/dc";
+import {
+  DuoSection,
+  InkButton,
+  NewsletterSection,
+  PageHero,
+} from "@/components/site/sage";
 
 export const metadata: Metadata = {
   title: "About Us | Don Chuy's Fresh Mex & Cantina",
-  description: "Family recipes from León, Mexico, brought to Kansas City, Lee's Summit and Johnson City with fresh ingredients and Josper-grilled flavor.",
+  description:
+    "Family recipes from León, Mexico, brought to Kansas City, Lee's Summit and Johnson City with fresh ingredients and Josper-grilled flavor.",
 };
 
 export default function AboutPage() {
@@ -16,31 +21,25 @@ export default function AboutPage() {
 
       <main className="sg">
         <PageHero
-          eyebrow="Nuestra historia"
           title="Family roots, big flavor"
-          image={{ src: "/images/photos/dish-shrimp-paella-modelo.webp", alt: "Shrimp ceviche served on a paella pan with Modelo bottles" }}
-          ctas={
-            <>
-              <Button size="lg" icon="arrow-right" href="/menu">
-                View Menu
-              </Button>
-              <Button size="lg" variant="outline" href="/locations">
-                Find a Location
-              </Button>
-            </>
-          }
+          image={{
+            src: "/images/photos/dish-shrimp-paella-modelo.webp",
+            alt: "Shrimp ceviche served on a paella pan with Modelo bottles",
+          }}
         />
 
         <DuoSection
-          eyebrow={siteContent.taglines[0]}
           title="Come as guests. Leave as family."
           body={siteContent.about.body}
-          image={{ src: "/images/photos/interior-eagle-mural.webp", alt: "Colorful eagle mural on a brick wall inside the restaurant", focus: "50% 35%" }}
+          image={{
+            src: "/images/photos/interior-eagle-mural.webp",
+            alt: "Colorful eagle mural on a brick wall inside the restaurant",
+            focus: "50% 35%",
+          }}
           action={<InkButton href="/locations">Find a Location</InkButton>}
         />
 
         <section className="sg-tags">
-          <Eyebrow>Nuestra promesa</Eyebrow>
           <ul className="sg-tags-list">
             {siteContent.taglines.map((line) => (
               <li key={line} className="sg-reveal">

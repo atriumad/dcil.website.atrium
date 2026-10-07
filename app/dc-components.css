@@ -3,7 +3,7 @@
 
 /* Display type: Eudora through its lowercase set, always white */
 .dc-sh-title, .dc-hero-title, .dc-statement-title, .dc-vp-title, .dc-dish-name, .dc-cat-name, .dc-ms-title, .dc-board-title,
-.dc-promo-title, .dc-loc-city, .dc-social-handle, .dc-news-title, .dc-foot-wordmark, .dc-nav-wordmark, .dc-mq-item, .dc-foot-loc h4 {
+.dc-promo-title, .dc-loc-city, .dc-social-handle, .dc-news-title, .dc-foot-wordmark, .dc-nav-wordmark, .dc-mq-item, .dc-foot-loc h3 {
   margin:0; font-family:var(--font-display); font-weight:400; text-transform:lowercase; letter-spacing:.02em; color:var(--white); text-wrap:balance;
 }
 /* Script: one word only (enforced in code) */
@@ -188,7 +188,7 @@
 .dc-ms-note { font:400 italic 14px/1.3 var(--font-sans); color:var(--ivory-muted); letter-spacing:.04em; }
 .dc-ms-list { display:flex; flex-direction:column; }
 .dc-mi { padding:18px 0; border-bottom:1px solid var(--line); }
-.dc-mi-featured { padding-left:18px; border-left:2px solid var(--marigold); }
+.dc-mi-featured { padding:12px 16px; border:1px solid var(--marigold); }
 .dc-mi-head { display:flex; align-items:baseline; gap:12px; }
 .dc-mi-name { display:inline-flex; align-items:center; gap:8px; font:600 18px/1.3 var(--font-sans); color:var(--ivory); }
 .dc-mi-tag { color:var(--marigold); }
@@ -278,7 +278,7 @@
 .dc-foot-wordmark { font-size:clamp(64px, 9vw, 120px); line-height:.88; }
 .dc-foot-tag { margin:0; font:700 12px/1.2 var(--font-sans); letter-spacing:.3em; text-transform:uppercase; color:var(--ivory-muted); }
 .dc-foot-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:32px; padding:var(--space-6) clamp(20px, 5vw, 56px); border-block:1px solid var(--line); }
-.dc-foot-loc h4 { font-size:26px; line-height:1; margin-bottom:10px; }
+.dc-foot-loc h3 { font-size:26px; line-height:1; margin-bottom:10px; }
 .dc-foot-loc p { margin:0; font:400 14px/1.6 var(--font-sans); color:var(--ivory-muted); }
 .dc-foot-bottom { display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px 32px; padding:28px clamp(20px, 5vw, 56px); }
 .dc-foot-links { display:flex; flex-wrap:wrap; gap:8px 28px; list-style:none; margin:0; padding:0; }

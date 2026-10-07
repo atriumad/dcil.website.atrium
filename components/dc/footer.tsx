@@ -34,7 +34,7 @@ export function Footer({
       <div className="dc-foot-grid">
         {locations.map((location) => (
           <div key={location.city} className="dc-foot-loc">
-            <h4>{location.city}</h4>
+            <h3>{location.city}</h3>
             <p>{location.address || "Coming soon"}</p>
             {location.phone ? <p>{location.phone}</p> : null}
             {location.hours?.map((line) => (
