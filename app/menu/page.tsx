@@ -19,7 +19,6 @@ export default function MenuPage() {
       <main className="sg">
         <MenuHeader
           current="food"
-          eyebrow="La comida"
           title="What are you craving?"
           lede="Every dish is Josper-grilled and made fresh. Jump to a section to find a favorite."
         />
@@ -34,7 +33,6 @@ export default function MenuPage() {
         <section className="sg-promo">
           <PromoBanner
             tone="rose"
-            eyebrow="Planning something bigger?"
             title="Catering for your crowd"
             lede="From office lunches to family celebrations, let us bring the Don Chuy's spread to you."
             cta="Get a Quote"

@@ -12,7 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Reference material (brand guide, design-system prototype, vendored bundles), not shipped code.
+    "docs/**",
+    ".impeccable/**",
   ]),
+  { rules: { "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }] } },
 ]);
 
 export default eslintConfig;

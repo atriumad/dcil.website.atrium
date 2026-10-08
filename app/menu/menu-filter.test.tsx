@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { menu } from "@/data/menu";
 import { MenuBrowser } from "./menu-filter";
@@ -34,11 +33,9 @@ describe("MenuBrowser", () => {
     expect(breaks[0].querySelector(".mn-break-title")).toBeInTheDocument();
   });
 
-  it("filtering by tag drops the photo breaks", async () => {
-    const user = userEvent.setup();
-    const { container } = render(<MenuBrowser categories={menu} />);
-    await user.click(screen.getAllByRole("button", { pressed: false })[0]);
-    expect(container.querySelector("aside.mn-break")).toBeNull();
+  it("has no tag filter buttons", () => {
+    render(<MenuBrowser categories={menu} />);
+    expect(screen.queryAllByRole("button")).toHaveLength(0);
   });
 
   it("has no search box", () => {

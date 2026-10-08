@@ -11,7 +11,7 @@ const wixRedirects = [
 ];
 
 const nextConfig: NextConfig = {
-  images: { qualities: [75, 90] },
+  images: { qualities: [75, 80, 90] },
   async redirects() {
     return wixRedirects.map((r) => ({ ...r, permanent: true }));
   },

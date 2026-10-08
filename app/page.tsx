@@ -1,17 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { homeDishes, tequilaShelf } from "@/data/featured-dishes";
-import { locations } from "@/data/locations";
+import { locations, orderHref } from "@/data/locations";
 import { siteContent } from "@/data/site";
 import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
 import {
   InkButton,
-  LightEyebrow,
   LocationsSection,
   NewsletterSection,
   SpecialsSection,
 } from "@/components/site/sage";
-import { Button, Eyebrow, Icon, Pattern, PhotoFrame } from "@/components/dc";
+import { HeroVideo } from "@/components/site/hero-video";
+import { Tonight } from "@/components/site/tonight";
+import { Button, Icon, Pattern, PhotoFrame } from "@/components/dc";
 
 const categories = [
   {
@@ -89,23 +90,10 @@ export default function Home() {
               sizes="100vw"
               quality={80}
             />
-            <video
-              className="sg-hero-video"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/images/photos/hero-poster.webp"
-              aria-hidden="true"
-            >
-              <source src="/videos/hero.webm" type="video/webm" />
-              <source src="/videos/hero.mp4" type="video/mp4" />
-            </video>
+            <HeroVideo poster="/images/photos/hero-poster.webp" />
             <span className="sg-hero-scrim" />
           </div>
           <div className="sg-hero-copy">
-            <Eyebrow>Fresh Mex &amp; Cantina</Eyebrow>
             <h1 id="sg-hero-title" className="sg-hero-title">
               Ready for some real-deal Mexican flavor?
             </h1>
@@ -121,13 +109,14 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Open today: status, call, order, happy hour */}
+        <Tonight />
+
         {/* 2. SAGE — statement + collage */}
         <section className="sg-sage sg-story">
           <div className="sg-story-copy sg-reveal">
-            <LightEyebrow>Desde León, Mexico</LightEyebrow>
             <h2 className="sg-h2">{siteContent.taglines[0]}</h2>
             <p className="sg-body">{siteContent.about.body}</p>
-            <InkButton href="/menu">View Menu</InkButton>
           </div>
           <div className="sg-collage sg-reveal">
             <span className="sg-collage-tile" aria-hidden="true">
@@ -181,19 +170,25 @@ export default function Home() {
               Smoky char, bold flavor, made to order — every dish comes straight
               from our Josper grill to your table.
             </p>
-            <Button icon="arrow-right" href="/menu">
-              View Menu
-            </Button>
           </div>
         </section>
 
-        {/* 4. SAGE — featured dishes: two photos beside a hairline list */}
+        {/* 4. SAGE — locations */}
+        <LocationsSection
+          id="locations"
+          photo={{
+            src: "/images/photos/interior-bar-bottles.webp",
+            alt: "A sunlit corner of the dining room with a palm, a blue booth and talavera tile",
+          }}
+        />
+
+        {/* 5. DEEP-2 — happy hour card */}
+        <SpecialsSection />
+
+        {/* 6. SAGE — featured dishes: two photos beside a hairline list */}
         <section className="sg-sage sg-sig">
           <header className="sg-sig-head sg-reveal">
-            <div>
-              <LightEyebrow>Nuestros favoritos</LightEyebrow>
-              <h2 className="sg-h2">Featured dishes</h2>
-            </div>
+            <h2 className="sg-h2">Featured dishes</h2>
             <p className="sg-body">
               Delicious, authentic dishes made for lunch or dinner with friends
               and family.
@@ -245,7 +240,7 @@ export default function Home() {
           </p>
         </section>
 
-        {/* 5. PHOTO — category wall (scroll-snap strip on mobile) */}
+        {/* 7. PHOTO — category wall (scroll-snap strip on mobile) */}
         <section className="sg-cats" aria-label="Menu categories">
           <ul className="sg-cats-strip">
             {categories.map((c) => (
@@ -271,7 +266,7 @@ export default function Home() {
           </ul>
         </section>
 
-        {/* 6. SAGE — three guest reviews as table checks */}
+        {/* 8. SAGE — three guest reviews as table checks */}
         <section className="sg-sage sg-reviews">
           <header className="sg-reviews-head sg-reveal">
             <h2 className="sg-h2">Guests say it best</h2>
@@ -299,7 +294,7 @@ export default function Home() {
           </ul>
         </section>
 
-        {/* 7. DEEP-2 — tequila: a large selection that pairs with the food */}
+        {/* 9. DEEP-2 — tequila: a large selection that pairs with the food */}
         <section className="sg-deep2 sg-tequila">
           <Pattern
             name="talavera-tile"
@@ -325,16 +320,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 8. SAGE — locations */}
-        <LocationsSection
-          id="locations"
-          photo={{
-            src: "/images/photos/interior-bar-bottles.webp",
-            alt: "A sunlit corner of the dining room with a palm, a blue booth and talavera tile",
-          }}
-        />
-
-        {/* 9. PHOTO BAND — brand statement */}
+        {/* 10. PHOTO BAND — brand statement */}
         <section className="sg-band" aria-label="Our style">
           <Image
             src="/images/photos/interior-eagle-mural.webp"
@@ -351,13 +337,9 @@ export default function Home() {
           </h2>
         </section>
 
-        {/* 10. DEEP-2 — happy hour card */}
-        <SpecialsSection />
-
         {/* 11. SAGE — let's talk + Instagram */}
         <section className="sg-sage sg-social">
           <header className="sg-social-head sg-reveal">
-            <LightEyebrow>Let&rsquo;s talk</LightEyebrow>
             <h2 className="sg-h3">Special events, catering or anything else</h2>
             <p className="sg-body">
               Contact us with any questions on special events you are planning,
@@ -386,6 +368,27 @@ export default function Home() {
                   />
                 </a>
               ))}
+          </div>
+        </section>
+
+        {/* 12. DEEP — closing: the page ends on a way in, not a form */}
+        <section className="sg-deep sg-closing">
+          <Pattern
+            name="talavera-tile"
+            tone="navy-700"
+            size={88}
+            className="sg-fill sg-closing-tile"
+          />
+          <div className="sg-closing-in sg-reveal">
+            <h2 className="sg-h2 sg-on-dark">Come as guests. Leave as family.</h2>
+            <div className="sg-closing-ctas">
+              <Button size="lg" icon="arrow-right" href={orderHref(locations[0])}>
+                Order Online
+              </Button>
+              <Button size="lg" variant="outline" href="#locations">
+                Find a Location
+              </Button>
+            </div>
           </div>
         </section>
 

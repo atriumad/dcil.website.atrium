@@ -1,9 +1,11 @@
 import { Footer } from "@/components/dc";
 import { locations, orderHref } from "@/data/locations";
+import { MobileBar } from "./mobile-bar";
 import { SiteNav, type SiteNavLink } from "./site-nav";
 
 /** Page content width + gutters, shared by every page. */
-export const pageContainer = "mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter-mobile)] md:px-[var(--gutter-desktop)]";
+export const pageContainer =
+  "mx-auto w-full max-w-[var(--container-max)] px-[var(--gutter-mobile)] md:px-[var(--gutter-desktop)]";
 
 const navLinks: SiteNavLink[] = [
   { label: "Menu", href: "/menu" },
@@ -57,16 +59,19 @@ export function SiteHeader({ active }: { active?: string }) {
 
 export function SiteFooter() {
   return (
-    <Footer
-      locations={locations.map((location) => ({
-        city: location.name,
-        address: location.address || undefined,
-        phone: location.phone || undefined,
-        hours: location.hours.map((row) => `${row.days} ${row.time}`),
-      }))}
-      links={footerLinks}
-      social={footerSocial}
-      legal={`© ${new Date().getFullYear()} Don Chuy's Fresh Mex & Cantina. All rights reserved.`}
-    />
+    <>
+      <Footer
+        locations={locations.map((location) => ({
+          city: location.name,
+          address: location.address || undefined,
+          phone: location.phone || undefined,
+          hours: location.hours.map((row) => `${row.days} ${row.time}`),
+        }))}
+        links={footerLinks}
+        social={footerSocial}
+        legal={`© ${new Date().getFullYear()} Don Chuy's Fresh Mex & Cantina. All rights reserved.`}
+      />
+      <MobileBar watch=".sg-hero, .sg-phero" />
+    </>
   );
 }

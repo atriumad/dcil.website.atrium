@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import { locations, orderHref, telHref } from "@/data/locations";
 import { locationDishes } from "@/data/featured-dishes";
 import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
-import { InkButton, LightEyebrow, NewsletterSection, PageHero } from "@/components/site/sage";
-import { Button, Eyebrow, Icon, PhotoFrame } from "@/components/dc";
+import { OpenNow } from "@/components/site/open-now";
+import { InkButton, NewsletterSection, PageHero } from "@/components/site/sage";
+import { Button, Icon, PhotoFrame } from "@/components/dc";
 import { buildLocationJsonLd, locationMetaDescription, locationMetaTitle } from "@/lib/seo";
 
 const SIGNATURE_DISH = "Steak & Lobster";
@@ -57,7 +58,6 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
         {location.comingSoon ? (
           <>
             <PageHero
-              eyebrow="Coming soon"
               title={location.name}
               lede="We're not open here yet — check back soon, or visit one of our open locations in the meantime."
             />
@@ -71,7 +71,6 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
         ) : (
           <>
             <PageHero
-              eyebrow="Don Chuy's"
               title={location.name}
               lede={location.intro}
               ctas={
@@ -117,6 +116,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
 
               <div className="sg-detail-card sg-frame sg-reveal">
                 <p className="dc-panel-title">Hours</p>
+                <OpenNow name={location.name} hours={location.hours} />
                 <ul className="sg-hours">
                   {location.hours.map((row) => (
                     <li key={row.days}>
@@ -136,10 +136,7 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
 
             <section className="sg-sage sg-sig">
               <header className="sg-sig-head sg-reveal">
-                <div>
-                  <LightEyebrow>Featured dishes</LightEyebrow>
-                  <h2 className="sg-h2">Order the favorites</h2>
-                </div>
+                <h2 className="sg-h2">Order the favorites</h2>
                 <p className="sg-body">A family-owned Mexican spot where authentic flavor meets warm hospitality, a delicious lunch or dinner made with heart.</p>
                 <InkButton href="/menu">View Menu</InkButton>
               </header>
@@ -160,7 +157,6 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
 
             <section className="sg-deep sg-mapsec">
               <div className="sg-mapsec-copy sg-reveal">
-                <Eyebrow>Find us</Eyebrow>
                 <h2 className="sg-h2 sg-on-dark">
                   Don Chuy&rsquo;s <span className="sg-block">{location.name}</span>
                 </h2>

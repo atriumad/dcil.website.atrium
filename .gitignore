@@ -43,3 +43,8 @@ next-env.d.ts
 
 # project tooling
 .superpowers/
+
+# impeccable local state
+.impeccable/hook.cache.json
+.impeccable/live/
+.impeccable/config.local.json

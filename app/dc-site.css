@@ -23,15 +23,11 @@
 .mn-bar { position: sticky; top: var(--mn-top); z-index: 30; background: var(--navy); border-bottom: 1px solid var(--line); margin-bottom: var(--space-7); }
 .mn-chips { display: flex; gap: var(--space-2); overflow-x: auto; scrollbar-width: none; position: relative; }
 .mn-chips::-webkit-scrollbar { display: none; }
-.mn-chip { flex: none; padding: 18px 14px; font: 700 12px/1 var(--font-sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory-muted); text-decoration: none; box-shadow: inset 0 -2px 0 transparent; transition: color 0.25s, box-shadow 0.25s; }
+.mn-chip { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; font: 700 12px/1 var(--font-sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory-muted); text-decoration: none; box-shadow: inset 0 -2px 0 transparent; transition: color 0.25s, box-shadow 0.25s; }
 .mn-chip:hover { color: var(--white); }
 .mn-chip.is-active { color: var(--white); box-shadow: inset 0 -2px 0 var(--marigold); }
-.mn-tools { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3); margin-bottom: var(--space-5); }
-.mn-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border: 1px solid var(--line); background: none; color: var(--ivory-muted); font: 700 11px/1 var(--font-sans); letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: color 0.25s, border-color 0.25s; }
-.mn-toggle:hover { color: var(--white); }
-.mn-toggle.is-active { border-color: var(--marigold); color: var(--white); }
 
-.mn-book { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-8); }
+.mn-book { max-width: 1000px; margin: 0; display: flex; flex-direction: column; gap: var(--space-8); }
 .mn-cat { width: 100%; scroll-margin-top: calc(var(--mn-top) + 80px); }
 .mn-cat-head { display: flex; align-items: baseline; gap: var(--space-4); padding-bottom: var(--space-3); margin-bottom: var(--space-4); border-bottom: 1px solid var(--marigold); }
 .mn-cat-num { font: 700 12px/1 var(--font-sans); letter-spacing: 0.24em; color: var(--ivory-muted); }
@@ -67,8 +63,8 @@
    touch + no reduced-motion, so nothing is hidden for anyone else. */
 @media (hover: none) and (prefers-reduced-motion: no-preference) {
   /* Press feedback */
-  .dc-btn, .dc-cat, .dc-loc, .dc-social-tile, .dc-tab, .mn-chip, .mn-toggle { transition: scale 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s, color 0.25s, border-color 0.25s; }
-  .dc-btn:active, .dc-cat:active, .dc-loc:active, .dc-social-tile:active, .dc-tab:active, .mn-chip:active, .mn-toggle:active { scale: 0.97; }
+  .dc-btn, .dc-cat, .dc-loc, .dc-social-tile, .dc-tab, .mn-chip { transition: scale 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s, color 0.25s, border-color 0.25s; }
+  .dc-btn:active, .dc-cat:active, .dc-loc:active, .dc-social-tile:active, .dc-tab:active, .mn-chip:active { scale: 0.97; }
 
   /* Cards rise in, staggered by --i (set by the observer) */
   .has-motion :is(.dc-cat, .dc-loc, .dc-dish, .dc-social-tile, .mn-cat) { opacity: 0; translate: 0 28px; transition: opacity 0.6s ease, translate 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), scale 0.18s cubic-bezier(0.2, 0.8, 0.2, 1); transition-delay: calc(var(--i, 0) * 90ms), calc(var(--i, 0) * 90ms), 0s; }
@@ -93,3 +89,6 @@
   /* First paint: set the hidden state without animating it */
   .motion-init :is(.dc-cat, .dc-loc, .dc-dish, .dc-social-tile, .mn-cat, .mn-break-photo, .mn-break-copy) { transition: none !important; }
 }
+
+
+
