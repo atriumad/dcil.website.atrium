@@ -49,10 +49,10 @@ const footerSocial = [
   { label: "Instagram", href: "https://www.instagram.com/donchuysmo/" },
 ];
 
-export function SiteHeader({ active }: { active?: string }) {
+export function SiteHeader({ active, overlay }: { active?: string; overlay?: boolean }) {
   return (
-    <header className="sticky top-0 z-40">
-      <SiteNav links={navLinks} active={active} order={orderOptions} />
+    <header className={overlay ? "fixed inset-x-0 top-0 z-40" : "sticky top-0 z-40"}>
+      <SiteNav links={navLinks} active={active} order={orderOptions} overlay={overlay} />
     </header>
   );
 }
@@ -71,7 +71,7 @@ export function SiteFooter() {
         social={footerSocial}
         legal={`© ${new Date().getFullYear()} Don Chuy's Fresh Mex & Cantina. All rights reserved.`}
       />
-      <MobileBar watch=".sg-hero, .sg-phero" />
+      <MobileBar watch=".sg-hero, .sg-phero, .sg-phoh" />
     </>
   );
 }

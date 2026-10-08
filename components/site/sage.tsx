@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { locations, telHref } from "@/data/locations";
@@ -91,6 +92,42 @@ export function PageHero({
           sizes="(min-width: 900px) 34vw, 80vw"
         />
       ) : null}
+    </section>
+  );
+}
+
+/** Inner-page hero on a full-bleed photo under a deep scrim, copy bottom-left on the page wrap. Built for the floating header (`SiteHeader overlay`). */
+export function PhotoHero({
+  title,
+  lede,
+  image,
+  ctas,
+}: {
+  title: string;
+  lede?: string;
+  image: Img;
+  ctas?: ReactNode;
+}) {
+  return (
+    <section className="sg-phoh" aria-labelledby="sg-page-title">
+      <Image
+        className="sg-phoh-img"
+        src={image.src}
+        alt={image.alt}
+        fill
+        priority
+        sizes="100vw"
+        quality={80}
+        style={image.focus ? { objectPosition: image.focus } : undefined}
+      />
+      <span className="sg-phoh-scrim" aria-hidden="true" />
+      <div className="sg-phoh-copy">
+        <h1 id="sg-page-title" className="sg-phoh-title">
+          {title}
+        </h1>
+        {lede ? <p className="sg-phoh-lede">{lede}</p> : null}
+        {ctas ? <div className="sg-phoh-ctas">{ctas}</div> : null}
+      </div>
     </section>
   );
 }

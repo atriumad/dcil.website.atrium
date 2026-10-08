@@ -16,6 +16,8 @@ export interface SiteNavProps {
   active?: string;
   /** "Order Now" options: ChowNow where it exists, tap-to-call elsewhere. */
   order: Array<LinkItem & { note?: string; external?: boolean }>;
+  /** Float over the page's dark hero with no fill, then settle into the solid bar once the page scrolls. */
+  overlay?: boolean;
 }
 
 /** Closes an open popover on outside click or Escape. */
@@ -97,17 +99,27 @@ function NavItem({ link, active, closeMenu }: { link: SiteNavLink; active?: stri
   );
 }
 
-export function SiteNav({ links, active, order }: SiteNavProps) {
+export function SiteNav({ links, active, order, overlay }: SiteNavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    if (!overlay) return;
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [overlay]);
+
   const [orderOpen, setOrderOpen] = useState(false);
   const orderRef = useDismiss(orderOpen, () => setOrderOpen(false)) as React.RefObject<HTMLDivElement>;
   const closeMenu = () => setMenuOpen(false);
 
   return (
     <div className="dc-navwrap">
-      <nav className={`dc-nav dc-nav-solid${menuOpen ? " is-open" : ""}`} aria-label="Main">
+      <nav className={`dc-nav ${overlay ? "dc-nav-over" : "dc-nav-solid"}${overlay && scrolled ? " is-scrolled" : ""}${menuOpen ? " is-open" : ""}`} aria-label="Main">
         <Link href="/" className="dc-nav-brand">
-          <Logo size={64} />
+          <Logo size={96} style={{ width: "var(--nav-logo, 64px)" }} />
         </Link>
         <ul className="dc-nav-links">
           {links.map((link) => (
