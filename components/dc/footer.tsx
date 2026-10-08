@@ -36,7 +36,11 @@ export function Footer({
           <div key={location.city} className="dc-foot-loc">
             <h3>{location.city}</h3>
             <p>{location.address || "Coming soon"}</p>
-            {location.phone ? <p>{location.phone}</p> : null}
+            {location.phone ? (
+              <p>
+                <a href={`tel:${location.phone.replace(/[^+\d]/g, "")}`}>{location.phone}</a>
+              </p>
+            ) : null}
             {location.hours?.map((line) => (
               <p key={line} className="dc-foot-hours">
                 {line}

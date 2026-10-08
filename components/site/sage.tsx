@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { locations } from "@/data/locations";
+import { locations, telHref } from "@/data/locations";
 import {
   Eyebrow,
   Icon,
@@ -147,8 +147,8 @@ export function SpecialsSection() {
         <div className="sg-card-in">
           <TileBand height={28} rules={false} />
           <div className="sg-card-body">
-            <Eyebrow align="center">Monday – Thursday · all day</Eyebrow>
             <h2 className="sg-h2 sg-on-dark sg-center">Happy hour</h2>
+            <p className="sg-hh-when">Monday – Thursday · all day</p>
             <HappyHourBoard />
           </div>
           <TileBand height={28} rules={false} />
@@ -204,15 +204,20 @@ export function LocationsSection({
       <ul className="sg-locs-list">
         {locations.map((location) => (
           <li key={location.slug} className="sg-loc sg-reveal">
-            <a
-              className="sg-loc-link"
-              href={
-                detailLinks || !location.address
-                  ? `/locations/${location.slug}`
-                  : mapsUrl(location.address)
-              }
-            >
-              <CityHeading className="sg-loc-city">{location.name}</CityHeading>
+            {/* The city link stretches over the card; the phone link sits above it so both are real, separate links. */}
+            <div className="sg-loc-card">
+              <CityHeading className="sg-loc-city">
+                <a
+                  className="sg-loc-link"
+                  href={
+                    detailLinks || !location.address
+                      ? `/locations/${location.slug}`
+                      : mapsUrl(location.address)
+                  }
+                >
+                  {location.name}
+                </a>
+              </CityHeading>
               {location.comingSoon ? (
                 <span className="sg-loc-soon">Coming soon</span>
               ) : null}
@@ -220,7 +225,9 @@ export function LocationsSection({
                 <p className="sg-loc-addr">{location.address}</p>
               ) : null}
               {location.phone ? (
-                <p className="sg-loc-phone">{location.phone}</p>
+                <p className="sg-loc-phone">
+                  <a href={telHref(location.phone)}>{location.phone}</a>
+                </p>
               ) : null}
               {location.hours.length ? (
                 <dl className="sg-loc-hours">
@@ -233,7 +240,7 @@ export function LocationsSection({
                 </dl>
               ) : null}
               <Icon name="arrow-up-right" size={24} className="sg-loc-arrow" />
-            </a>
+            </div>
           </li>
         ))}
       </ul>

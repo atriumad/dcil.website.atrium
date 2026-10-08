@@ -2,6 +2,8 @@
 
 import { useId, useState, useSyncExternalStore } from "react";
 import { formatHhPrice, happyHour, type HhRow } from "@/data/happy-hour";
+import { clockIn } from "@/lib/hours";
+import { useNow } from "./use-now";
 
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -77,6 +79,55 @@ export function HappyHourBoard() {
         <div className="sg-hh-group">
           <p className="sg-hh-label">Drinks, every day</p>
           <Rows rows={happyHour.always.drinks} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** The whole Mon-Thu week at once (no tabs), with the everyday deals beside it. Today's column is marked, and leads on phones. */
+export function HappyHourWeek() {
+  const at = useNow();
+  const today = at === null ? null : dayNames[clockIn("America/Chicago", at).day];
+  return (
+    <div className="sg-hw">
+      <ol className="sg-hw-days">
+        {happyHour.days.map((d, i) => {
+          const isToday = d.day === today;
+          return (
+            <li key={d.day} className={isToday ? "sg-hw-day is-today" : "sg-hw-day"} style={{ "--o": isToday ? -1 : i } as React.CSSProperties}>
+              <header className="sg-hw-head">
+                <h2 className="sg-hw-name">{d.day}</h2>
+                {isToday ? <span className="sg-hw-flag">Today</span> : null}
+              </header>
+              <h3 className="sg-hh-theme">{d.theme}</h3>
+              {d.food.length ? (
+                <div className="sg-hh-group">
+                  <p className="sg-hh-label">Food special</p>
+                  <Rows rows={d.food} />
+                </div>
+              ) : null}
+              {d.drinks.length ? (
+                <div className="sg-hh-group">
+                  <p className="sg-hh-label">Drinks</p>
+                  <Rows rows={d.drinks} />
+                </div>
+              ) : null}
+            </li>
+          );
+        })}
+      </ol>
+      <div className="sg-hw-all">
+        <h2 className="sg-h3 sg-on-dark">Every day</h2>
+        <div className="sg-hw-all-lists">
+          <div className="sg-hh-group">
+            <p className="sg-hh-label">Appetizers</p>
+            <Rows rows={happyHour.always.appetizers} />
+          </div>
+          <div className="sg-hh-group">
+            <p className="sg-hh-label">Drinks</p>
+            <Rows rows={happyHour.always.drinks} />
+          </div>
         </div>
       </div>
     </div>

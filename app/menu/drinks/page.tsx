@@ -17,7 +17,6 @@ export default function DrinksMenuPage() {
       <main className="sg">
         <MenuHeader
           current="drinks"
-          eyebrow="La barra"
           title="Margaritas made from scratch"
           lede="Handmade signature margaritas, flights, tequila, mezcal and more. Happy hour pricing runs Monday through Thursday."
         />

@@ -3,7 +3,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Icon, PhotoFrame } from "@/components/dc";
 import type { IconName } from "@/components/dc";
-import { filterMenu } from "@/lib/menu-filters";
 import type { MenuCategory, MenuItem } from "@/lib/schemas";
 
 type Tag = MenuItem["tags"][number];
@@ -82,12 +81,9 @@ function MenuCategoryBlock({ category, index }: { category: MenuCategory; index:
 }
 
 export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
-  const [tag, setTag] = useState<Tag | null>(null);
   const [active, setActive] = useState<string | null>(null);
 
-  const availableTags = (Object.keys(tagLabel) as Tag[]).filter((t) => categories.some((c) => c.items.some((i) => i.tags.includes(t))));
-  const filtered = filterMenu(categories, { tag, query: "" });
-  const isFiltering = tag !== null;
+  const filtered = categories;
   const filteredKey = filtered.map((c) => c.slug).join("|");
 
   useEffect(() => {
@@ -114,20 +110,6 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
 
   return (
     <div className="mn">
-      <div className="mn-tools">
-        {availableTags.map((t) => (
-          <button
-            key={t}
-            type="button"
-            className={tag === t ? "mn-toggle is-active" : "mn-toggle"}
-            aria-pressed={tag === t}
-            onClick={() => setTag(tag === t ? null : t)}
-          >
-            <Icon name={tagIcon[t]} size={14} />
-            {tagLabel[t]}
-          </button>
-        ))}
-      </div>
       <div className="mn-bar">
         <nav className="mn-chips" aria-label="Menu categories">
           {filtered.map((category) => (
@@ -147,7 +129,7 @@ export function MenuBrowser({ categories }: { categories: MenuCategory[] }) {
       {filtered.length ? (
         <div className="mn-book">
           {filtered.map((category, index) => {
-            const photoBreak = isFiltering ? null : breakFor(category.slug);
+            const photoBreak = breakFor(category.slug);
             return (
               <Fragment key={category.slug}>
                 <MenuCategoryBlock category={category} index={index} />
