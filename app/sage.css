@@ -61,17 +61,14 @@
 /* Full-bleed looping video, one display face only. The scrim grades just the lower-left so the footage keeps its colour. */
 .sg-hero {
   position: relative; display: flex; align-items: flex-end; overflow: hidden;
-  min-height: calc(100svh - var(--sg-nav)); max-height: 1100px;
-  padding: var(--space-7) var(--sg-gutter) clamp(64px, 10vh, 96px);
+  min-height: 100svh; max-height: 1100px;
+  padding: calc(var(--sg-nav) + var(--space-6)) var(--sg-gutter) clamp(64px, 10vh, 96px);
   background: var(--sg-deep); color: var(--sg-ivory);
 }
 .sg-hero-media { position: absolute; inset: 0; }
 .sg-hero-poster, .sg-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; }
 .sg-hero-video { opacity: 0; transition: opacity .8s cubic-bezier(.16, 1, .3, 1); }
 .sg-hero-video.is-playing { opacity: 1; }
-.sg-hero-pause { position: absolute; z-index: 2; right: var(--sg-gutter); bottom: clamp(20px, 3vh, 32px); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid rgba(246, 241, 231, .55); background: rgba(10, 12, 12, .45); color: var(--sg-ivory); font: 700 11px/1 var(--font-sans); letter-spacing: .18em; text-transform: uppercase; cursor: pointer; }
-.sg-hero-pause:hover { border-color: var(--sg-ivory); background: rgba(10, 12, 12, .7); }
-.sg-hero-pause:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .sg-hero-scrim {
   position: absolute; inset: 0;
   background:
@@ -93,13 +90,12 @@
 @keyframes sg-rise { from { opacity: 0; translate: 0 28px; } }
 @media (max-width: 899px) {
   .sg-root { --sg-nav: 84px; }
-  .sg-hero { min-height: calc(100svh - var(--sg-nav) - 132px); padding-top: var(--space-6); padding-bottom: var(--space-7); }
+  .sg-hero { min-height: calc(100svh - 132px); padding-top: calc(var(--sg-nav) + var(--space-5)); padding-bottom: var(--space-7); }
   .sg-hero-scrim {
     background:
       linear-gradient(0deg, rgba(10, 12, 12, .74) 0%, rgba(10, 12, 12, .5) 40%, rgba(10, 12, 12, .08) 72%, rgba(10, 12, 12, .18) 100%);
   }
   .sg-hero-title { font-size: clamp(44px, 12.5vw, 64px); }
-  .sg-hero-pause { bottom: auto; top: var(--space-4); }
   .sg-hero-lede { font-size: 16px; }
   .sg-hero-ctas { width: 100%; flex-wrap: nowrap; gap: 10px; }
   .sg-hero-ctas .dc-btn { flex: 1 1 0; min-width: 0; min-height: 52px; padding-inline: 12px; font-size: 11px; letter-spacing: .12em; }
@@ -593,5 +589,39 @@
 
 
 /* Print and no-JS-animation fallbacks: never leave content hidden mid-reveal. */
-@media print { .sg-reveal { animation: none !important; translate: none !important; } .sg-mbar, .sg-hero-pause { display: none !important; } }
+@media print { .sg-reveal { animation: none !important; translate: none !important; } .sg-mbar { display: none !important; } }
+
+/* ============ HEADER over the hero ============ */
+/* Clear at the top of the home page, with the logo scaled up so it hangs over the hero and a ghost order button; settles into a compact solid bar on scroll. Only transform and opacity animate. */
+.dc-nav-over { --nav-logo: 56px; padding-block: 9px; background: transparent; border-bottom: 1px solid transparent; }
+.dc-nav-over > * { position: relative; z-index: 1; }
+.dc-nav-over::before, .dc-nav-over::after { content: ""; position: absolute; inset: 0; pointer-events: none; transition: opacity .35s; }
+.dc-nav-over::before { background: var(--navy-900); opacity: 0; border-bottom: 1px solid var(--line); }
+.dc-nav-over::after { background: linear-gradient(180deg, rgba(10, 12, 12, .6), rgba(10, 12, 12, 0)); bottom: -48px; }
+.dc-nav-over.is-scrolled::before, .dc-nav-over.is-open::before { opacity: 1; }
+.dc-nav-over.is-scrolled::after, .dc-nav-over.is-open::after { opacity: 0; }
+.dc-nav-over .dc-nav-brand { z-index: 2; }
+.dc-nav-over .dc-nav-brand .dc-logo { transform-origin: left top; transform: scale(1.85); transition: transform .45s cubic-bezier(.16, 1, .3, 1); filter: drop-shadow(0 2px 10px rgba(0, 0, 0, .35)); }
+.dc-nav-over.is-scrolled .dc-nav-brand .dc-logo, .dc-nav-over.is-open .dc-nav-brand .dc-logo { transform: none; }
+.dc-nav-over:not(.is-scrolled):not(.is-open) .sg-order-btn { background: transparent; border-color: rgba(246, 241, 231, .7); color: var(--sg-ivory); }
+.dc-nav-over:not(.is-scrolled):not(.is-open) .sg-order-btn:hover, .dc-nav-over:not(.is-scrolled):not(.is-open) .sg-order.is-open .sg-order-btn { background: var(--sg-marigold); border-color: var(--sg-marigold); color: var(--on-marigold); }
+@media (max-width: 899px) { .dc-nav-over .dc-nav-brand .dc-logo { transform: scale(1.45); } }
+@media (prefers-reduced-motion: reduce) { .dc-nav-over::before, .dc-nav-over::after, .dc-nav-over .dc-nav-brand .dc-logo { transition: none; } }
+
+
+
+
+/* ============ PHOTO HERO (inner pages on a dark photo) ============ */
+.sg-phoh { position: relative; display: flex; align-items: flex-end; overflow: hidden; min-height: clamp(520px, 74vh, 760px); padding: calc(var(--sg-nav) + var(--space-7)) var(--sg-gutter) clamp(48px, 8vh, 80px); background: var(--sg-deep); color: var(--sg-ivory); }
+.sg-phoh-img { object-fit: cover; }
+.sg-phoh-scrim { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10, 12, 12, .72) 0%, rgba(10, 12, 12, .3) 40%, rgba(10, 12, 12, .1) 70%), linear-gradient(90deg, rgba(10, 12, 12, .5) 0%, rgba(10, 12, 12, 0) 62%); }
+.sg-phoh-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); width: 100%; }
+.sg-phoh-title { margin: 0; max-width: 14ch; font-family: var(--font-display); font-weight: 400; text-transform: lowercase; letter-spacing: .01em; line-height: .9; text-wrap: balance; color: var(--white); font-size: clamp(48px, 7vw, 96px); text-shadow: 0 2px 28px rgba(10, 26, 31, .45); }
+.sg-phoh-lede { margin: 0; max-width: 46ch; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.6; color: var(--sg-ivory); text-shadow: 0 1px 14px rgba(10, 26, 31, .5); }
+.sg-phoh-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+@media (max-width: 899px) { .sg-phoh { min-height: 440px; padding-top: calc(var(--sg-nav) + var(--space-5)); } .sg-phoh-title { font-size: clamp(44px, 12.5vw, 64px); } }
+@media (prefers-reduced-motion: no-preference) {
+  .sg-phoh-copy > * { animation: sg-rise 1s cubic-bezier(.16, 1, .3, 1) both; }
+  .sg-phoh-copy > :nth-child(2) { animation-delay: .1s; }
+}
 

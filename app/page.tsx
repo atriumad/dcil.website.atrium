@@ -75,7 +75,7 @@ const social = {
 export default function Home() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader overlay />
 
       <main className="sg">
         {/* 1. HERO — looping video under a deep scrim, copy bottom-left on the header's gutter */}
