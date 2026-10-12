@@ -22,6 +22,7 @@ export const iconPaths = {
   "arrow-up-right": "<path d=\"M7 17L17 7M8 7h9v9\"/>",
   "menu": "<path d=\"M3 7h18M3 12h18M3 17h12\"/>",
   "close": "<path d=\"M5 5l14 14M19 5L5 19\"/>",
+  "instagram": "<rect x=\"3.5\" y=\"3.5\" width=\"17\" height=\"17\" rx=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"17.2\" cy=\"6.8\" r=\"0.6\"/>",
   "plus": "<path d=\"M12 5v14M5 12h14\"/>",
 } as const;
 

@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Locations | Don Chuy's Fresh Mex & Cantina",
   description:
-    "Find your nearest Don Chuy's Fresh Mex & Cantina — Overland Park KS, Lee's Summit MO, Johnson City TN and soon O'Fallon IL.",
+    "Find your nearest Don Chuy's Fresh Mex & Cantina — Overland Park KS, Lee's Summit MO, Johnson City TN and O'Fallon IL.",
 };
 
 export default function LocationsPage() {
@@ -20,10 +20,10 @@ export default function LocationsPage() {
       <main className="sg">
         <PageHero
           title="Find your table"
-          lede="Three restaurants open, a fourth on the way. Come for the food, stay for the fun!"
+          lede="Four restaurants, one family. Come for the food, stay for the fun!"
           image={{
-            src: "/images/photos/interior-bar-bottles.webp",
-            alt: "A sunlit corner of the dining room with a palm, a blue booth and talavera tile",
+            src: "/images/photos/drink-pink-margarita-talavera.webp",
+            alt: "A pink hibiscus margarita with a blue-rimmed glass and dried orange",
           }}
         />
         <LocationsSection bare detailLinks />

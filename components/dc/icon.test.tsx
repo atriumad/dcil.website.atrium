@@ -4,9 +4,9 @@ import { Icon } from "./icon";
 import { iconPaths } from "./icon-paths";
 
 describe("Icon", () => {
-  it("ships exactly the 22 icons of the v6 guide", () => {
+  it("ships exactly the 22 icons of the v6 guide plus instagram", () => {
     expect(Object.keys(iconPaths).sort()).toEqual(
-      ["agave", "arrow-right", "arrow-up-right", "avocado", "bag", "beer", "calendar", "chile", "clock", "close", "corn", "flame", "lime", "mail", "margarita", "menu", "phone", "pin", "plus", "sparkle", "taco", "utensils"],
+      ["agave", "arrow-right", "arrow-up-right", "avocado", "bag", "beer", "calendar", "chile", "clock", "close", "corn", "flame", "instagram", "lime", "mail", "margarita", "menu", "phone", "pin", "plus", "sparkle", "taco", "utensils"],
     );
   });
   it("is decorative without a title and uses the thin 1.5 stroke by default", () => {

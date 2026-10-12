@@ -18,7 +18,7 @@
 .dc-eyebrow-center::after { content:""; flex:none; width:32px; height:1px; background:var(--marigold); }
 
 /* Buttons: square, tracked small caps */
-.dc-btn { display:inline-flex; align-items:center; justify-content:center; gap:12px; background:transparent; color:var(--ivory); border:1px solid transparent; border-radius:0; font:700 12px/1 var(--font-sans); letter-spacing:.18em; text-transform:uppercase; text-decoration:none; cursor:pointer; white-space:nowrap; transition:background-color .25s, color .25s, border-color .25s; }
+.dc-btn { display:inline-flex; align-items:center; justify-content:center; gap:12px; background:transparent; color:var(--ivory); border:1px solid transparent; border-radius:999px; font:700 12px/1 var(--font-sans); letter-spacing:.18em; text-transform:uppercase; text-decoration:none; cursor:pointer; white-space:nowrap; transition:background-color .25s, color .25s, border-color .25s; }
 .dc-btn-sm { min-height:40px; padding:0 20px; font-size:11px; }
 .dc-btn-md { min-height:50px; padding:0 30px; }
 .dc-btn-lg { min-height:58px; padding:0 40px; }
@@ -91,7 +91,7 @@
 .dc-nav-link:hover { color:var(--white); box-shadow:inset 0 -1px 0 var(--ivory-muted); }
 .dc-nav-link.is-active { color:var(--white); box-shadow:inset 0 -1px 0 var(--marigold); }
 .dc-nav-end { display:flex; align-items:center; gap:10px; }
-.dc-nav-toggle { display:none; width:44px; height:44px; place-items:center; border:1px solid var(--line); background:transparent; color:inherit; cursor:pointer; }
+.dc-nav-toggle { display:none; width:44px; height:44px; place-items:center; border:1px solid var(--line); border-radius:50%; background:transparent; color:inherit; cursor:pointer; }
 @container (max-width: 767px) {
   .dc-nav-links { display:none; }
   .dc-nav-toggle { display:grid; }
