@@ -13,12 +13,12 @@ export const siteContent = {
   taglines: [
     "Fresh Mex. Real Flavor. Familia First.",
     "Grilled to Perfection, Served with Cariño.",
-    "Three (soon four) locations. One unforgettable experience.",
+    "Four locations. One unforgettable experience.",
   ],
   seoDefaults: {
     titleTemplate: "%s | Don Chuy's Fresh Mex & Cantina",
     homeTitle: "Don Chuy's Fresh Mex & Cantina | Authentic Mexican Restaurant in Kansas City & Beyond",
     homeDescription:
-      "Family-owned Mexican restaurant serving Josper-grilled, authentic dishes in Overland Park KS, Lee's Summit MO, and Johnson City TN.",
+      "Family-owned Mexican restaurant serving Josper-grilled, authentic dishes in Overland Park KS, Lee's Summit MO, Johnson City TN, and O'Fallon IL.",
   },
 } as const;

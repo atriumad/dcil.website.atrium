@@ -23,15 +23,15 @@ const navLinks: SiteNavLink[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-/** ChowNow where a location has it (Overland Park), tap-to-call everywhere else. */
+/** Online ordering where a location has it (Overland Park, Lee's Summit), tap-to-call everywhere else. */
 const orderOptions = locations
   .filter((location) => !location.comingSoon)
   .map((location) => {
-    const chowNow = location.orderUrl.startsWith("http");
+    const online = location.orderUrl.startsWith("http");
     return {
       label: location.name,
       href: orderHref(location),
-      note: chowNow ? "Order online" : `Call ${location.phone}`,
+      note: online ? "Order online" : `Call ${location.phone}`,
       external: true,
     };
   });

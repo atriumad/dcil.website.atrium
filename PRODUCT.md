@@ -16,7 +16,7 @@ Marketing and ordering-entry website for Don Chuy's Fresh Mex & Cantina. It gets
 Family recipes from León, Mexico, cooked on a Josper grill. A neighboring Mexican restaurant could not truthfully claim this lineage or the smoky Josper char.
 
 ## Operating Context
-Multi-location restaurant group. Each location has its own page, phone, hours and ordering path. Ordering is by ChowNow link at Overland Park only; other locations order by phone (tel: link). Content lives in typed data files (`data/site.ts`, `data/locations.ts`, `data/menu.ts`, `data/happy-hour.ts`, `data/drinks.ts`, `data/featured-dishes.ts`). Copy follows the Website Rebuild Guide (`docs/DonChuys_Website_Rebuild_Guide.docx`).
+Multi-location restaurant group. Each location has its own page, phone, hours and ordering path. Online ordering: ChowNow at Overland Park, order.online at Lee's Summit; other locations order by phone (tel: link). Content lives in typed data files (`data/site.ts`, `data/locations.ts`, `data/menu.ts`, `data/happy-hour.ts`, `data/drinks.ts`, `data/featured-dishes.ts`). Copy follows the Website Rebuild Guide (`docs/DonChuys_Website_Rebuild_Guide.docx`).
 
 ## Capabilities and Constraints
 - Locations: Overland Park, KS; Lee's Summit, MO; Johnson City, TN; O'Fallon, IL (coming soon, no phone yet).

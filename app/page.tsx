@@ -1,6 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { homeDishes, tequilaShelf } from "@/data/featured-dishes";
+import {
+  dishCardsLarge,
+  dishCardsMedium,
+  dishesMore,
+  tequilaBrands,
+  type DishCard,
+} from "@/data/featured-dishes";
 import { locations, orderHref } from "@/data/locations";
 import { siteContent } from "@/data/site";
 import { SiteFooter, SiteHeader } from "@/components/site/site-chrome";
@@ -14,63 +20,73 @@ import { HeroVideo } from "@/components/site/hero-video";
 import { Tonight } from "@/components/site/tonight";
 import { Button, Icon, Pattern, PhotoFrame } from "@/components/dc";
 
-const categories = [
+/** Gallery photos for the events section (O'Fallon shoot); swap for real event and catering shots when available. */
+const eventPhotos = [
   {
-    name: "Tacos",
-    href: "/menu#tacos",
-    src: "/images/photos/dish-taco-in-hand.webp",
-    alt: "A taco held in hand",
+    src: "/images/ofallon/blue-cocktail.webp",
+    alt: "A blue cocktail served in a hanging glass on a stand",
+    focus: "50% 35%",
   },
   {
-    name: "La Cevichería",
-    href: "/menu#cevicheria",
-    src: "/images/photos/dish-shrimp-ceviche-app.webp",
-    alt: "Shrimp ceviche with an avocado rose",
+    src: "/images/dcop/table-spread.webp",
+    alt: "A table set with queso fundido, grilled octopus, steak and sauces",
+    focus: "50% 50%",
   },
   {
-    name: "Steak House",
-    href: "/menu#steak-house",
-    src: "/images/photos/dish-steak-plate-wide.webp",
-    alt: "A grilled steak plate",
+    src: "/images/dcop/aguachile-mango.webp",
+    alt: "Shrimp aguachile with mango and red onion on a gray plate",
+    focus: "50% 45%",
   },
   {
-    name: "Drinks",
-    href: "/menu#drinks",
-    src: "/images/photos/drink-red-cocktail-bar.webp",
-    alt: "A red margarita on the bar",
+    src: "/images/ofallon/shared-table.webp",
+    alt: "Guests sharing steak, ceviche and a cocktail at the table",
+    focus: "50% 60%",
+  },
+  {
+    src: "/images/dcop/ceviche-table.webp",
+    alt: "A table of ceviche tostadas and cocktails beside a tiled wall",
+    focus: "50% 45%",
+  },
+  {
+    src: "/images/ofallon/green-cocktail.webp",
+    alt: "A green cocktail with an orange slice and mint beside a steak on a stone",
+    focus: "50% 55%",
   },
 ];
 
-const social = {
-  handle: "@donchuysmo",
-  href: "https://www.instagram.com/donchuysmo/",
-  images: [
-    {
-      src: "/images/photos/interior-eagle-mural.webp",
-      alt: "Colorful eagle mural on a brick wall inside the restaurant",
-    },
-    {
-      src: "/images/photos/drink-pink-margarita-talavera.webp",
-      alt: "A pink margarita served in a blue-rimmed talavera glass",
-    },
-    {
-      src: "/images/photos/dish-grilled-skewer-molcajete.webp",
-      alt: "A molcajete of grilled seafood beside carne asada",
-    },
-    {
-      src: "/images/photos/interior-stone-lion.webp",
-      alt: "A carved stone lion statue at the restaurant entrance",
-    },
-    {
-      src: "/images/photos/drink-flight-margaritas.webp",
-      alt: "A flight of colorful margaritas on a serving stand",
-    },
-    {
-      src: "/images/photos/dish-churros-dipping.webp",
-      alt: "Churros with an assortment of dipping sauces",
-    },
-  ],
-};
+function DishTile({
+  dish,
+  size,
+  no,
+}: {
+  dish: DishCard;
+  size: "large" | "medium";
+  no: number;
+}) {
+  return (
+    <Link href="/menu" className={`sg-dish sg-dish-${size} sg-reveal`}>
+      <Image
+        src={dish.src}
+        alt={dish.alt}
+        fill
+        sizes={
+          size === "large"
+            ? "(min-width: 900px) 590px, 100vw"
+            : "(min-width: 900px) 390px, 100vw"
+        }
+        quality={80}
+        style={{ objectPosition: dish.focus }}
+      />
+      <span className="sg-dish-scrim" aria-hidden="true" />
+      <span className="sg-dish-body">
+        <span className="sg-dish-no">No. {String(no).padStart(2, "0")}</span>
+        <span className="sg-dish-name">{dish.name}</span>
+        <span className="sg-dish-desc">{dish.description}</span>
+      </span>
+      <Icon name="arrow-up-right" size={20} className="sg-dish-arrow" />
+    </Link>
+  );
+}
 
 export default function Home() {
   return (
@@ -115,7 +131,7 @@ export default function Home() {
         {/* 2. SAGE — statement + collage */}
         <section className="sg-sage sg-story">
           <div className="sg-story-copy sg-reveal">
-            <h2 className="sg-h2">{siteContent.taglines[0]}</h2>
+            <h2 className="sg-h2 sg-on-dark">{siteContent.taglines[0]}</h2>
             <p className="sg-body">{siteContent.about.body}</p>
           </div>
           <div className="sg-collage sg-reveal">
@@ -174,96 +190,47 @@ export default function Home() {
         </section>
 
         {/* 4. SAGE — locations */}
-        <LocationsSection
-          id="locations"
-          photo={{
-            src: "/images/photos/interior-bar-bottles.webp",
-            alt: "A sunlit corner of the dining room with a palm, a blue booth and talavera tile",
-          }}
-        />
+        <LocationsSection id="locations" />
 
         {/* 5. DEEP-2 — happy hour card */}
         <SpecialsSection />
 
-        {/* 6. SAGE — featured dishes: two photos beside a hairline list */}
-        <section className="sg-sage sg-sig">
-          <header className="sg-sig-head sg-reveal">
+        {/* 6. SAGE — featured dishes: photo cards with overlaid copy */}
+        <section className="sg-sage sg-dishes">
+          <header className="sg-dishes-head sg-reveal">
             <h2 className="sg-h2">Featured dishes</h2>
             <p className="sg-body">
               Delicious, authentic dishes made for lunch or dinner with friends
               and family.
             </p>
-            <Link href="/menu" className="sg-link">
-              Full Menu <Icon name="arrow-right" size={16} />
-            </Link>
           </header>
-          <div className="sg-sig-body">
-            <div className="sg-sig-photos sg-reveal">
-              <PhotoFrame
-                className="sg-sig-arch"
-                shape="arch"
-                outline
-                ratio="4 / 5"
-                src="/images/photos/dish-steak-plate-wide.webp"
-                alt="Grilled steak with white rice, fried yuca and pico de gallo on a blue plate"
-                focus="50% 62%"
-                sizes="(min-width: 900px) 34vw, 78vw"
+          <div className="sg-dishes-grid">
+            {dishCardsLarge.map((dish, i) => (
+              <DishTile key={dish.name} dish={dish} size="large" no={i + 1} />
+            ))}
+            {dishCardsMedium.map((dish, i) => (
+              <DishTile
+                key={dish.name}
+                dish={dish}
+                size="medium"
+                no={i + 1 + dishCardsLarge.length}
               />
-              <PhotoFrame
-                className="sg-sig-frame"
-                shape="frame"
-                ratio="1 / 1"
-                src="/images/photos/dish-white-fish-plate.webp"
-                alt="Three fried empanadas topped with crumbled cheese, with a dipping sauce"
-                focus="50% 62%"
-                sizes="(min-width: 900px) 20vw, 44vw"
-              />
-            </div>
-            <ol className="sg-feat">
-              {homeDishes.map((dish, i) => (
-                <li key={dish.name} className="sg-feat-item sg-reveal">
-                  <span className="sg-feat-no" aria-hidden="true">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="sg-h4">{dish.name}</h3>
-                    <p className="sg-small">{dish.description}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            ))}
           </div>
-          <p className="sg-sig-foot sg-small">
+          <div className="sg-dishes-more sg-reveal">
+            <p className="sg-eyebrow">
+              <span aria-hidden="true" />
+              Also on the menu
+              <span aria-hidden="true" />
+            </p>
+            <p className="sg-dishes-names">{dishesMore.join(" · ")}</p>
+            <InkButton href="/menu">Full Menu</InkButton>
+          </div>
+          <p className="sg-dishes-foot sg-small">
             We are proud to use the freshest ingredients in our recipes, and our
             Josper grill gives our food that great smoky flavor that makes it
             unique.
           </p>
-        </section>
-
-        {/* 7. PHOTO — category wall (scroll-snap strip on mobile) */}
-        <section className="sg-cats" aria-label="Menu categories">
-          <ul className="sg-cats-strip">
-            {categories.map((c) => (
-              <li key={c.name} className="sg-cat">
-                <Link href={c.href} className="sg-cat-link">
-                  <Image
-                    src={c.src}
-                    alt={c.alt}
-                    fill
-                    sizes="(min-width: 900px) 25vw, 74vw"
-                    quality={75}
-                  />
-                  <span className="sg-cat-shade" aria-hidden="true" />
-                  <span className="sg-cat-name">{c.name}</span>
-                  <Icon
-                    name="arrow-up-right"
-                    size={22}
-                    className="sg-cat-arrow"
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
         </section>
 
         {/* 8. SAGE — three guest reviews as table checks */}
@@ -312,9 +279,24 @@ export default function Home() {
                 Drinks Menu
               </Button>
             </div>
-            <ul className="sg-tequila-list sg-reveal">
-              {tequilaShelf.map((name) => (
-                <li key={name}>{name}</li>
+          </div>
+          <div
+            className="sg-brands"
+            role="group"
+            aria-label={`Featured tequila brands: ${tequilaBrands.map((b) => b.name).join(", ")}`}
+          >
+            <ul className="sg-brands-track" aria-hidden="true">
+              {[...tequilaBrands, ...tequilaBrands, ...tequilaBrands, ...tequilaBrands].map((brand, i) => (
+                <li key={`${brand.name}-${i}`} className="sg-brand">
+                  <Image
+                    src={brand.src}
+                    alt=""
+                    width={brand.width}
+                    height={brand.height}
+                    sizes="200px"
+                    loading="eager"
+                  />
+                </li>
               ))}
             </ul>
           </div>
@@ -323,7 +305,7 @@ export default function Home() {
         {/* 10. PHOTO BAND — brand statement */}
         <section className="sg-band" aria-label="Our style">
           <Image
-            src="/images/photos/interior-eagle-mural.webp"
+            src="/images/photos/spread-seafood-boil-wide.webp"
             alt=""
             fill
             sizes="100vw"
@@ -332,54 +314,54 @@ export default function Home() {
           />
           <span className="sg-band-scrim" aria-hidden="true" />
           <h2 className="sg-h2 sg-on-dark sg-band-title sg-reveal">
-            Enjoy the home-style flavor of traditional Mexican cooking, and
-            authentic style drinks from all over Mexico
+            Enjoy the home-style flavor of{" "}
+            <em className="sg-script">traditional Mexican</em> cooking, and
+            authentic style drinks from{" "}
+            <em className="sg-script">all over Mexico</em>
           </h2>
         </section>
 
         {/* 11. SAGE — let's talk + Instagram */}
         <section className="sg-sage sg-social">
           <header className="sg-social-head sg-reveal">
-            <h2 className="sg-h3">Special events, catering or anything else</h2>
+            <h2 className="sg-h3 sg-on-dark">
+              Special events, catering or anything else
+            </h2>
             <p className="sg-body">
               Contact us with any questions on special events you are planning,
               catering for large groups, or anything else that comes to mind.
             </p>
             <InkButton href="/contact">Get in touch</InkButton>
-            <a href={social.href} className="sg-link">
-              Follow {social.handle} <Icon name="arrow-up-right" size={16} />
-            </a>
           </header>
-          <div className="sg-social-grid">
-            {[3, 2, 1, 5]
-              .map((i) => social.images[i])
-              .map((image) => (
-                <a
-                  key={image.src}
-                  href={social.href}
-                  className="sg-social-tile"
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(min-width: 900px) 34vw, 50vw"
-                    quality={80}
-                  />
-                </a>
-              ))}
-          </div>
+          <ul className="sg-social-grid" aria-label="Event and catering gallery">
+            {eventPhotos.map((image) => (
+              <li key={image.src} className="sg-social-tile sg-reveal">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="(min-width: 1000px) 400px, 50vw"
+                  quality={80}
+                  style={{ objectPosition: image.focus }}
+                />
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* 12. DEEP — closing: the page ends on a way in, not a form */}
         <section className="sg-deep sg-closing">
-          <Pattern
-            name="talavera-tile"
-            tone="navy-700"
-            size={88}
-            className="sg-fill sg-closing-tile"
+          <Image
+            src="/images/ofallon/grill-flame.webp"
+            alt=""
+            fill
+            sizes="100vw"
+            quality={75}
+            className="sg-closing-img"
           />
+          <span className="sg-closing-scrim" aria-hidden="true" />
           <div className="sg-closing-in sg-reveal">
+            <p className="sg-closing-line">{siteContent.taglines[2]}</p>
             <h2 className="sg-h2 sg-on-dark">Come as guests. Leave as family.</h2>
             <div className="sg-closing-ctas">
               <Button size="lg" icon="arrow-right" href={orderHref(locations[0])}>

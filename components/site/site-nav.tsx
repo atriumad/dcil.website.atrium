@@ -14,7 +14,7 @@ export interface SiteNavProps {
   links: SiteNavLink[];
   /** Label of the current page's link (gets the marigold underline). */
   active?: string;
-  /** "Order Now" options: ChowNow where it exists, tap-to-call elsewhere. */
+  /** "Order Now" options: online ordering where it exists, tap-to-call elsewhere. */
   order: Array<LinkItem & { note?: string; external?: boolean }>;
   /** Float over the page's dark hero with no fill, then settle into the solid bar once the page scrolls. */
   overlay?: boolean;

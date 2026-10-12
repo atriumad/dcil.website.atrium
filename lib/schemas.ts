@@ -16,6 +16,8 @@ export const locationSchema = z
     orderUrl: z.string(),
     comingSoon: z.boolean(),
     reviews: z.array(reviewSchema),
+    /** Instagram handle without the @. */
+    instagram: z.string().optional(),
     intro: z.string().optional(),
     closing: z.string().optional(),
   })

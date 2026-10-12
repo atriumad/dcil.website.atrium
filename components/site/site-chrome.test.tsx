@@ -14,10 +14,11 @@ describe("site chrome", () => {
     expect(screen.getByRole("button", { name: /Locations/ })).toHaveAttribute("aria-haspopup", "true");
     expect(screen.getByRole("button", { name: /Order Now/ })).toHaveAttribute("aria-expanded", "false");
   });
-  it("footer lists every location, with Coming soon for the unopened one", () => {
+  it("footer lists every location with its address", () => {
     render(<SiteFooter />);
     expect(screen.getByRole("heading", { name: "Overland Park, KS" })).toBeInTheDocument();
-    expect(screen.getByText("Coming soon")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "O'Fallon, IL" })).toBeInTheDocument();
+    expect(screen.getByText("1305 Central Park Dr, O'Fallon, IL 62269")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
   });
   it("exposes the shared page container classes", () => {

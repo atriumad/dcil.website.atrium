@@ -1,19 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { Icon } from "@/components/dc";
-import { happyHour } from "@/data/happy-hour";
 import { locations, orderHref, telHref } from "@/data/locations";
 import { clockIn, openStatus, timeZoneFor } from "@/lib/hours";
 import { useNow } from "./use-now";
 
 const cityOf = (name: string) => name.split(",")[0];
 
-/** "Open today" strip under the hero: is each location open, one tap to call or order, and what today's happy hour is. */
+/** "Open today" strip under the hero: is each location open, plus one tap to call or order. */
 export function Tonight() {
   const at = useNow();
-  const today = at === null ? null : clockIn("America/Chicago", at).day;
-  const hhDay = today === null ? undefined : happyHour.days.find((d) => d.day === ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][today]);
 
   return (
     <section id="tonight" className="sg-deep2 sg-tonight" aria-label="Open today">
@@ -51,17 +47,6 @@ export function Tonight() {
               </li>
             );
           })}
-        <li className="sg-tonight-item sg-tonight-hh">
-          <div className="sg-tonight-info">
-            <h2 className="sg-tonight-city">Happy hour</h2>
-            <p className="sg-tonight-status">{hhDay ? `Today · ${hhDay.theme}` : "Monday – Thursday, all day"}</p>
-          </div>
-          <div className="sg-tonight-actions">
-            <Link className="sg-tonight-btn" href="/happy-hour">
-              See the card <Icon name="arrow-right" size={16} />
-            </Link>
-          </div>
-        </li>
       </ul>
     </section>
   );

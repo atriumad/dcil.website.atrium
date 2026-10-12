@@ -195,12 +195,38 @@ export function SpecialsSection() {
   );
 }
 
-/** Locations as a hairline two-column list on sage. `detailLinks` sends each open location to its own page instead of Google Maps. */
+const stateNames: Record<string, string> = {
+  KS: "Kansas",
+  MO: "Missouri",
+  TN: "Tennessee",
+  IL: "Illinois",
+};
+
+/** Card photo per location; only O'Fallon has its own so far, the rest are placeholders. */
+const locationPhotos: Record<string, Img> = {
+  "overland-park-ks": {
+    src: "/images/photos/interior-bar-bottles.webp",
+    alt: "A sunlit corner of the dining room with a palm, a blue booth and talavera tile",
+  },
+  "lees-summit-mo": {
+    src: "/images/photos/detail-talavera-cup-flowers.webp",
+    alt: "A hand holding a talavera-painted cup with a salted rim beside purple orchids",
+  },
+  "johnson-city-tn": {
+    src: "/images/photos/interior-stone-lion.webp",
+    alt: "A carved stone lion statue at the restaurant entrance",
+  },
+  "ofallon-il": {
+    src: "/images/ofallon/old-fashioned.webp",
+    alt: "An old fashioned garnished with orange and a cherry on the bar",
+  },
+};
+
+/** Locations as tall photo cards: state label and city centred over the photo, address and hours at the foot. `detailLinks` sends each open location to its own page instead of Google Maps. */
 export function LocationsSection({
   eyebrow,
   title = "Find your table",
-  lede = "Three restaurants open, a fourth on the way. Come for the food, stay for the fun!",
-  photo,
+  lede = "Four restaurants, one family. Come for the food, stay for the fun!",
   detailLinks,
   bare,
   id,
@@ -208,9 +234,8 @@ export function LocationsSection({
   eyebrow?: string;
   title?: string;
   lede?: string;
-  photo?: Img;
   detailLinks?: boolean;
-  /** Omit the heading column (pages whose hero already carries the title). */
+  /** Omit the heading (pages whose hero already carries the title). */
   bare?: boolean;
   id?: string;
 }) {
@@ -226,60 +251,70 @@ export function LocationsSection({
           {eyebrow ? <LightEyebrow>{eyebrow}</LightEyebrow> : null}
           <h2 className="sg-h2">{title}</h2>
           <p className="sg-body">{lede}</p>
-          {photo ? (
-            <PhotoFrame
-              className="sg-locs-photo"
-              shape="arch"
-              ratio="3 / 4"
-              src={photo.src}
-              alt={photo.alt}
-              sizes="(min-width: 900px) 30vw, 90vw"
-            />
-          ) : null}
         </header>
       )}
       <ul className="sg-locs-list">
-        {locations.map((location) => (
-          <li key={location.slug} className="sg-loc sg-reveal">
-            {/* The city link stretches over the card; the phone link sits above it so both are real, separate links. */}
-            <div className="sg-loc-card">
-              <CityHeading className="sg-loc-city">
-                <a
-                  className="sg-loc-link"
-                  href={
-                    detailLinks || !location.address
-                      ? `/locations/${location.slug}`
-                      : mapsUrl(location.address)
-                  }
-                >
-                  {location.name}
-                </a>
-              </CityHeading>
-              {location.comingSoon ? (
-                <span className="sg-loc-soon">Coming soon</span>
-              ) : null}
-              {location.address ? (
-                <p className="sg-loc-addr">{location.address}</p>
-              ) : null}
-              {location.phone ? (
-                <p className="sg-loc-phone">
-                  <a href={telHref(location.phone)}>{location.phone}</a>
-                </p>
-              ) : null}
-              {location.hours.length ? (
-                <dl className="sg-loc-hours">
-                  {location.hours.map((row) => (
-                    <div key={row.days}>
-                      <dt>{row.days}</dt>
-                      <dd>{row.time}</dd>
-                    </div>
-                  ))}
-                </dl>
-              ) : null}
-              <Icon name="arrow-up-right" size={24} className="sg-loc-arrow" />
-            </div>
-          </li>
-        ))}
+        {locations.map((location) => {
+          const photo = locationPhotos[location.slug];
+          const state = stateNames[location.name.split(", ")[1]] ?? "";
+          const city = location.name.split(", ")[0];
+          return (
+            <li key={location.slug} className="sg-loc sg-reveal">
+              {/* The city link stretches over the card; the phone link sits above it so both are real, separate links. */}
+              <div className="sg-loc-card">
+                {photo ? (
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(min-width: 1000px) 290px, (min-width: 640px) 50vw, 100vw"
+                    quality={75}
+                  />
+                ) : null}
+                <span className="sg-loc-scrim" aria-hidden="true" />
+                <div className="sg-loc-top">
+                  <p className="sg-loc-state">{state}</p>
+                  <CityHeading className="sg-loc-city">
+                    <a
+                      className="sg-loc-link"
+                      aria-label={location.name}
+                      href={
+                        detailLinks || !location.address
+                          ? `/locations/${location.slug}`
+                          : mapsUrl(location.address)
+                      }
+                    >
+                      {city}
+                    </a>
+                  </CityHeading>
+                  {location.comingSoon ? (
+                    <span className="sg-loc-soon">Coming soon</span>
+                  ) : null}
+                </div>
+                <div className="sg-loc-foot">
+                  {location.address ? (
+                    <p className="sg-loc-addr">{location.address}</p>
+                  ) : null}
+                  {location.phone ? (
+                    <p className="sg-loc-phone">
+                      <a href={telHref(location.phone)}>{location.phone}</a>
+                    </p>
+                  ) : null}
+                  {location.hours.length ? (
+                    <dl className="sg-loc-hours">
+                      {location.hours.map((row) => (
+                        <div key={row.days}>
+                          <dt>{row.days}</dt>
+                          <dd>{row.time}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  ) : null}
+                </div>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );

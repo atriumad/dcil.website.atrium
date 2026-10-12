@@ -38,15 +38,15 @@ export default function AboutPage() {
           title="Recipes from León, Mexico"
           body={`${roots} ${today}`}
           image={{
-            src: "/images/photos/interior-hanging-flowers.webp",
-            alt: "Red flowers and greenery hanging from the dining room ceiling",
+            src: "/images/photos/dish-enchilada-hands.webp",
+            alt: "Hands sharing a plate of enchiladas at the table",
           }}
         />
 
         <section className="sg-deep sg-grill">
           <Image
-            src="/images/photos/dish-carne-asada-cutting.webp"
-            alt="Carving carne asada on a sizzling platter"
+            src="/images/ofallon/ribeye-lava-stone.webp"
+            alt="A ribeye on a hot lava stone with two dipping sauces"
             fill
             sizes="100vw"
             quality={80}
@@ -67,8 +67,8 @@ export default function AboutPage() {
           title="Come as guests. Leave as family."
           body={siteContent.taglines[2]}
           image={{
-            src: "/images/photos/table-spread.webp",
-            alt: "A table spread with shared plates, a beer and a margarita",
+            src: "/images/photos/drink-cocktail-toast.webp",
+            alt: "Two guests toasting with cocktails over a shared table",
           }}
           action={
             <div className="sg-hhhead-ctas">

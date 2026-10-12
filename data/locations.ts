@@ -3,6 +3,7 @@ import type { Location } from "@/lib/schemas";
 export const locations: Location[] = [
   {
     slug: "overland-park-ks",
+    instagram: "don_chuys_ks",
     name: "Overland Park, KS",
     address: "8725 Metcalf Ave, Overland Park, KS 66212",
     phone: "+1 816-603-2124",
@@ -13,7 +14,7 @@ export const locations: Location[] = [
       { days: "Wed", time: "10:00 AM - 10:30 PM" },
       { days: "Fri-Sun", time: "11:00 AM - 10:30 PM" },
     ],
-    // ChowNow is live for Overland Park only; the other locations order by phone (tel: link).
+    // Online ordering: ChowNow at Overland Park, order.online at Lee's Summit; the other locations order by phone (tel: link).
     orderUrl: "https://order.chownow.com/order/42367/locations/64005",
     comingSoon: false,
     reviews: [
@@ -29,11 +30,12 @@ export const locations: Location[] = [
   },
   {
     slug: "lees-summit-mo",
+    instagram: "donchuysmo",
     name: "Lee's Summit, MO",
     address: "701 SE Melody Ln, Lee's Summit, MO 64063",
     phone: "+1 816-434-5222",
     hours: [{ days: "Every day", time: "11:00 AM - 10:00 PM" }],
-    orderUrl: "",
+    orderUrl: "https://order.online/store/don-chuys-fresmex-&-cantina-lee's-summit-24072246",
     comingSoon: false,
     reviews: [
       {
@@ -48,6 +50,7 @@ export const locations: Location[] = [
   },
   {
     slug: "johnson-city-tn",
+    instagram: "donchuysjc",
     name: "Johnson City, TN",
     address: "3101 W Market St #101, Johnson City, TN 37604",
     phone: "+1 423-328-3475",
@@ -71,18 +74,29 @@ export const locations: Location[] = [
   },
   {
     slug: "ofallon-il",
+    instagram: "donchuys_il",
     name: "O'Fallon, IL",
-    address: "",
-    phone: "",
-    hours: [],
+    address: "1305 Central Park Dr, O'Fallon, IL 62269",
+    phone: "+1 618-206-6048",
+    hours: [
+      { days: "Mon-Thu", time: "11:00 AM - 10:00 PM" },
+      { days: "Fri-Sat", time: "11:00 AM - 10:30 PM" },
+      { days: "Sun", time: "11:00 AM - 9:30 PM" },
+    ],
     orderUrl: "",
-    comingSoon: true,
+    comingSoon: false,
     reviews: [],
+    intro:
+      "Our newest spot in O'Fallon brings authentic Mexican recipes, charcoal-grilled flavor and a wide tequila selection to the Metro East.",
+    closing: "Come hungry. Leave happy. We'll save you a seat at our O'Fallon location.",
   },
 ];
+
+/** Instagram profile URL for a location, or "" when it has none. */
+export const instagramHref = (location: Location) => (location.instagram ? `https://www.instagram.com/${location.instagram}/` : "");
 
 /** Phone as a tel: link ("+1 816-603-2124" -> "tel:+18166032124"). */
 export const telHref = (phone: string) => `tel:${phone.replace(/[^+\d]/g, "")}`;
 
-/** Where "Order Now" goes: ChowNow when the location has it, otherwise a tap-to-call link. Empty for coming-soon locations. */
+/** Where "Order Now" goes: the location's online ordering link when it has one, otherwise a tap-to-call link. Empty for coming-soon locations. */
 export const orderHref = (location: Location) => location.orderUrl || (location.phone ? telHref(location.phone) : "");

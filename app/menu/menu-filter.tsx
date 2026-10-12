@@ -12,11 +12,11 @@ const tagLabel: Record<Tag, string> = { spicy: "Spicy", vegetarian: "Veggie", se
 
 /** Photo breaks, each shown after the category it belongs to. Portrait shots in a straight frame; one navy-900 style. */
 const breaksAfter = {
-  "steak-house": { src: "/images/photos/dish-carne-asada-cutting.webp", alt: "Carving carne asada on a sizzling platter", title: "Josper-grilled", line: "Over real fire, made fresh every day.", flip: false },
+  "steak-house": { src: "/images/photos/dish-steak-rice-plate.webp", alt: "Grilled steak with white rice, fried yuca and a bowl of pico de gallo", title: "Josper-grilled", line: "Over real fire, made fresh every day.", flip: false },
   tacos: { src: "/images/photos/dish-taco-in-hand.webp", alt: "A taco held in hand", title: "Taco night", line: "Street-style, handmade, every night.", flip: true },
-  "pescados-ostras": { src: "/images/photos/dish-shrimp-ceviche-app.webp", alt: "Shrimp ceviche with an avocado rose", title: "Fresh from the sea", line: "Ceviche, oysters and mariscos to share.", flip: false },
+  "pescados-ostras": { src: "/images/dcop/ceviche-molcajete.webp", alt: "Mixed ceviche with oysters on a molcajete stone", title: "Fresh from the sea", line: "Ceviche, oysters and mariscos to share.", flip: false },
   drinks: { src: "/images/photos/drink-red-cocktail-bar.webp", alt: "Red margarita on the bar", title: "Raise a glass", line: "Margaritas, flights and cocktails.", flip: true },
-  especiales: { src: "/images/photos/spread-seafood-boil-close.webp", alt: "Seafood boil and plates spread across the table", title: "Made for sharing", line: "Bring the whole table. We'll fill it.", flip: false },
+  especiales: { src: "/images/dcop/crab-shrimp-platter.webp", alt: "A platter of crab legs and shrimp with cucumber and tomato", title: "Made for sharing", line: "Bring the whole table. We'll fill it.", flip: false },
 } as const;
 
 type Break = (typeof breaksAfter)[keyof typeof breaksAfter];
