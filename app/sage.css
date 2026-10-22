@@ -626,3 +626,28 @@
   .sg-dish-medium { grid-column: span 2; }
 }
 @media (prefers-reduced-motion: reduce) { .sg-dish img, .sg-dish .sg-dish-arrow { transition: none; } }
+
+/* O'Fallon catering menu and request forms */
+.sg-catmenu { display: flex; flex-direction: column; gap: var(--space-6); padding: var(--space-8) var(--sg-gutter); }
+.sg-catmenu-head { display: flex; flex-direction: column; gap: var(--space-3); }
+.sg-catmenu-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--sg-ink); }
+.sg-catmenu-item { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-5) 0; border-bottom: 1px solid var(--sg-line-light); }
+.sg-catmenu-price { font: 700 12px/1.2 var(--font-sans); letter-spacing: .16em; text-transform: uppercase; color: var(--sg-ink-2); }
+.sg-catmenu-price span { font-family: var(--font-display); font-size: 32px; letter-spacing: 0; color: var(--sg-ink); margin-right: 6px; }
+.sg-catmenu-name { margin: 0; font-family: var(--font-display); font-weight: 400; text-transform: lowercase; font-size: clamp(30px, 3.2vw, 44px); line-height: .95; color: var(--sg-ink); }
+.sg-catmenu-serves { margin: 0; font-weight: 700; color: var(--sg-ink); }
+.sg-catmenu-inc { margin: 0; line-height: 1.6; color: var(--sg-ink); }
+.sg-catmenu-terms { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; color: var(--sg-ink); font-size: 16px; }
+@media (min-width: 900px) {
+  .sg-catmenu-list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-8); }
+}
+.sg-req { display: flex; flex-direction: column; gap: var(--space-5); }
+.sg-req-tabs { display: flex; gap: var(--space-2); border-bottom: 1px solid var(--line); }
+.sg-req-tab { flex: 1; padding: 14px 12px; background: transparent; border: 0; border-bottom: 3px solid transparent; color: var(--ivory-muted); font: 700 13px/1.2 var(--font-sans); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+.sg-req-tab[aria-selected="true"] { color: var(--white); border-bottom-color: var(--sg-marigold); }
+.sg-req-tab:focus-visible { outline: 2px solid var(--sg-marigold); outline-offset: 2px; }
+
+/* Events note and CTAs under the gallery heading */
+.sg-social-head { gap: var(--space-5); }
+.sg-social-note { margin: 0; max-width: 46ch; font-size: 16px; line-height: 1.5; text-align: center; color: var(--sg-ink); }
+.sg-social-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: var(--space-2); }

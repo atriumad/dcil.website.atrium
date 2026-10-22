@@ -70,6 +70,16 @@ export default async function LocationDetailPage({ params }: { params: Promise<{
                   <Button size="lg" variant="outline" href="/menu">
                     View Menu
                   </Button>
+                  {location.slug === "ofallon-il" ? (
+                    <>
+                      <Button size="lg" variant="outline" href="/catering">
+                        Catering &amp; Parties
+                      </Button>
+                      <Button size="lg" variant="outline" disabled aria-disabled="true">
+                        Reservations: Coming Soon
+                      </Button>
+                    </>
+                  ) : null}
                 </>
               }
             />

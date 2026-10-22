@@ -7,7 +7,6 @@ const wixRedirects = [
   { source: "/copia-de-overlandpark", destination: "/locations/lees-summit-mo" },
   { source: "/jonhson-city", destination: "/locations/johnson-city-tn" },
   { source: "/o-fallen", destination: "/locations/ofallon-il" },
-  { source: "/catering", destination: "/contact?type=catering" },
 ];
 
 const nextConfig: NextConfig = {

@@ -54,6 +54,27 @@ export const inquirySchema = z.object({
   guestCount: z.coerce.number().int().positive().optional(),
 });
 
+export const eventRequestTypeSchema = z.enum(["dine-in-party", "catering"]);
+
+/** O'Fallon Dine-In Party and Catering request forms. */
+export const eventRequestSchema = z
+  .object({
+    type: eventRequestTypeSchema,
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    email: z.string().email("Enter a valid email"),
+    phone: z.string().min(7, "Phone is required"),
+    eventDate: z.string().min(1, "Choose a date"),
+    eventTime: z.string().min(1, "Choose a time"),
+    guestCount: z.coerce.number({ message: "Enter the number of guests" }).int().positive("Enter the number of guests"),
+    fulfillment: z.enum(["pickup", "dine-in"]).optional(),
+    package: z.string().optional(),
+    notes: z.string().optional(),
+  })
+  .refine((r) => r.type !== "catering" || r.fulfillment, { message: "Choose pick up or dine-in", path: ["fulfillment"] });
+
+export type EventRequest = z.infer<typeof eventRequestSchema>;
+export type EventRequestType = z.infer<typeof eventRequestTypeSchema>;
 export type Location = z.infer<typeof locationSchema>;
 export type MenuCategory = z.infer<typeof menuCategorySchema>;
 export type MenuItem = z.infer<typeof menuItemSchema>;

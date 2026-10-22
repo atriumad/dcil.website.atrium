@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { locationSchema, menuItemSchema, inquirySchema } from "./schemas";
+import { locationSchema, menuItemSchema, inquirySchema, eventRequestSchema } from "./schemas";
 
 describe("locationSchema", () => {
   it("accepts a valid open location", () => {
@@ -65,5 +65,30 @@ describe("inquirySchema", () => {
       message: "Hola, quisiera reservar para 8 personas.",
     });
     expect(result.success).toBe(true);
+  });
+});
+
+describe("eventRequestSchema", () => {
+  const base = {
+    firstName: "Ana",
+    lastName: "Lopez",
+    email: "ana@example.com",
+    phone: "618-555-0100",
+    eventDate: "2026-11-20",
+    eventTime: "18:00",
+    guestCount: "25",
+  };
+
+  it("accepts a dine-in party without catering fields", () => {
+    expect(eventRequestSchema.safeParse({ ...base, type: "dine-in-party" }).success).toBe(true);
+  });
+
+  it("requires pick up or dine-in for catering", () => {
+    expect(eventRequestSchema.safeParse({ ...base, type: "catering" }).success).toBe(false);
+    expect(eventRequestSchema.safeParse({ ...base, type: "catering", fulfillment: "pickup" }).success).toBe(true);
+  });
+
+  it("rejects a missing guest count", () => {
+    expect(eventRequestSchema.safeParse({ ...base, type: "dine-in-party", guestCount: "" }).success).toBe(false);
   });
 });
