@@ -5,13 +5,13 @@ export interface FeaturedDish {
 }
 
 export const homeDishes: FeaturedDish[] = [
-  { name: "Steak & Lobster", description: "12 oz ribeye paired with 6 oz lobster cooked with garlic butter." },
+  { name: "Charola de Cerveza", description: "Inspired by a guest request: fresh shrimp ceviche and spicy aguachile rojo served alongside ice-cold beers. The ultimate snack-and-sip platter!" },
   { name: "Revolution", description: "Steak burger with pineapple, bacon, caramelized onions and cheese, served with fries." },
   { name: "La Costa Bowl", description: "Boiled seafood, crab legs, shrimp, crawfish, potatoes and corn." },
-  { name: "Pulpo Zarandeado", description: "Octopus cooked on a charcoal grill, marinated in our traditional zarandeado sauce, with white rice and salad." },
+  { name: "Molcajete del Mar", description: "An overflowing seafood feast served in a traditional hot volcanic stone bowl." },
   { name: "Steak a la Mexicana", description: "T-bone steak topped with peppers, onions, tomato and shrimp, served with rice, beans, tortillas and salad." },
   { name: "Salmón Mango", description: "8 oz salmon cooked on a charcoal grill, marinated in our special mango sauce, served on a bed of spinach and avocado with mango pico and rice." },
-  { name: "Tostada de Ceviche", description: "Our traditional tostada, served with octopus, shrimp or a mix of both, for demanding palates." },
+  { name: "Shrimp Aguachile", description: "Fresh, tender shrimp marinated in your choice of our house-made flavors: Verde, Negro, Mango or Rojo." },
   { name: "Camarones Zarandeados", description: "Shrimp marinated in our traditional zarandeado sauce, cooked on a charcoal grill." },
   { name: "Empanada de Ribeye", description: "3 mini empanadas stuffed with mozzarella cheese and picadillo ribeye." },
   { name: "Burrito Michoacano", description: "Stuffed with carnitas and rice, topped with cheese dip, pico de gallo and chorizo." },
@@ -25,13 +25,13 @@ export interface DishCard extends FeaturedDish {
 }
 
 export const dishCardsLarge: DishCard[] = [
-  { name: "Steak & Lobster", description: "12 oz ribeye paired with 6 oz lobster cooked with garlic butter.", src: "/images/ofallon/surf-and-turf-wine.webp", alt: "Steak and shrimp with asparagus and a glass of red wine", focus: "50% 70%" },
+  { name: "Charola de Cerveza", description: "Inspired by a guest request: fresh shrimp ceviche and spicy aguachile rojo served alongside ice-cold beers. The ultimate snack-and-sip platter!", src: "/images/ofallon/charola-cerveza.webp", alt: "A metal tray of shrimp ceviche and aguachile rojo with Modelo beers standing in it, each topped with a shrimp", focus: "50% 45%" },
   { name: "La Costa Bowl", description: "Boiled seafood, crab legs, shrimp, crawfish, potatoes and corn.", src: "/images/dcop/crab-boil-pan.webp", alt: "A hand lifting a crab leg from a pan of boiled seafood with mussels and crawfish", focus: "50% 45%" },
 ];
 
 export const dishCardsMedium: DishCard[] = [
-  { name: "Pulpo Zarandeado", description: "Octopus cooked on a charcoal grill, marinated in our traditional zarandeado sauce.", src: "/images/ofallon/seafood-molcajete.webp", alt: "A molcajete of seafood with crab legs beside carne asada" },
-  { name: "Tostada de Ceviche", description: "Our traditional tostada with octopus, shrimp or a mix of both.", src: "/images/ofallon/shrimp-ceviche.webp", alt: "Shrimp ceviche arranged around an avocado rose" },
+  { name: "Molcajete del Mar", description: "An overflowing seafood feast served in a traditional hot volcanic stone bowl.", src: "/images/ofallon/seafood-molcajete.webp", alt: "A molcajete of seafood with crab legs beside carne asada" },
+  { name: "Shrimp Aguachile", description: "Fresh, tender shrimp marinated in your choice of our house-made flavors: Verde, Negro, Mango or Rojo.", src: "/images/ofallon/shrimp-ceviche.webp", alt: "Shrimp aguachile arranged around an avocado rose" },
   { name: "Steak a la Mexicana", description: "T-bone topped with peppers, onions, tomato and shrimp.", src: "/images/ofallon/steak-shrimp-board.webp", alt: "Steak with bacon-wrapped shrimp, asparagus and a baked potato" },
 ];
 

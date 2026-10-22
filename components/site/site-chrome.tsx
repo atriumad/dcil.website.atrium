@@ -19,6 +19,7 @@ const navLinks: SiteNavLink[] = [
       note: location.comingSoon ? "Coming soon" : undefined,
     })),
   },
+  { label: "Catering", href: "/catering" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
@@ -40,6 +41,7 @@ const footerLinks = [
   { label: "Menu", href: "/menu" },
   { label: "Happy Hour", href: "/happy-hour" },
   { label: "Locations", href: "/locations" },
+  { label: "Catering", href: "/catering" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

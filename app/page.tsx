@@ -321,7 +321,7 @@ export default function Home() {
           </h2>
         </section>
 
-        {/* 11. SAGE — let's talk + Instagram */}
+        {/* 11. SAGE — let's talk + event gallery */}
         <section className="sg-sage sg-social">
           <header className="sg-social-head sg-reveal">
             <h2 className="sg-h3 sg-on-dark">
@@ -331,7 +331,16 @@ export default function Home() {
               Contact us with any questions on special events you are planning,
               catering for large groups, or anything else that comes to mind.
             </p>
-            <InkButton href="/contact">Get in touch</InkButton>
+            <p className="sg-social-note">
+              Catering and private dine-in parties are available at our{" "}
+              <strong>O&rsquo;Fallon, IL</strong> location for now.
+            </p>
+            <div className="sg-social-ctas">
+              <InkButton href="/catering">Catering at O&rsquo;Fallon</InkButton>
+              <InkButton href="/contact" outline>
+                Other questions
+              </InkButton>
+            </div>
           </header>
           <ul className="sg-social-grid" aria-label="Event and catering gallery">
             {eventPhotos.map((image) => (

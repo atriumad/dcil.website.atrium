@@ -26,7 +26,7 @@ export default function LocationsPage() {
             alt: "A pink hibiscus margarita with a blue-rimmed glass and dried orange",
           }}
         />
-        <LocationsSection bare detailLinks />
+        <LocationsSection bare />
         <NewsletterSection />
       </main>
 

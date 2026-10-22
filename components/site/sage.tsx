@@ -13,9 +13,6 @@ import {
 import { HappyHourBoard } from "./happy-hour-board";
 import { SgNewsletter } from "./sg-newsletter";
 
-const mapsUrl = (address: string) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-
 /** Eyebrow for sage grounds: ink rule and ink text. */
 export function LightEyebrow({ children }: { children: ReactNode }) {
   return (
@@ -222,19 +219,17 @@ const locationPhotos: Record<string, Img> = {
   },
 };
 
-/** Locations as tall photo cards: state label and city centred over the photo, address and hours at the foot. `detailLinks` sends each open location to its own page instead of Google Maps. */
+/** Locations as tall photo cards: state label and city centred over the photo, address and hours at the foot. Each card links to the location's own page. */
 export function LocationsSection({
   eyebrow,
   title = "Find your table",
   lede = "Four restaurants, one family. Come for the food, stay for the fun!",
-  detailLinks,
   bare,
   id,
 }: {
   eyebrow?: string;
   title?: string;
   lede?: string;
-  detailLinks?: boolean;
   /** Omit the heading (pages whose hero already carries the title). */
   bare?: boolean;
   id?: string;
@@ -275,17 +270,13 @@ export function LocationsSection({
                 <div className="sg-loc-top">
                   <p className="sg-loc-state">{state}</p>
                   <CityHeading className="sg-loc-city">
-                    <a
+                    <Link
                       className="sg-loc-link"
                       aria-label={location.name}
-                      href={
-                        detailLinks || !location.address
-                          ? `/locations/${location.slug}`
-                          : mapsUrl(location.address)
-                      }
+                      href={`/locations/${location.slug}`}
                     >
                       {city}
-                    </a>
+                    </Link>
                   </CityHeading>
                   {location.comingSoon ? (
                     <span className="sg-loc-soon">Coming soon</span>
